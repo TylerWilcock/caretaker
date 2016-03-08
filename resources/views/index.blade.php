@@ -12,13 +12,13 @@
     <title>Landing Page - Start Bootstrap Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="<?php echo asset('css/bootstrap.css') ?>" rel="stylesheet">
+    <link href="<?php echo asset('assets/css/bootstrap.css') ?>" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/landing-page.css" rel="stylesheet">
+    <link href="<?php echo asset('assets/css/landing-page.css') ?>" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="<?php echo assest('font-awesome') ?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo asset('font-awesome') ?>" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
