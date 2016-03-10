@@ -15,6 +15,18 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/login', function () {
+	return view('login');
+});
+
+/**
+  * TODO: SHOULD BE /cr/{$crID}/calendar ; should also be protected by authentication and only
+  * visible to those subscribed to this cr
+  */
+Route::get('/calendar', function() {
+	return view('calendar');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
