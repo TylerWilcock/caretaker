@@ -15,9 +15,11 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/login', function () {
+Route::get('/login', function() {
 	return view('login');
 });
+
+Route::post('/login', 'LoginController@verifyLogin');
 
 /**
   * TODO: SHOULD BE /cr/{$crID}/calendar ; should also be protected by authentication and only
