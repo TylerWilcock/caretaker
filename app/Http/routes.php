@@ -31,13 +31,14 @@ Route::group(['middleware' => ['web']], function () {
     // Calls login functions at vendor/laravel/framework/src/Illuminate/Routing/Router.php ()
     Route::auth();
 
-    /**
-  	* TODO: SHOULD BE /cr/{$crID}/calendar ; should also be protected by authentication and only
-  	* visible to those subscribed to this cr
-  	*/
-	Route::get('/calendar', function() {
-		return view('calendar');
-	});
-
-    Route::get('/home', 'HomeController@index');
+       /**
+	  	* TODO: SHOULD BE /cr/{$crID}/calendar ; should also be protected by authentication and only
+	  	* visible to those subscribed to this cr
+	  	*
+	  	* edit: the middleware now only allows access to this route if the user is logged in
+	  	*       if not, the user is directed to the login page
+	  	*/
+		Route::get('/calendar', ['middleware' => 'auth', function() {
+			return view('calendar');
+		}]); 	
 });

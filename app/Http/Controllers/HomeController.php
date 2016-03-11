@@ -23,8 +23,9 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    // Where user is taken directly after login
     public function index()
     {
-        return view('home');
+        return view('calendar');
     }
 }

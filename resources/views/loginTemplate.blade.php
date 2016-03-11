@@ -45,19 +45,39 @@
           <section class="login_content">
             <form role="form" method="POST" action="{{ url('/login') }}">
               {!! csrf_field() !!}
+              
               <h1>Login Form</h1>
-              <div>
+              
+              <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
+
+                @if ($errors->has('email'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('email') }}</strong>
+                  </span>
+                @endif
+
               </div>
-              <div>
-                <input type="password" class="form-control" name="password" placeholder="Password" required="" />
+
+              <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                <input type="password" class="form-control" name="password" placeholder="Password">
+
+                @if ($errors->has('password'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('password') }}</strong>
+                  </span>
+                @endif
+
               </div>
+
               <div>
                 <button id="submit" class="btn btn-default submit" >
                   Log in
                 </button>
-                <a class="reset_pass" >Lost your password?</a>
+
+                <a class="reset_pass" href="{{ url('/password/reset') }}">Forgot your password?</a>
               </div>
+              
               <div class="clearfix"></div>
               <div class="separator">
 
@@ -79,19 +99,53 @@
         </div>
         <div id="register" class="animate form">
           <section class="login_content">
-            <form>
+            <form role="form" method="POST" action-"{{ url('/register') }}">
+              {!! csrf_field() !!}
               <h1>Create Account</h1>
-              <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+              <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="name" placeholder="Name" value="{{ old('name') }}">
+
+                @if ($errors->has('name'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('name') }}</strong>
+                  </span>
+                @endif
+
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Email" required="" />
+                <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
+
+                @if ($errors->has('email'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('email') }}</strong>
+                  </span>
+                @endif
+
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" class="form-control" name="password" placeholder="Password" >
+
+                @if ($errors->has('password'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('password') }}</strong>
+                  </span>
+                @endif
+
               </div>
               <div>
-                <a class="btn btn-default submit" href="index.html">Submit</a>
+                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" >
+
+                @if ($errors->has('password_confirmation'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('password_confirmation') }}</strong>
+                  </span>
+                @endif
+
+              </div>
+              <div>
+                <button type="submit" class="btn btn-default submit">
+                  Register
+                </button>
               </div>
               <div class="clearfix"></div>
               <div class="separator">
