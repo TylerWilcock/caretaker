@@ -15,12 +15,6 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/login', function() {
-	return view('login');
-});
-
-Route::post('/login', 'LoginController@verifyLogin');
-
 /**
   * TODO: SHOULD BE /cr/{$crID}/calendar ; should also be protected by authentication and only
   * visible to those subscribed to this cr
@@ -41,5 +35,8 @@ Route::get('/calendar', function() {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+    // Calls login functions at vendor/laravel/framework/src/Illuminate/Routing/Router.php ()
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
 });
