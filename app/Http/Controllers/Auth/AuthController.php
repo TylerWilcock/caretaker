@@ -71,7 +71,7 @@ class AuthController extends Controller
     }
 
     // This function displays our templates login form instead of 
-    // the defualt auth/login
+    // laravels defualt views/auth/login
     public function showLoginForm()
     {
         return view('loginTemplate');

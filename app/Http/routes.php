@@ -28,7 +28,12 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    // Calls login functions at vendor/laravel/framework/src/Illuminate/Routing/Router.php ()
+    
+    /**
+    * Calls login functions at vendor/laravel/framework/src/Illuminate/Routing/Router.php ()
+    * Changes to the page a newly registered user is directed to is handled in AuthController
+    * HomeController controls what page a user is directed to upon logging in
+    **/
     Route::auth();
 
        /**
