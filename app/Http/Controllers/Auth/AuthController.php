@@ -69,12 +69,4 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
-
-    public function showLoginForm() {
-        return view('auth.login');
-    }
-
-    // public function login() {
-        
-    // }
 }
