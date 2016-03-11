@@ -69,4 +69,11 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    // This function displays our templates login form instead of 
+    // the defualt auth/login
+    public function showLoginForm()
+    {
+        return view('loginTemplate');
+    }
 }

@@ -43,16 +43,19 @@
       <div id="wrapper">
         <div id="login" class="animate form">
           <section class="login_content">
-            <form>
+            <form role="form" method="POST" action="{{ url('/login') }}">
+              {!! csrf_field() !!}
               <h1>Login Form</h1>
               <div>
-                <input id="username" type="text" class="form-control" placeholder="Username" required="" />
+                <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
               </div>
               <div>
-                <input id="password" type="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" class="form-control" name="password" placeholder="Password" required="" />
               </div>
               <div>
-                <a id="submit" class="btn btn-default submit" >Log in</a>
+                <button id="submit" class="btn btn-default submit" >
+                  Log in
+                </button>
                 <a class="reset_pass" >Lost your password?</a>
               </div>
               <div class="clearfix"></div>
@@ -121,17 +124,3 @@
 
   <!-- Bootstrap Core JavaScript -->
   <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
-
-  <script>
-    $(function(){
-      // Check user credentials on log in click
-      $("#submit").on('click', function(){
-        var username = $("#username").val();
-        var password = $("#password").val();
-
-        $.post("http://159.203.104.152/login", {username: username, password: password}, function(returnedData){
-          alert(returnedData);
-        });
-      });
-    });
-  </script>
