@@ -23,25 +23,6 @@ Route::get('/ct/profile/{ctID}', function(Request $request) {
 	return view('ctProfile')->with('caretakerInfo', Caretaker::find($request->ctID));
 });
 
-Route::get('/cr/profile/{crID}', function(Request $request) {
-	return view('crProfile')->with('crInfo', CareRecipient::find($request->crID));
-});
-
-Route::get('/cr/calendar/{crID}', function(Request $request) {
-	//call a function (or multiple) to get the information to populate the calendar page
-	//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
-	return view('calendar')->with('calendarInfo', CareRecipient::something($request->crID));
-});
-
-Route::get('/cr/messageboard/{crID}', function(Request $request) {
-	//call a function (or multiple) to get the information to populate the message board page
-	//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
-	return view('messageBoard')->with('messageBoardInfo', CareRecipient::something($request->crID));
-});
-
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -62,14 +43,30 @@ Route::group(['middleware' => ['web']], function () {
     **/
     Route::auth();
 
-       /**
-	  	* TODO: SHOULD BE /cr/{$crID}/calendar ; should also be protected by authentication and only
-	  	* visible to those subscribed to this cr
-	  	*
-	  	* edit: the middleware now only allows access to this route if the user is logged in
-	  	*       if not, the user is directed to the login page
-	  	*/
-		Route::get('/calendar', ['middleware' => 'auth', function() {
-			return view('calendar');
-		}]); 	
+   /**
+  	* TODO: SHOULD BE /cr/{$crID}/calendar ; should also be protected by authentication and only
+  	* visible to those subscribed to this cr
+  	*
+  	* edit: the middleware now only allows access to this route if the user is logged in
+  	*       if not, the user is directed to the login page
+  	*/
+	Route::get('/calendar', ['middleware' => 'auth', function() {
+		return view('calendar');
+	}]); 
+
+	Route::get('/cr/profile/{crID}', function(Request $request) {
+		return view('crProfile')->with('crInfo', CareRecipient::find($request->crID));
+	});
+
+	Route::get('/cr/calendar/{crID}', function(Request $request) {
+		//call a function (or multiple) to get the information to populate the calendar page
+		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
+		return view('calendar')->with('calendarInfo', CareRecipient::something($request->crID));
+	});
+
+	Route::get('/cr/messageboard/{crID}', function(Request $request) {
+		//call a function (or multiple) to get the information to populate the message board page
+		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
+		return view('messageBoard')->with('messageBoardInfo', CareRecipient::something($request->crID));
+	});	
 });
