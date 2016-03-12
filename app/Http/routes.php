@@ -19,9 +19,27 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/ct/profile/{ctID}/', function(Request $request) {
+Route::get('/ct/profile/{ctID}', function(Request $request) {
 	return view('ctProfile')->with('caretakerInfo', Caretaker::find($request->ctID));
 });
+
+Route::get('/cr/profile/{crID}', function(Request $request) {
+	return view('crProfile')->with('crInfo', CareRecipient::find($request->crID));
+});
+
+Route::get('/cr/calendar/{crID}', function(Request $request) {
+	//call a function (or multiple) to get the information to populate the calendar page
+	//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
+	return view('calendar')->with('calendarInfo', CareRecipient::something($request->crID));
+});
+
+Route::get('/cr/messageboard/{crID}', function(Request $request) {
+	//call a function (or multiple) to get the information to populate the message board page
+	//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
+	return view('messageBoard')->with('messageBoardInfo', CareRecipient::something($request->crID));
+});
+
+
 
 
 /*
