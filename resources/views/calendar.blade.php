@@ -472,7 +472,7 @@
 
   <script src="{{asset('assets/js/nprogress.js')}}"></script>
   <!-- chart js -->
-  <script src="{{asset('assets/js/chartjs/chart.min.js')}}"></script>
+
   <!-- bootstrap progress js -->
   <script src="{{asset('assets/js/progressbar/bootstrap-progressbar.min.js')}}"></script>
 
@@ -483,6 +483,8 @@
   <script src="{{asset('assets/js/custom.js')}}"></script>
 
   <script src="{{asset('assets/js/moment/moment.min.js')}}"></script>
+
+  <script src="{{asset('assets/js/chartjs/chart.min.js')}}"></script>
 
   <script src="{{asset('assets/js/calendar/fullcalendar.min.js')}}"></script>
   <!-- pace -->
