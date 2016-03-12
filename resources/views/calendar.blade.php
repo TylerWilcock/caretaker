@@ -11,7 +11,9 @@
   <title>Care Teammate | </title>
 
   <!-- Bootstrap core CSS -->
-
+  <style>
+    .datepicker{z-index:1151 !important;}
+</style>
   <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
 
   <link href="{{asset('assets/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -33,6 +35,8 @@
               <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
+
+
 
 </head>
 
@@ -60,7 +64,7 @@
             </div>
             <div class="profile_info">
               <span>Welcome,</span>
-              <h2>{{Auth::user()}}</h2>
+              <h2>{{Auth::user()->name}}</h2>
             </div>
           </div>
           <!-- /menu prile quick info -->
@@ -402,7 +406,48 @@
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Description</label>
                     <div class="col-sm-9">
-                      <textarea class="form-control" style="height:55px;" id="descr" name="descr"></textarea>
+                      <textarea class="form-control" style="height:55px;" id="description" name="description"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Date</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="date-picker form-control" id="date" name="date" >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Time</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="time" name="time" >
+                    </div>
+                  </div>
+                   <div class="form-group">
+                    <label class="col-sm-3 control-label">Repeat?</label>
+                      <div class="col-sm-9 btn-group" data-toggle="buttons">
+                        <label class="btn btn-default">
+                          <input type="radio" name="repeat-radio-selection" id="repeat-none"> None
+                        </label>
+                        <label class="btn btn-default">
+                          <input type="radio" name="repeat-radio-selection" id="repeat-weekly"> Weekly
+                        </label>
+                        <label class="btn btn-default">
+                          <input type="radio" name="repeat-radio-selection" id="repeat-monthly"> Monthly
+                        </label>
+                        <label class="btn btn-default">
+                          <input type="radio" name="repeat-radio-selection" id="repeat-yearly"> Yearly
+                        </label>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Locaiton</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="locaiton" name="locaiton">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Notes</label>
+                    <div class="col-sm-9">
+                      <textarea class="form-control" style="height:55px;" id="notes" name="notes"></textarea>
                     </div>
                   </div>
                 </form>
