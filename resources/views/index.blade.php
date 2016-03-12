@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Landing Page - Start Bootstrap Theme</title>
+    <title>Care Teammate</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('assets/css/bootstrap.css')}}" rel="stylesheet">
@@ -52,10 +52,7 @@
                         <a href="#about">About</a>
                     </li>
                     <li>
-                        <a href="#services">Services</a>
-                    </li>
-                    <li>
-                        <a href="#contact">Contact</a>
+                        <a href="#signup">Sign Up</a>
                     </li>
                     <li>
                         <a href="/login">Login</a>
@@ -69,16 +66,16 @@
 
 
     <!-- Header -->
-    <a name="about"></a>
+    <a name="landingPage"></a>
     <div class="intro-header">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
-                        <h1>Landing Page</h1>
-                        <h3>A Template by Start Bootstrap</h3>
+                        <h1>Care Teammate</h1>
+                        <h3>Care for a Loved One</h3>
                         <hr class="intro-divider">
-                        <ul class="list-inline intro-social-buttons">
+                        <!-- <ul class="list-inline intro-social-buttons">
                             <li>
                                 <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
                             </li>
@@ -88,7 +85,7 @@
                             <li>
                                 <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
             </div>
@@ -100,7 +97,7 @@
 
     <!-- Page Content -->
 
-	<a  name="services"></a>
+	<a  name="about"></a>
     <div class="content-section-a">
 
         <div class="container">
@@ -108,11 +105,15 @@
                 <div class="col-lg-5 col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Death to the Stock Photo:<br>Special Thanks</h2>
-                    <p class="lead">A special thanks to <a target="_blank" href="http://join.deathtothestockphoto.com/">Death to the Stock Photo</a> for providing the photographs that you see in this template. Visit their website to become a member.</p>
+                    <h2 class="section-heading">About Us:</h2>
+                    <p class="lead">Paragraph about Care Teammate goes here.</p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="{{asset('assets/img/ipad.png')}}" alt="">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Contact Us:</h2>
+                    <p class="lead">Care Teammate contact information goes here.</p>
+                    <!-- <img class="img-responsive" src="{{asset('assets/img/ipad.png')}}" alt=""> -->
                 </div>
             </div>
 
@@ -122,6 +123,7 @@
     </div>
     <!-- /.content-section-a -->
 
+    <a  name="signup"></a>
     <div class="content-section-b">
 
         <div class="container">
@@ -130,11 +132,90 @@
                 <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">3D Device Mockups<br>by PSDCovers</h2>
-                    <p class="lead">Turn your 2D designs into high quality, 3D product shots in seconds using free Photoshop actions by <a target="_blank" href="http://www.psdcovers.com/">PSDCovers</a>! Visit their website to download some of their awesome, free photoshop actions!</p>
+                    <h2 class="section-heading">Benefits:</h2>
+                    <p class="lead">Bullet points or list of benefits goes here</p>
                 </div>
-                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive" src="{{asset('assets/img/dog.png')}}" alt="">
+                <div class="col-lg-6 col-sm-pull-6 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Sign Up:</h2>
+                    <form class="form-horizontal form-label-left" novalidate="">
+                        <div class="item form-group">
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12" for="name">First Name <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="firstName" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="firstName" placeholder="Please enter your first name" required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12" for="name">Last Name <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="lastName" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="lastName" placeholder="Please enter your last name" required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12" placeholder="Please enter your email address">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12" for="email">Confirm Email <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="email" id="email2" name="email2" data-validate-linked="email" required="required" class="form-control col-md-7 col-xs-12" placeholder="Please re-enter your email address">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12" for="number">Birthdate <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="date" id="birthdate" name="birthdate" required="required" class="form-control col-md-7 col-xs-12" placeholder="Please enter your date of birth">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12" for="number">Address <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="address" name="address" required="required" class="form-control col-md-7 col-xs-12" placeholder="Please enter your home address">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12" for="number">Phone Number <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="number" id="phoneNumber" name="phoneNumber" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12" placeholder="Please enter your phone number">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12" for="number">Emergency Number <span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="number" id="emergencyNumber" name="emergencyNumber" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12" placeholder="If different from phone number">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="password" class="control-label col-md-4">Password <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required" placeholder="Please create your password">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="password2" class="control-label col-md-4 col-sm-3 col-xs-12">Confirm Password <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required" placeholder="Please re-enter your password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button id="send" type="submit" class="btn btn-success">Create Account</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- <p class="lead">Bullet points or list of benefits goes here</p> -->
+                    <!-- <img class="img-responsive" src="{{asset('assets/img/dog.png')}}" alt=""> -->
                 </div>
             </div>
 
@@ -144,7 +225,7 @@
     </div>
     <!-- /.content-section-b -->
 
-    <div class="content-section-a">
+    <!-- <div class="content-section-a">
 
         <div class="container">
 
@@ -160,10 +241,10 @@
                 </div>
             </div>
 
-        </div>
+        </div> -->
         <!-- /.container -->
 
-    </div>
+    <!-- </div> -->
     <!-- /.content-section-a -->
 
 	<a  name="contact"></a>
@@ -173,10 +254,10 @@
 
             <div class="row">
                 <div class="col-lg-6">
-                    <h2>Connect to Start Bootstrap:</h2>
+                    <h2>Care Teammate</h2>
                 </div>
                 <div class="col-lg-6">
-                    <ul class="list-inline banner-social-buttons">
+                    <!-- <ul class="list-inline banner-social-buttons">
                         <li>
                             <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
                         </li>
@@ -186,7 +267,7 @@
                         <li>
                             <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
 
@@ -211,14 +292,14 @@
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
-                            <a href="#services">Services</a>
+                            <a href="#signup">Sign Up</a>
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
-                            <a href="#contact">Contact</a>
+                            <a href="/login">Login</a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted small">Copyright &copy; Your Company 2014. All Rights Reserved</p>
+                    <p class="copyright text-muted small">Copyright &copy; Care Teammate 2016. All Rights Reserved</p>
                 </div>
             </div>
         </div>

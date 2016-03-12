@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentallela Alela! | </title>
+    <title>Care Teammate Login</title>
 
     <!-- Bootstrap core CSS -->
 
@@ -46,7 +46,7 @@
             <form role="form" method="POST" action="{{ url('/login') }}">
               {!! csrf_field() !!}
               
-              <h1>Login Form</h1>
+              <h1>Login</h1>
               
               <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
@@ -87,7 +87,7 @@
                 <div class="clearfix"></div>
                 <br />
                 <div>
-                  <h1><i class="fa fa-paw" style="font-size: 26px;"></i> Gentelella Alela!</h1>
+                  <h1><i class="fa fa-paw" style="font-size: 26px;"></i> Care Teammate</h1>
 
                   <p>©2015 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
                 </div>
@@ -156,7 +156,7 @@
                 <div class="clearfix"></div>
                 <br />
                 <div>
-                  <h1><i class="fa fa-paw" style="font-size: 26px;"></i> Gentelella Alela!</h1>
+                  <h1><i class="fa fa-paw" style="font-size: 26px;"></i> Care Teammate</h1>
 
                   <p>©2015 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
                 </div>
