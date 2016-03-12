@@ -1,5 +1,9 @@
 <?php
 
+use \App\Models\Caretaker;
+
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -13,6 +17,10 @@
 
 Route::get('/', function () {
     return view('index');
+});
+
+Route::get('/ct/profile/{ctID}/', function(Request $request) {
+	return view('ctProfile')->with('caretakerInfo', Caretaker::find($request->ctID));
 });
 
 
