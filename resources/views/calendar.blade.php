@@ -11,9 +11,7 @@
   <title>Care Teammate | </title>
 
   <!-- Bootstrap core CSS -->
-  <style>
-    .datepicker{z-index:1151 !important;}
-</style>
+  
   <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
 
   <link href="{{asset('assets/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -391,7 +389,7 @@
           <div class="modal-content">
 
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-hidden="true">×</button>
               <h4 class="modal-title" id="myModalLabel">New Calender Entry</h4>
             </div>
             <div class="modal-body">
@@ -412,29 +410,29 @@
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Date</label>
                     <div class="col-sm-9">
-                      <input type="text" class="date-picker form-control" id="date" name="date" >
+                      <input id="date" class="form-control " type="date" data-parsley-id="4825">
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Time</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" id="time" name="time" >
+                      <input type="time" class="form-control" id="time" name="time" >
                     </div>
                   </div>
                    <div class="form-group">
                     <label class="col-sm-3 control-label">Repeat?</label>
                       <div class="col-sm-9 btn-group" data-toggle="buttons">
                         <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-none"> None
+                          <input type="radio" name="repeat-radio-selection" id="repeat-none" value=''> None
                         </label>
                         <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-weekly"> Weekly
+                          <input type="radio" name="repeat-radio-selection" id="repeat-weekly" value=''> Weekly
                         </label>
                         <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-monthly"> Monthly
+                          <input type="radio" name="repeat-radio-selection" id="repeat-monthly" value=''> Monthly
                         </label>
                         <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-yearly"> Yearly
+                          <input type="radio" name="repeat-radio-selection" id="repeat-yearly" value=''> Yearly
                         </label>
                       </div>
                   </div>
@@ -454,8 +452,10 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary antosubmit">Save changes</button>
+               <div class='btn-group'>
+                  <button type="button" class="btn btn-danger antoclose" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-success antosubmit" id='saveEvent'>Save changes</button>
+               </div>
             </div>
           </div>
         </div>
@@ -511,14 +511,18 @@
     <div class="clearfix"></div>
     <div id="notif-group" class="tabbed_notifications"></div>
   </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="{{asset('assets/js/jquery.min.js')}}"></script>
   <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+
+  <script src="{{asset('assets/js/moment/moment.js')}}"></script>
+  <script src="{{asset('assets/js/datepicker/daterangepicker.js')}}"></script>
 
   <script src="{{asset('assets/js/nprogress.js')}}"></script>
   <!-- chart js -->
 
   <!-- bootstrap progress js -->
+  
   <script src="{{asset('assets/js/progressbar/bootstrap-progressbar.min.js')}}"></script>
 
   <script src="{{asset('assets/js/nicescroll/jquery.nicescroll.min.js')}}"></script>
@@ -534,6 +538,21 @@
   <script src="{{asset('assets/js/calendar/fullcalendar.min.js')}}"></script>
   <!-- pace -->
   <script src="{{asset('assets/js/pace/pace.min.js')}}"></script>
+
+  <script type='text/javascript'>
+
+  $(document).ready(function(){
+
+      $('#saveEvent').on('click', function(){
+
+         // $.post('http://159.203.104.152/calendar', {type:"saveEvent",})
+
+      });
+
+  });
+
+  </script>
+
   <script>
     $(window).load(function() {
 
@@ -584,7 +603,7 @@
           });
         },
         eventClick: function(calEvent, jsEvent, view) {
-          //alert(calEvent.title, jsEvent, view);
+          // alert(calEvent.title, jsEvent, view);
 
           $('#fc_edit').click();
           $('#title2').val(calEvent.title);
