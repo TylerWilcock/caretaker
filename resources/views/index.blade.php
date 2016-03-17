@@ -105,14 +105,31 @@
                 <div class="col-lg-5 col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">About Us:</h2>
-                    <p class="lead">Paragraph about Care Teammate goes here.</p>
+                    <h2 class="section-heading">About Us</h2>
+                    <p class="lead">
+                        Careteammate was developed to meet the needs of people like my grandparents and friends of my parents who need more help as they age and need more care. I saw my mom spend hours trying to organize help for a friend who fell and broke her wrist. She had great network of friends who were willing to help with things like meals and car rides, but someone needed to communicate with everyone and organize her care. And that was tricky and took a lot of effort.
+                        <br/>
+                        <br/>
+                        Then while I was working on the business plan for Careteammate, my roommate broke her leg and couldn’t do much for herself. Friends would try to assist her, but there was miscommunications on who was helping her and when. I then realized that Careteammate could work for anyone—from a student who needs to get through a short-term recovery to an elderly relative who wants to stay independent and out of a nursing home for as long as possible. 
+                    </p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Contact Us:</h2>
-                    <p class="lead">Care Teammate contact information goes here.</p>
+                    <h2 class="section-heading">About Us Cont.</h2>
+                    <p class="lead">
+                        Most people have family and friends who are more than happy to help when they are recovering from an illness or injury, now there’s an easy, affordable and convenient way to manage that help.
+                        <br/>
+                        <br/>
+                        Careteammate is a startup out of the Whitewater Innovation Center. It is currently part of the spring Launch Pad Program out of the University of Wisconsin Whitewater. The idea of Careteammate started as a class project and is now currently being pursued through the Launch Pad Program.
+                        <br/>
+                        <br/>
+                        <b>Contact Us:</b>
+                        <br/>
+                        <br/>
+                        Email: founder@careteammate.com
+
+                    </p>
                     <!-- <img class="img-responsive" src="{{asset('assets/img/ipad.png')}}" alt=""> -->
                 </div>
             </div>
@@ -132,13 +149,13 @@
                 <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Benefits:</h2>
+                    <h2 class="section-heading">Benefits</h2>
                     <p class="lead">Bullet points or list of benefits goes here</p>
                 </div>
                 <div class="col-lg-6 col-sm-pull-6 col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Sign Up:</h2>
+                    <h2 class="section-heading">Sign Up</h2>
                     <form class="form-horizontal form-label-left" novalidate="">
                         <div class="item form-group">
                             <label class="control-label col-md-4 col-sm-3 col-xs-12" for="name">First Name <span class="required">*</span>
