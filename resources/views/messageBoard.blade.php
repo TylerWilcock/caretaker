@@ -61,7 +61,8 @@
               <img src="{{asset('assets/img/img.jpg')}}" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
-              <span>Welcome, *Auth::user()->name didn't work here*</span>
+              <span>Welcome,</span>
+              <h2>{{Auth::user()->name}}</h2>
             </div>
           </div>
           <!-- /menu prile quick info -->
@@ -129,7 +130,10 @@
           <div class="page-title">
             <div class="title_left">
               <h3>
-                                    Care Taker Profile
+                                    Message Board
+                                    <small>
+                                        Type a message and submit to post it.
+                                    </small>
                                 </h3>
             </div>
           </div>
@@ -139,7 +143,7 @@
             <div class="col-md-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <?php dd($caretakerInfo->getAttributes()) ?>
+                  <h2>Message Board</h2>
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">

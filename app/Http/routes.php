@@ -54,6 +54,18 @@ Route::group(['middleware' => ['web']], function () {
 		return view('calendar');
 	}]); 
 
+	Route::get('/calendartemplate', ['middleware' => 'auth', function() {
+		return view('calendarTemplate');
+	}]);
+
+	Route::get('/messageboard', ['middleware' => 'auth', function() {
+		return view('messageBoard');
+	}]); 
+
+	Route::get('/crprofile', ['middleware' => 'auth', function() {
+		return view('crProfile');
+	}]); 
+
 	Route::get('/cr/profile/{crID}', function(Request $request) {
 		return view('crProfile')->with('crInfo', CareRecipient::find($request->crID));
 	});
