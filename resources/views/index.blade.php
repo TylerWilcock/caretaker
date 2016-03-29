@@ -111,24 +111,43 @@
                         <br/>
                         <br/>
                         Then while I was working on the business plan for Careteammate, my roommate broke her leg and couldn’t do much for herself. Friends would try to assist her, but there was miscommunications on who was helping her and when. I then realized that Careteammate could work for anyone—from a student who needs to get through a short-term recovery to an elderly relative who wants to stay independent and out of a nursing home for as long as possible. 
-                    </p>
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">About Us Cont.</h2>
-                    <p class="lead">
+                        <br/>
+                        <br/>
                         Most people have family and friends who are more than happy to help when they are recovering from an illness or injury, now there’s an easy, affordable and convenient way to manage that help.
                         <br/>
                         <br/>
                         Careteammate is a startup out of the Whitewater Innovation Center. It is currently part of the spring Launch Pad Program out of the University of Wisconsin Whitewater. The idea of Careteammate started as a class project and is now currently being pursued through the Launch Pad Program.
                         <br/>
                         <br/>
-                        <b>Contact Us:</b>
-                        <br/>
-                        <br/>
+                        <h3>Contact Us:</h3>
                         Email: founder@careteammate.com
-
+                    </p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Benefits</h2>
+                    <p class="lead">
+                        - Manage the assistance that friends and family need in a simple manner
+                        <br/>
+                        <br/>
+                        - Affordable ($5 per month)
+                        <br/>
+                        <br/>
+                        - Several different applications that help organize your care recipient's assistance
+                        <br/>
+                        <br/>
+                        <hr class="section-heading-spacer">
+                        <div class="clearfix"></div>
+                        <h2 class="section-heading">Applications</h2>
+                        <h4>Caretaker Profile</h4>
+                        View the caretaker's profile information.  Here, you will also find the list of care recipients you are subscribed when visiting your own profile.
+                        <h4>Care Recipient Profile</h4>
+                        View a list of caretakers that are also caring for your care recipient.  Access their information by simply clicking on any of the caretakers.
+                        <h4>Calendar</h4>
+                        A calendar that displays the events of a particular care recipient.  Here, you may view, edit, or delete events to manage and document care.  The calendar is viewable by all care teammates subscribed to a care recipient.
+                        <h4>Message Board</h4>
+                        Post messages pertaining to a care recipient.  The messages are viewable by all care teammates subscribed to a care recipient.
                     </p>
                     <!-- <img class="img-responsive" src="{{asset('assets/img/ipad.png')}}" alt=""> -->
                 </div>
@@ -140,7 +159,7 @@
     </div>
     <!-- /.content-section-a -->
 
-    <a  name="signup"></a>
+    <!-- <a  name="signup"></a>
     <div class="content-section-b">
 
         <div class="container">
@@ -230,16 +249,16 @@
                                 <button id="send" type="submit" class="btn btn-success">Create Account</button>
                             </div>
                         </div>
-                    </form>
+                    </form> -->
                     <!-- <p class="lead">Bullet points or list of benefits goes here</p> -->
                     <!-- <img class="img-responsive" src="{{asset('assets/img/dog.png')}}" alt=""> -->
-                </div>
+                <!-- </div>
             </div>
 
-        </div>
+        </div> -->
         <!-- /.container -->
 
-    </div>
+    <!-- </div> -->
     <!-- /.content-section-b -->
 
     <!-- <div class="content-section-a">
