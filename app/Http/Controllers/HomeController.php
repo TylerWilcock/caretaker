@@ -30,8 +30,7 @@ class HomeController extends Controller
     public function index()
     {
         $id = Auth::user()->id;
-        $redirectString = '/ct/profile/' + $id;
 
-        return redirect($redirectString);
+        return redirect()->route('/ct/profile/', ['ctID' => $id]);
     }
 }
