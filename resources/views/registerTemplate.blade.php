@@ -44,17 +44,74 @@
             <form role="form" method="POST" action-"{{ url('/register') }}">
               {!! csrf_field() !!}
               <h1>Create Account</h1>
-              <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="name" placeholder="Name" value="{{ old('name') }}">
+              
+              <div class="form-group{{ $errors->has('first-name') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="first-name" placeholder="First Name" value="{{ old('first-name') }}">
 
-                @if ($errors->has('name'))
+                @if ($errors->has('first-name'))
                   <span class="help-block">
-                      <strong>{{ $errors->first('name') }}</strong>
+                      <strong>{{ $errors->first('first-name') }}</strong>
                   </span>
                 @endif
 
               </div>
-              <div>
+              
+              <div class="form-group{{ $errors->has('last-name') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="last-name" placeholder="Last Name" value="{{ old('last-name') }}">
+
+                @if ($errors->has('last-name'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('last-name') }}</strong>
+                  </span>
+                @endif
+
+              </div>
+
+              <div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="birthday" placeholder="Birthday" value="{{ old('birthday') }}">
+
+                @if ($errors->has('birthday'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('birthday') }}</strong>
+                  </span>
+                @endif
+
+              </div>
+
+              <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="address" placeholder="Address" value="{{ old('address') }}">
+
+                @if ($errors->has('address'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('address') }}</strong>
+                  </span>
+                @endif
+
+              </div>
+
+              <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="phone" placeholder="Phone Number" value="{{ old('phone') }}">
+
+                @if ($errors->has('phone'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('phone') }}</strong>
+                  </span>
+                @endif
+
+              </div>
+
+              <div class="form-group{{ $errors->has('emergency-phone') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="emergency-phone" placeholder="Emergency Number" value="{{ old('emergency-phone') }}">
+
+                @if ($errors->has('emergency-phone'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('emergency-phone') }}</strong>
+                  </span>
+                @endif
+
+              </div>
+              
+              <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
 
                 @if ($errors->has('email'))
@@ -64,6 +121,7 @@
                 @endif
 
               </div>
+              
               <div>
                 <input type="password" class="form-control" name="password" placeholder="Password" >
 
@@ -74,6 +132,7 @@
                 @endif
 
               </div>
+              
               <div>
                 <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" >
 
@@ -84,11 +143,13 @@
                 @endif
 
               </div>
+              
               <div>
                 <button type="submit" class="btn btn-default submit">
                   Register
                 </button>
               </div>
+              
               <div class="clearfix"></div>
               <div class="separator">
 

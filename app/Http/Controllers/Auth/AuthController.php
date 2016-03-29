@@ -28,7 +28,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/calendar';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new authentication controller instance.
@@ -49,7 +49,12 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'first-name' => 'required|max:255',
+            'last-name' => 'required|max:255',
+            'birthday' => 'required|date_format:dd/mm/yyyy',
+            'address' => 'required|max:255',
+            'phone' => 'required|numeric|digits_between:9,10',
+            'emergency-phone' =>'numeric|digits_between:9,10',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
@@ -63,8 +68,20 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        if($data['emergency-phone'])
+        {
+            $data['emergency-phone'] = $data['phone'];
+        }
+
+        $data['birthday'] = date(Y/m/d, $data['birthday']);
+
         return User::create([
-            'name' => $data['name'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'birthday' => $data['birthday'],
+            'address' => $data['address'],
+            'phone' => $data['phone'],
+            'emergency-phone' => $data['emergency-phone'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
