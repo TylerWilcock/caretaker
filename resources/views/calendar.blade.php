@@ -50,7 +50,7 @@
         <div class="left_col scroll-view">
 
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Care Teammate</span></a>
+            <a href="" class="site_title"><i class="fa fa-paw"></i> <span>Care Teammate</span></a>
           </div>
           <div class="clearfix"></div>
 
@@ -331,7 +331,19 @@
 
       $('#saveEvent').on('click', function(){
 
-         // $.post('http://159.203.104.152/calendar', {type:"saveEvent",})
+         var title = $('#title').val();
+         var desc = $('#description').val();
+         var date = $('#date').val();
+         var time = $('#time').val();
+         var repeat = $('#repeat').val();
+         var location = $('#location').val();
+         var notes = $('#notes').val();
+
+         $.post('http://159.203.104.152/calendar', {type:"addEvent", title:title, descritption:desc,date:date,time:time,repeat:repeat,location:location,notes:notes}, function(data){
+
+            console.log(data);
+
+         });
 
       });
 

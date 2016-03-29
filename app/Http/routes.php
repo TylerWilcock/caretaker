@@ -81,4 +81,6 @@ Route::group(['middleware' => ['web']], function () {
 		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
 		return view('messageBoard')->with('messageBoardInfo', CareRecipient::something($request->crID));
 	});	
+
+	// Route::controller('calendar', 'CalendarController');
 });
