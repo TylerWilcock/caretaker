@@ -76,4 +76,9 @@ class AuthController extends Controller
     {
         return view('loginTemplate');
     }
+
+    public function showRegistrationForm()
+    {
+        return view('registerTemplate');
+    }
 }

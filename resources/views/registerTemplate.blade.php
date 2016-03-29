@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Care Teammate Login</title>
+    <title>Care Teammate Sign Up</title>
 
     <!-- Bootstrap core CSS -->
 
@@ -39,48 +39,61 @@
     <div class="">
 
       <div id="wrapper">
-        <div id="login" class="animate form">
+        <div id="login">
           <section class="login_content">
-            <form role="form" method="POST" action="{{ url('/login') }}">
+            <form role="form" method="POST" action-"{{ url('/register') }}">
               {!! csrf_field() !!}
-              
-              <h1>Login</h1>
-              
-              <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+              <h1>Create Account</h1>
+              <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="name" placeholder="Name" value="{{ old('name') }}">
+
+                @if ($errors->has('name'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('name') }}</strong>
+                  </span>
+                @endif
+
+              </div>
+              <div>
                 <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
 
                 @if ($errors->has('email'))
                   <span class="help-block">
-                    <strong>{{ $errors->first('email') }}</strong>
+                      <strong>{{ $errors->first('email') }}</strong>
                   </span>
                 @endif
 
               </div>
-
-              <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                <input type="password" class="form-control" name="password" placeholder="Password">
+              <div>
+                <input type="password" class="form-control" name="password" placeholder="Password" >
 
                 @if ($errors->has('password'))
                   <span class="help-block">
-                    <strong>{{ $errors->first('password') }}</strong>
+                      <strong>{{ $errors->first('password') }}</strong>
                   </span>
                 @endif
 
               </div>
-
               <div>
-                <button id="submit" class="btn btn-default submit" >
-                  Log in
-                </button>
+                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" >
 
-                <a class="reset_pass" href="{{ url('/password/reset') }}">Forgot your password?</a>
+                @if ($errors->has('password_confirmation'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('password_confirmation') }}</strong>
+                  </span>
+                @endif
+
               </div>
-              
+              <div>
+                <button type="submit" class="btn btn-default submit">
+                  Register
+                </button>
+              </div>
               <div class="clearfix"></div>
               <div class="separator">
 
-                <p class="change_link">New to site?
-                  <a href="/register" class="to_register"> Create Account </a>
+                <p class="change_link">Already a member ?
+                  <a href="/login" class="to_register"> Log in </a>
                 </p>
                 <div class="clearfix"></div>
                 <br />

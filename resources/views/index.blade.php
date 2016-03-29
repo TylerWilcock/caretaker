@@ -52,7 +52,7 @@
                         <a href="#about">About</a>
                     </li>
                     <li>
-                        <a href="#signup">Sign Up</a>
+                        <a href="/register">Sign Up</a>
                     </li>
                     <li>
                         <a href="/login">Login</a>
