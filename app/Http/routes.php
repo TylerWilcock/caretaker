@@ -50,6 +50,11 @@ Route::group(['middleware' => ['web']], function () {
   	* edit: the middleware now only allows access to this route if the user is logged in
   	*       if not, the user is directed to the login page
   	*/
+
+  	Route::get('/home', 'HomeController@index',['middleware' => 'auth', function() {
+		
+	}]); 
+
 	Route::get('/calendar', ['middleware' => 'auth', function() {
 		return view('calendar');
 	}]); 

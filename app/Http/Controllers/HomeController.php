@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\Models\User;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class HomeController extends Controller
 {
@@ -26,6 +29,9 @@ class HomeController extends Controller
     // Where user is taken directly after login
     public function index()
     {
-        return view('calendar');
+        $id = Auth::user()->id;
+        $redirectString = '/ct/profile/' + $id;
+
+        return redirect($redirectString);
     }
 }
