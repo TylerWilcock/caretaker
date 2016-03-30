@@ -129,7 +129,7 @@
           <div class="page-title">
             <div class="title_left">
               <h3>
-                                    Care Taker Profile
+                                    Caretaker Profile
                                 </h3>
             </div>
           </div>

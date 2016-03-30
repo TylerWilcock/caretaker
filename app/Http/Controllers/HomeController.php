@@ -31,6 +31,6 @@ class HomeController extends Controller
     {
         $id = Auth::user()->id;
 
-        return redirect()->route('/ct/profile/', ['ctID' => $id]);
+        return redirect()->route('profile', ['ctID' => $id]);
     }
 }

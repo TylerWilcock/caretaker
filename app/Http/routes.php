@@ -19,9 +19,9 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/ct/profile/{ctID}', function(Request $request) {
+Route::get('/ct/profile/{ctID}', ['as' => 'profile' ,function(Request $request) {
 	return view('ctProfile')->with('caretakerInfo', Caretaker::find($request->ctID));
-});
+}]);
 
 /*
 |--------------------------------------------------------------------------
