@@ -140,6 +140,33 @@
             <div class="col-md-12">
               <div class="x_panel">
                 <div class="x_title">
+                  <div class='form-box form-horizontal'>
+                    <div class='form-group'>
+                      <label class='control-label'>Name:</label>
+                      {{$caretakerInfo->name}}
+
+                    </div>
+                    <div class='form-group'>
+                      <label class='control-label'>Phone:</label>
+                      {{$caretakerInfo->phone}}
+
+                    </div>
+                    <div class='form-group'>
+                      <label class='control-label'>Emergency Phone:</label>
+                     {{$caretakerInfo->emergency_phone}}
+
+                    </div>
+                    <div class='form-group'>
+                      <label class='control-label'>Home Address:</label>
+                      {{$caretakerInfo->address}}
+
+                    </div>
+                    <div class='form-group'>
+                      <label class='control-label'>Birthdate:</label>
+                      Birthdate
+
+                    </div>
+                  </div>
                   <!-- dd($caretakerInfo->getAttributes()) -->
                   <div class="clearfix"></div>
                 </div>
