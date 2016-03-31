@@ -1,6 +1,6 @@
 <?php
 
-use \App\Models\Caretaker;
+use \App\Models\User;
 
 use Illuminate\Http\Request;
 
@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('/ct/profile/{ctID}', ['as' => 'profile' ,function(Request $request) {
-	return view('ctProfile')->with('caretakerInfo', Caretaker::find($request->ctID));
+	return view('ctProfile')->with('caretakerInfo', User::find($request->ctID));
 }]);
 
 /*
