@@ -61,7 +61,8 @@
               <img src="{{asset('assets/img/img.jpg')}}" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
-              <span>Welcome, {{$caretakerInfo->name}}</span>
+              <span>Welcome,</span>
+              <h2>{{$caretakerInfo->name}}</h2>
             </div>
           </div>
           <!-- /menu prile quick info -->
@@ -139,7 +140,7 @@
             <div class="col-md-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <?php dd($caretakerInfo->getAttributes()) ?>
+                  <!-- dd($caretakerInfo->getAttributes()) -->
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
