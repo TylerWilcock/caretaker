@@ -20,7 +20,8 @@ Route::get('/', function () {
 });
 
 Route::get('/ct/profile/{ctID}', ['as' => 'profile' ,function(Request $request) {
-	return view('ctProfile')->with('caretakerInfo', User::find($request->ctID));
+	return view('ctProfile')->with('caretakerInfo', User::find($request->ctID))
+							->with('carRecipientInfo', User::getCareRecipients(4));
 }]);
 
 /*
