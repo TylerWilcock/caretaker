@@ -28,10 +28,19 @@ class User extends Authenticatable
 
     public static function getCareRecipients($ctID)
     {
-        $users = DB::table('users as u')->join('cr_ct_link as link', 'u.id', '=', 'link.caretaker_id')
+        $carerecipients = DB::table('users as u')->join('cr_ct_link as link', 'u.id', '=', 'link.caretaker_id')
                                         ->join('carerecipients as cr', 'link.carerecipient_id', '=', 'cr.id')
                                         ->where('u.id', '=', $ctID)
                                         ->select('cr.full_name')
                                         ->get();
+
+        if(!empty($carerecipients))
+        {
+            return $carerecipients;
+        }
+        else
+        {
+            return 0;
+        }
     }
 }

@@ -62,7 +62,7 @@
             </div>
             <div class="profile_info">
               <span>Welcome,</span>
-              <h2>{{$caretakerInfo->name}}</h2>
+              <h2>{{Auth::user()->name}}</h2>
             </div>
           </div>
           <!-- /menu prile quick info -->
@@ -98,7 +98,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="{{asset('assets/img/img.jpg')}}" alt="">{{$caretakerInfo->name}}
+                  <img src="{{asset('assets/img/img.jpg')}}" alt="">{{Auth::user()->name}}
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
@@ -131,68 +131,20 @@
           <div class="page-title">
             <div class="title_left">
               <h3>
-                                    Caretaker Profile
+                                    Notes
+                                    <small>
+                                        Type a note and submit to post it.
+                                    </small>
                                 </h3>
             </div>
           </div>
           <div class="clearfix"></div>
 
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <div class='form-box form-horizontal'>
-                    <div class='form-group'>
-                      <label class='control-label'>Name:</label>
-                      {{$caretakerInfo->name}}
-
-                    </div>
-                    <div class='form-group'>
-                      <label class='control-label'>Phone:</label>
-                      {{$caretakerInfo->phone}}
-
-                    </div>
-                    <div class='form-group'>
-                      <label class='control-label'>Emergency Phone:</label>
-                     {{$caretakerInfo->emergency_phone}}
-
-                    </div>
-                    <div class='form-group'>
-                      <label class='control-label'>Home Address:</label>
-                      {{$caretakerInfo->address}}
-
-                    </div>
-                    <div class='form-group'>
-                      <label class='control-label'>Birthdate:</label>
-                      Birthdate
-
-                    </div>
-                  </div>
-                  <!-- dd($caretakerInfo->getAttributes()) -->
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="x_panel">
-                <div class="x_title">
-                  <div class='form-box form-horizontal'>
-                    <div class='form-group'>
-                      <label class='control-label'>Care Recipients:</label>
-                    </div>
-                    <div class='form-group'>
-                      @if($careRecipientInfo != 0)
-                          @for ($i = 0; $i < count($careRecipientInfo); $i++)
-                            {{$careRecipientInfo[$i]->full_name}}
-                            <br>
-                          @endfor
-                      @endif
-                    </div>
-                  </div>
-                  <!-- dd($caretakerInfo->getAttributes()) -->
+                  <h2>Notes</h2>
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">

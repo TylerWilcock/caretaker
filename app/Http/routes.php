@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 Route::get('/ct/profile/{ctID}', ['as' => 'profile' ,function(Request $request) {
 	return view('ctProfile')->with('caretakerInfo', User::find($request->ctID))
-							->with('carRecipientInfo', User::getCareRecipients(4));
+							->with('careRecipientInfo', User::getCareRecipients($request->ctID));
 }]);
 
 /*
@@ -68,6 +68,10 @@ Route::group(['middleware' => ['web']], function () {
 		return view('messageBoard');
 	}]); 
 
+	Route::get('/notes', ['middleware' => 'auth', function() {
+		return view('notes');
+	}]);
+
 	Route::get('/crprofile', ['middleware' => 'auth', function() {
 		return view('crProfile');
 	}]); 
@@ -87,6 +91,12 @@ Route::group(['middleware' => ['web']], function () {
 		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
 		return view('messageBoard')->with('messageBoardInfo', CareRecipient::something($request->crID));
 	});	
+
+	Route::get('/cr/notes/{crID}', function(Request $request) {
+		//call a function (or multiple) to get the information to populate the message board page
+		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
+		return view('notes')->with('notesInfo', CareRecipient::something($request->crID));
+	});
 
 	// Route::controller('calendar', 'CalendarController');
 });
