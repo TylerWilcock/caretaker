@@ -75,10 +75,11 @@
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a href="{{ url('/crprofile') }}"><i class="fa fa-user"></i> Profile</a></li>
+                <!-- <li><a href="{{ url('/crprofile') }}"><i class="fa fa-user"></i> Profile</a></li>
                 <li><a href="{{ url('/calendar') }}"><i class="fa fa-calendar"></i> Calendar</a></li>
                 <li><a href="{{ url('/messageboard') }}"><i class="fa fa-comment"></i> Message Board</a></li>
-                <li><a href="{{ url('/notes') }}"><i class="fa fa-pencil"></i> Notes</a></li>
+                <li><a href="{{ url('/notes') }}"><i class="fa fa-pencil"></i> Notes</a></li> -->
+              </ul>
             </div>
 
           </div>
@@ -186,8 +187,8 @@
                     <div class='form-group'>
                       @if($careRecipientInfo != 0)
                           @for ($i = 0; $i < count($careRecipientInfo); $i++)
-                            {{$careRecipientInfo[$i]->full_name}}
-                            <br>
+                            <a href="{{ url('/cr') }}">{{$careRecipientInfo[$i]->full_name}}</a>
+                            <br/>
                           @endfor
                       @endif
                     </div>

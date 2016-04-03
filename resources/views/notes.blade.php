@@ -79,6 +79,7 @@
                 <li><a href="{{ url('/calendar') }}"><i class="fa fa-calendar"></i> Calendar</a></li>
                 <li><a href="{{ url('/messageboard') }}"><i class="fa fa-comment"></i> Message Board</a></li>
                 <li><a href="{{ url('/notes') }}"><i class="fa fa-pencil"></i> Notes</a></li>
+              </ul>
             </div>
 
           </div>
