@@ -31,7 +31,7 @@ class User extends Authenticatable
         $carerecipients = DB::table('users as u')->join('cr_ct_link as link', 'u.id', '=', 'link.caretaker_id')
                                         ->join('carerecipients as cr', 'link.carerecipient_id', '=', 'cr.id')
                                         ->where('u.id', '=', $ctID)
-                                        ->select('cr.full_name')
+                                        ->select('cr.id', 'cr.full_name', 'cr.birthday', 'cr.phone', 'cr.emergency_contact_phone', 'cr.notes', 'cr.primary_doctor_phone')
                                         ->get();
 
         if(!empty($carerecipients))

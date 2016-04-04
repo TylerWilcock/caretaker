@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class CareRecipient extends Authenticatable
+class Carerecipient extends Authenticatable
 {
     /**
      * The attributes that are mass assignable.

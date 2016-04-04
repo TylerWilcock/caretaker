@@ -33,7 +33,13 @@
               <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
-
+<style>
+  .recipient:hover {
+    cursor:pointer;
+    color:#00c;
+    text-decoration:underline; 
+  }
+</style>
 
 
 </head>
@@ -187,7 +193,7 @@
                     <div class='form-group'>
                       @if($careRecipientInfo != 0)
                           @for ($i = 0; $i < count($careRecipientInfo); $i++)
-                            <a href="{{ url('/cr') }}">{{$careRecipientInfo[$i]->full_name}}</a>
+                            <a class = "recipient" data-id = "{{$careRecipientInfo[$i]->id}}">{{$careRecipientInfo[$i]->full_name}}</a>
                             <br/>
                           @endfor
                       @endif
@@ -480,6 +486,12 @@
           url: 'http://google.com/'
         }]
       });
+
+      $('.recipient').click(function(){
+        var crID = $(this).data("id");
+        window.location.href  = "/cr/profile/" + crID;
+      });
+
     });
   </script>
 </body>

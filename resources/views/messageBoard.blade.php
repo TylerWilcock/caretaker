@@ -75,10 +75,10 @@
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a href="{{ url('/crprofile') }}"><i class="fa fa-user"></i> Profile</a></li>
-                <li><a href="{{ url('/calendar') }}"><i class="fa fa-calendar"></i> Calendar</a></li>
-                <li><a href="{{ url('/messageboard') }}"><i class="fa fa-comment"></i> Message Board</a></li>
-                <li><a href="{{ url('/notes') }}"><i class="fa fa-pencil"></i> Notes</a></li>
+                <li><a href="{{ url('/cr/profile/'.$messageBoardInfo->id) }}"><i class="fa fa-user"></i> Profile</a></li>
+                <li><a href="{{ url('/cr/calendar/'.$messageBoardInfo->id) }}"><i class="fa fa-calendar"></i> Calendar</a></li>
+                <li><a href="{{ url('/cr/messageboard/'.$messageBoardInfo->id) }}"><i class="fa fa-comment"></i> Message Board</a></li>
+                <li><a href="{{ url('/cr/notes/'.$messageBoardInfo->id) }}"><i class="fa fa-pencil"></i> Notes</a></li>
               </ul>
             </div>
 
