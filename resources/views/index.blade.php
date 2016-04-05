@@ -43,7 +43,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="#"><img src="assets/img/CT_LOGO.png"></a>
+                <a class="navbar-brand topnav" href="#">Care Teammate</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -72,8 +72,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
-                        <h1>Care Teammate</h1>
-                        <h3>Care for a Loved One</h3>
+                        <img src="assets/img/CT_LOGO_LARGE.png">
                         <hr class="intro-divider">
                         <!-- <ul class="list-inline intro-social-buttons">
                             <li>
