@@ -39,6 +39,10 @@
     color:#00c;
     text-decoration:underline; 
   }
+
+  .crTable{
+    vertical-align: middle;
+  }
 </style>
 
 
@@ -149,30 +153,35 @@
               <div class="x_panel">
                 <div class="x_title">
                   <div class='form-box form-horizontal'>
-                    <div class='form-group'>
-                      <label class='control-label'>Name:</label>
-                      {{$caretakerInfo->name}}
-
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Name: </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="name" class="form-control col-md-7 col-xs-12" value = "{{$caretakerInfo->name}}" readonly>
+                        </div>
                     </div>
-                    <div class='form-group'>
-                      <label class='control-label'>Phone:</label>
-                      {{$caretakerInfo->phone}}
-
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Phone: </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="phone" class="form-control col-md-7 col-xs-12" value = "{{$caretakerInfo->phone}}" readonly>
+                        </div>
                     </div>
-                    <div class='form-group'>
-                      <label class='control-label'>Emergency Phone:</label>
-                     {{$caretakerInfo->emergency_phone}}
-
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Emergency Phone: </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="emergencyPhone" class="form-control col-md-7 col-xs-12" value = "{{$caretakerInfo->emergency_phone}}" readonly>
+                        </div>
                     </div>
-                    <div class='form-group'>
-                      <label class='control-label'>Home Address:</label>
-                      {{$caretakerInfo->address}}
-
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Home Address: </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="homeAddress" class="form-control col-md-7 col-xs-12" value = "{{$caretakerInfo->address}}" readonly>
+                        </div>
                     </div>
-                    <div class='form-group'>
-                      <label class='control-label'>Birthdate:</label>
-                      Birthdate
-
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Birthdate: </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="birthdate" class="form-control col-md-7 col-xs-12" value = "Add birthdate field" readonly>
+                        </div>
                     </div>
                   </div>
                   <!-- dd($caretakerInfo->getAttributes()) -->
@@ -183,29 +192,31 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="x_panel">
-                <div class="x_title">
-                  <div class='form-box form-horizontal'>
-                    <div class='form-group'>
-                      <label class='control-label'>Care Recipients:</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Care Recipients <small>recipients you are subscribed to</small></h2>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class='form-group'>
-                      @if($careRecipientInfo != 0)
-                          @for ($i = 0; $i < count($careRecipientInfo); $i++)
-                            <a class = "recipient" data-id = "{{$careRecipientInfo[$i]->id}}">{{$careRecipientInfo[$i]->full_name}}</a>
-                            <br/>
-                          @endfor
-                      @endif
+                    <div class="x_content">
+                        <table class="table table-bordered crTable">
+                            <tbody>
+                                @if($careRecipientInfo != 0)
+                                  @for ($i = 0; $i < count($careRecipientInfo); $i++)
+                                    <tr align="center">
+                                        <td>
+                                            {{$careRecipientInfo[$i]->full_name}}
+                                        </td>
+                                        <td>
+                                            <button type="button" data-id = "{{$careRecipientInfo[$i]->id}}" class="btn btn-primary recipient">View Profile</button>
+                                        </td>
+                                    </tr>
+                                  @endfor
+                                @endif
+                            </tbody>
+                        </table>
                     </div>
-                  </div>
-                  <!-- dd($caretakerInfo->getAttributes()) -->
-                  <div class="clearfix"></div>
                 </div>
-                <div class="x_content">
-
-                </div>
-              </div>
             </div>
           </div>
         </div>
