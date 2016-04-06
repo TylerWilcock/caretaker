@@ -39,10 +39,6 @@
     color:#00c;
     text-decoration:underline; 
   }
-
-  .crTable{
-    vertical-align: middle;
-  }
 </style>
 
 
