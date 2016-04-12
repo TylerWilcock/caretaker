@@ -20,12 +20,12 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/ct/profile/{ctID}', ['as' => 'profile' ,function(Request $request) {
+Route::get('/ct/profile/{ctID}', ['as' => 'profile', function(Request $request) {
 	return view('ctProfile')->with('caretakerInfo', User::find($request->ctID))
 							->with('careRecipientInfo', User::getCareRecipients($request->ctID));
 }]);
 
-Route::post('/ct/profile/{ctID}', function()
+Route::post('/ct/profile/{ctID}', ['middleware' => 'auth', function(Request $request)
 {
     // add the post to the database
     // $post = new Post;
@@ -40,7 +40,7 @@ Route::post('/ct/profile/{ctID}', function()
     $id = Auth::user()->id;
     return redirect()->route('profile', ['ctID' => $id]);
     // return Redirect::to('/ct/profile/{ctID}');
-});
+}]);
 
 /*
 |--------------------------------------------------------------------------
@@ -87,7 +87,7 @@ Route::group(['middleware' => ['web']], function () {
    //      // return Redirect::to('/ct/profile/{ctID}');
    //  }]);
 
-  	Route::get('/home', 'HomeController@index',['middleware' => 'auth', function() {
+  Route::get('/home', 'HomeController@index', ['middleware' => 'auth', function() {
 
 	}]);
 
