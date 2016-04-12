@@ -11,7 +11,7 @@
   <title>Care Teammate</title>
 
   <!-- Bootstrap core CSS -->
-  
+
   <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
 
   <link href="{{asset('assets/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -37,11 +37,11 @@
   .recipient:hover {
     cursor:pointer;
     color:#00c;
-    text-decoration:underline; 
+    text-decoration:underline;
   }
 
-  .crTable>tbody>tr>td { 
-    vertical-align: middle; 
+  .crTable>tbody>tr>td {
+    vertical-align: middle;
   }
 
   #addCRWrapper{
@@ -238,7 +238,7 @@
                         <!-- o Client name, birthdate, home address, phone number, emergency contact, and notes, doctor(s) contact information -->
                         <div class="x_content">
                             <br>
-                            <form id="crForm" class="form-horizontal form-label-left">
+                            <form id="crForm" method="post" action="/ct/profile/{{$caretakerInfo->id}}" class="form-horizontal form-label-left">
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Name <span class="required">*</span>
@@ -464,7 +464,7 @@
   <!-- chart js -->
 
   <!-- bootstrap progress js -->
-  
+
   <script src="{{asset('assets/js/progressbar/bootstrap-progressbar.min.js')}}"></script>
 
   <script src="{{asset('assets/js/nicescroll/jquery.nicescroll.min.js')}}"></script>

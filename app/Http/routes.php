@@ -32,7 +32,7 @@ Route::post('/ct/profile/{ctID}', function()
     // $post->title = Input::get('title');
     // more stuff here
     // $post->save();
-	User::addCareRecipient();
+	  User::addCareRecipient();
     // create a success message
     Session::flash('message', 'Successfully created post!');
 
@@ -54,7 +54,7 @@ Route::post('/ct/profile/{ctID}', function()
 */
 
 Route::group(['middleware' => ['web']], function () {
-    
+
     /**
     * Calls login functions at vendor/laravel/framework/src/Illuminate/Routing/Router.php ()
     * Changes to the page a newly registered user is directed to is handled in AuthController
@@ -88,12 +88,12 @@ Route::group(['middleware' => ['web']], function () {
    //  }]);
 
   	Route::get('/home', 'HomeController@index',['middleware' => 'auth', function() {
-		
-	}]); 
+
+	}]);
 
 	Route::get('/calendar', ['middleware' => 'auth', function() {
 		return view('calendar');
-	}]); 
+	}]);
 
 	Route::get('/calendartemplate', ['middleware' => 'auth', function() {
 		return view('calendarTemplate');
@@ -101,7 +101,7 @@ Route::group(['middleware' => ['web']], function () {
 
 	Route::get('/messageboard', ['middleware' => 'auth', function() {
 		return view('messageBoard');
-	}]); 
+	}]);
 
 	Route::get('/notes', ['middleware' => 'auth', function() {
 		return view('notes');
@@ -109,7 +109,7 @@ Route::group(['middleware' => ['web']], function () {
 
 	Route::get('/crprofile', ['middleware' => 'auth', function() {
 		return view('crProfile');
-	}]); 
+	}]);
 
 	Route::get('/cr/profile/{crID}', function(Request $request) {
 		return view('crProfile')->with('crInfo', Carerecipient::find($request->crID));
@@ -125,7 +125,7 @@ Route::group(['middleware' => ['web']], function () {
 		//call a function (or multiple) to get the information to populate the message board page
 		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
 		return view('messageBoard')->with('messageBoardInfo', Carerecipient::find($request->crID));
-	});	
+	});
 
 	Route::get('/cr/notes/{crID}', function(Request $request) {
 		//call a function (or multiple) to get the information to populate the message board page
