@@ -43,4 +43,12 @@ class User extends Authenticatable
             return 0;
         }
     }
+
+
+    public static function addCareRecipient()
+    {
+        $insertCR = DB::table('carerecipients')->insert(
+            ['full_name' => 'Tyler Isawesome', 'birthday' => '2016-04-13', 'address' => 'YoloSwag Drive', 'phone' => 1111111111, 'emergency_contact_phone' => 2222222222, 'notes' => 'this is a note', 'primary_doctor_phone' => '9292929292']
+        );
+    }
 }

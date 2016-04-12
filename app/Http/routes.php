@@ -25,6 +25,23 @@ Route::get('/ct/profile/{ctID}', ['as' => 'profile' ,function(Request $request) 
 							->with('careRecipientInfo', User::getCareRecipients($request->ctID));
 }]);
 
+Route::post('/ct/profile/{ctID}', function()
+{
+    // add the post to the database
+    // $post = new Post;
+    // $post->title = Input::get('title');
+    // more stuff here
+    // $post->save();
+	User::addCareRecipient();
+    // create a success message
+    Session::flash('message', 'Successfully created post!');
+
+    // redirect
+    $id = Auth::user()->id;
+    return redirect()->route('profile', ['ctID' => $id]);
+    // return Redirect::to('/ct/profile/{ctID}');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -52,6 +69,23 @@ Route::group(['middleware' => ['web']], function () {
   	* edit: the middleware now only allows access to this route if the user is logged in
   	*       if not, the user is directed to the login page
   	*/
+
+  	// Route::post('/ct/profile/{ctID}', ['middleware' => 'auth', function()
+   //  {
+   //      // add the post to the database
+   //      // $post = new Post;
+   //      // $post->title = Input::get('title');
+   //      // more stuff here
+   //      // $post->save();
+   //  	User::addCareRecipient();
+   //      // create a success message
+   //      Session::flash('message', 'Successfully created post!');
+
+   //      // redirect
+   //      $id = Auth::user()->id;
+   //      return redirect()->route('profile', ['ctID' => $id]);
+   //      // return Redirect::to('/ct/profile/{ctID}');
+   //  }]);
 
   	Route::get('/home', 'HomeController@index',['middleware' => 'auth', function() {
 		
