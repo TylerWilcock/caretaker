@@ -44,6 +44,10 @@
     vertical-align: middle; 
   }
 
+  #addCRWrapper{
+    display: none;
+  }
+
 </style>
 
 
@@ -149,150 +153,162 @@
           </div>
           <div class="clearfix"></div>
 
-          <div class="row">
-            <div class="col-md-6">
-              <div class="x_panel">
-                <div class="x_title">
-                  <div class='form-box form-horizontal'>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Name: </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="name" class="form-control col-md-7 col-xs-12" value = "{{$caretakerInfo->name}}" readonly>
-                        </div>
+          <div id = "profileInfoWrapper">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <div class='form-box form-horizontal'>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Name: </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="name" class="form-control col-md-7 col-xs-12" value = "{{$caretakerInfo->name}}" readonly>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Phone: </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="phone" class="form-control col-md-7 col-xs-12" value = "{{$caretakerInfo->phone}}" readonly>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Emergency Phone: </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="emergencyPhone" class="form-control col-md-7 col-xs-12" value = "{{$caretakerInfo->emergency_phone}}" readonly>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Home Address: </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="homeAddress" class="form-control col-md-7 col-xs-12" value = "{{$caretakerInfo->address}}" readonly>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Birthdate: </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="birthdate" class="form-control col-md-7 col-xs-12" value = "Add birthdate field" readonly>
+                          </div>
+                      </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Phone: </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="phone" class="form-control col-md-7 col-xs-12" value = "{{$caretakerInfo->phone}}" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Emergency Phone: </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="emergencyPhone" class="form-control col-md-7 col-xs-12" value = "{{$caretakerInfo->emergency_phone}}" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Home Address: </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="homeAddress" class="form-control col-md-7 col-xs-12" value = "{{$caretakerInfo->address}}" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Birthdate: </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="birthdate" class="form-control col-md-7 col-xs-12" value = "Add birthdate field" readonly>
-                        </div>
-                    </div>
+                    <!-- dd($caretakerInfo->getAttributes()) -->
+                    <div class="clearfix"></div>
                   </div>
-                  <!-- dd($caretakerInfo->getAttributes()) -->
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
+                  <div class="x_content">
 
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Care Recipients <small>recipients you are subscribed to</small></h2>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <table class="table table-bordered crTable">
-                            <tbody>
-                                @if($careRecipientInfo != 0)
-                                  @for ($i = 0; $i < count($careRecipientInfo); $i++)
-                                    <tr align="center">
-                                        <td>
-                                            {{$careRecipientInfo[$i]->full_name}}
-                                        </td>
-                                        <td>
-                                            <button type="button" data-id = "{{$careRecipientInfo[$i]->id}}" class="btn btn-primary recipient">View Profile</button>
-                                        </td>
-                                    </tr>
-                                  @endfor
-                                @endif
-                            </tbody>
-                        </table>
-                        <button type="button" class="btn btn-primary" id = "addCr">Add Care Recipient</button>
-                    </div>
-                </div>
-            </div>
-          </div>
-          <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="col-md-6 col-sm-6 col-xs-12">
                   <div class="x_panel">
                       <div class="x_title">
-                          <h2>Add Care Recipient <small>Enter Care Recipient's Information</small></h2>
+                          <h2>Care Recipients <small>recipients you are subscribed to</small></h2>
                           <div class="clearfix"></div>
                       </div>
-                      <!-- o Client name, birthdate, home address, phone number, emergency contact, and notes, doctor(s) contact information -->
                       <div class="x_content">
-                          <br>
-                          <form id="crForm" class="form-horizontal form-label-left">
-
-                              <div class="form-group">
-                                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Name <span class="required">*</span>
-                                  </label>
-                                  <div class="col-md-6 col-sm-6 col-xs-12">
-                                      <input type="text" id="crName" required="required" class="form-control col-md-7 col-xs-12">
-                                  </div>
-                              </div>
-                              <div class="form-group">
-                                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Birthdate <span class="required">*</span>
-                                  </label>
-                                  <div class="col-md-6 col-sm-6 col-xs-12">
-                                      <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
-                                  </div>
-                              </div>
-                              <div class="form-group">
-                                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Home Address <span class="required">*</span>
-                                  </label>
-                                  <div class="col-md-6 col-sm-6 col-xs-12">
-                                      <input type="text" id="crHomeAddress" required="required" class="form-control col-md-7 col-xs-12">
-                                  </div>
-                              </div>
-                              <div class="form-group">
-                                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Phone Number <span class="required">*</span>
-                                  </label>
-                                  <div class="col-md-6 col-sm-6 col-xs-12">
-                                      <input type="text" id="crPhoneNumber" required="required" class="form-control col-md-7 col-xs-12">
-                                  </div>
-                              </div>
-                              <div class="form-group">
-                                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Emergency Contact
-                                  </label>
-                                  <div class="col-md-6 col-sm-6 col-xs-12">
-                                      <input type="text" id="crEmergencyContact" class="form-control col-md-7 col-xs-12">
-                                  </div>
-                              </div>
-                              <div class="form-group">
-                                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Doctor's Contact <span class="required">*</span>
-                                  </label>
-                                  <div class="col-md-6 col-sm-6 col-xs-12">
-                                      <input type="text" id="crDrContact" required="required" class="form-control col-md-7 col-xs-12">
-                                  </div>
-                              </div>
-                              <div class="form-group">
-                                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Notes
-                                  </label>
-                                  <div class="col-md-6 col-sm-6 col-xs-12">
-                                      <input type="textarea" id="crNotes" class="form-control col-md-7 col-xs-12">
-                                  </div>
-                              </div>
-                              <div class="ln_solid"></div>
-                              <div class="form-group">
-                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                      <button type="submit" class="btn btn-primary">Add</button>
-                                  </div>
-                              </div>
-
-                          </form>
+                          <table class="table table-bordered crTable">
+                              <tbody>
+                                  @if($careRecipientInfo != 0)
+                                    @for ($i = 0; $i < count($careRecipientInfo); $i++)
+                                      <tr align="center">
+                                          <td>
+                                              {{$careRecipientInfo[$i]->full_name}}
+                                          </td>
+                                          <td>
+                                              <button type="button" data-id = "{{$careRecipientInfo[$i]->id}}" class="btn btn-primary recipient">View Profile</button>
+                                          </td>
+                                      </tr>
+                                    @endfor
+                                  @endif
+                              </tbody>
+                          </table>
+                          <button type="button" class="btn btn-primary" id = "addCr">Add Care Recipient</button>
                       </div>
                   </div>
               </div>
+            </div>
+          </div>
+          <div id = "addCRWrapper">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Add Care Recipient <small>Enter Care Recipient's Information</small></h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <!-- o Client name, birthdate, home address, phone number, emergency contact, and notes, doctor(s) contact information -->
+                        <div class="x_content">
+                            <br>
+                            <form id="crForm" class="form-horizontal form-label-left">
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Name <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="crName" required="required" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Birthdate <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Home Address <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="crHomeAddress" required="required" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Phone Number <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="crPhoneNumber" required="required" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Emergency Contact
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="crEmergencyContact" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Doctor's Contact <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="crDrContact" required="required" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Notes
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <textarea id="crNotes" class="form-control col-md-7 col-xs-12"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Credit Card Number <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="creditCard" required="required" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                        <button type="button" class="btn btn-danger" id = "back">Back</button>
+                                        <button type="submit" class="btn btn-primary">Add</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
           </div>
         </div>
 
@@ -579,7 +595,13 @@
       });
 
       $('#addCr').click(function(){
-        alert('hello');
+        $("#profileInfoWrapper").hide();
+        $("#addCRWrapper").show();
+      });
+
+      $('#back').click(function(){
+        $("#addCRWrapper").hide();
+        $("#profileInfoWrapper").show();
       });
 
     });

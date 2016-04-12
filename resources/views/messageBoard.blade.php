@@ -149,7 +149,53 @@
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-
+                  <div>
+                      <!-- start of user messages -->
+                      <ul class="messages">
+                          <li>
+                              <div class="message_date">
+                                  <h3 class="date text-info">24</h3>
+                                  <p class="month">May</p>
+                              </div>
+                              <div class="message_wrapper">
+                                  <h4 class="heading">Desmond Davison</h4>
+                                  <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                                  <br>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="message_date">
+                                  <h3 class="date text-error">21</h3>
+                                  <p class="month">May</p>
+                              </div>
+                              <div class="message_wrapper">
+                                  <h4 class="heading">Brian Michaels</h4>
+                                  <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                                  <br>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="message_date">
+                                  <h3 class="date text-info">24</h3>
+                                  <p class="month">May</p>
+                              </div>
+                              <div class="message_wrapper">
+                                  <h4 class="heading">Desmond Davison</h4>
+                                  <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                                  <br>
+                              </div>
+                          </li>
+                      </ul>
+                      <form class="form-horizontal">
+                          <div class="form-group">
+                              <textarea type="text" id="userMessage" class="form-control col-md-6" placeholder="Type a message here"></textarea>
+                          </div>
+                          <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Submit Message</button>
+                          </div>
+                      </form>
+                      <!-- end of user messages -->
+                  </div>
                 </div>
               </div>
             </div>
@@ -169,123 +215,6 @@
       </div>
 
 
-      <!-- Start Calender modal -->
-      <div id="CalenderModalNew" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-
-            <div class="modal-header">
-              <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-hidden="true">×</button>
-              <h4 class="modal-title" id="myModalLabel">New Calender Entry</h4>
-            </div>
-            <div class="modal-body">
-              <div id="testmodal" style="padding: 5px 20px;">
-                <form id="antoform" class="form-horizontal calender" role="form">
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Title</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" id="title" name="title">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Description</label>
-                    <div class="col-sm-9">
-                      <textarea class="form-control" style="height:55px;" id="description" name="description"></textarea>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Date</label>
-                    <div class="col-sm-9">
-                      <input id="date" class="form-control " type="date" data-parsley-id="4825">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Time</label>
-                    <div class="col-sm-9">
-                      <input type="time" class="form-control" id="time" name="time" >
-                    </div>
-                  </div>
-                   <div class="form-group">
-                    <label class="col-sm-3 control-label">Repeat?</label>
-                      <div class="col-sm-9 btn-group" data-toggle="buttons">
-                        <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-none" value=''> None
-                        </label>
-                        <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-weekly" value=''> Weekly
-                        </label>
-                        <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-monthly" value=''> Monthly
-                        </label>
-                        <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-yearly" value=''> Yearly
-                        </label>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Locaiton</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" id="locaiton" name="locaiton">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Notes</label>
-                    <div class="col-sm-9">
-                      <textarea class="form-control" style="height:55px;" id="notes" name="notes"></textarea>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div class="modal-footer">
-               <div class='btn-group'>
-                  <button type="button" class="btn btn-danger antoclose" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-success antosubmit" id='saveEvent'>Save changes</button>
-               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="CalenderModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-              <h4 class="modal-title" id="myModalLabel2">Edit Calender Entry</h4>
-            </div>
-            <div class="modal-body">
-
-              <div id="testmodal2" style="padding: 5px 20px;">
-                <form id="antoform2" class="form-horizontal calender" role="form">
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Title</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" id="title2" name="title2">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Description</label>
-                    <div class="col-sm-9">
-                      <textarea class="form-control" style="height:55px;" id="descr2" name="descr"></textarea>
-                    </div>
-                  </div>
-
-                </form>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary antosubmit2">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="fc_create" data-toggle="modal" data-target="#CalenderModalNew"></div>
-      <div id="fc_edit" data-toggle="modal" data-target="#CalenderModalEdit"></div>
-
-      <!-- End Calender modal -->
       <!-- /page content -->
     </div>
 
