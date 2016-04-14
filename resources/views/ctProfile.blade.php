@@ -238,7 +238,7 @@
                         <!-- o Client name, birthdate, home address, phone number, emergency contact, and notes, doctor(s) contact information -->
                         <div class="x_content">
                             <br>
-                            <form id="crForm" method="post" action="/ct/profile/{{$caretakerInfo->id}}" class="form-horizontal form-label-left">
+                            <form id="crForm" method="POST" action = "{{ url('/ct/profile/'.$caretakerInfo->id) }}" class="form-horizontal form-label-left">
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Name <span class="required">*</span>
