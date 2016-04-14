@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Carerecipient extends Authenticatable
@@ -23,4 +24,23 @@ class Carerecipient extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static function getCareTakers($crID)
+    {
+        $carerecipients = DB::table('carerecipients as cr')->join('cr_ct_link as link', 'cr.id', '=', 'link.carerecipient_id')
+                                                           ->join('users as u', 'link.caretaker_id', '=', 'u.id')
+                                                           ->where('cr.id', '=', $crID)
+                                                           ->select('u.id', 'u.name')
+                                                           ->get();
+
+        if(!empty($carerecipients))
+        {
+            return $carerecipients;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
 }

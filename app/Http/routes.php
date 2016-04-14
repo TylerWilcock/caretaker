@@ -34,7 +34,7 @@ Route::post('/ct/profile/{ctID}', function(Request $request)
     // $post->save();
 	User::addCareRecipient();
     // create a success message
-    Session::flash('message', 'Successfully created post!');
+	// $request->session()->put('success', 'Successfully added the Care Recipient!');
 
     // redirect
     $id = User::find($request->ctID);
@@ -95,7 +95,8 @@ Route::group(['middleware' => ['web']], function () {
 	}]);
 
 	Route::get('/cr/profile/{crID}', function(Request $request) {
-		return view('crProfile')->with('crInfo', Carerecipient::find($request->crID));
+		return view('crProfile')->with('crInfo', Carerecipient::find($request->crID))
+								->with('careTakersInfo', Carerecipient::getCareTakers($request->crID));
 	});
 
 	Route::get('/cr/calendar/{crID}', function(Request $request) {

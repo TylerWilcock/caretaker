@@ -34,7 +34,12 @@
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
 
+<style>
+  .ctTable>tbody>tr>td {
+    vertical-align: middle;
+  }
 
+</style>
 
 </head>
 
@@ -139,10 +144,48 @@
           <div class="clearfix"></div>
 
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Care Recipient Profile</h2>
+                  <div class='form-box form-horizontal'>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Name: </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="name" class="form-control col-md-7 col-xs-12" value = "{{$crInfo->full_name}}" readonly>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Home Address: </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="homeAddress" class="form-control col-md-7 col-xs-12" value = "{{$crInfo->address}}" readonly>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Birthdate: </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="birthdate" class="form-control col-md-7 col-xs-12" value = "{{$crInfo->birthday}}" readonly>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Doctor Contact: </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="doctorPhone" class="form-control col-md-7 col-xs-12" value = "{{$crInfo->primary_doctor_phone}}" readonly>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Emergency Contact: </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="emergencyPhone" class="form-control col-md-7 col-xs-12" value = "{{$crInfo->emergency_contact_phone}}" readonly>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Notes:
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <textarea id="notes" class="form-control col-md-7 col-xs-12" readonly>{{$crInfo->notes}}</textarea>
+                          </div>
+                      </div>
+                    </div>
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -150,6 +193,32 @@
                 </div>
               </div>
             </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="x_panel">
+                      <div class="x_title">
+                          <h2>Caretakers <small>people taking care of this recipient</small></h2>
+                          <div class="clearfix"></div>
+                      </div>
+                      <div class="x_content">
+                          <table class="table table-bordered ctTable">
+                              <tbody>
+                                  @if($careTakersInfo != 0)
+                                    @for ($i = 0; $i < count($careTakersInfo); $i++)
+                                      <tr align="center">
+                                          <td>
+                                              {{$careTakersInfo[$i]->name}}
+                                          </td>
+                                          <td>
+                                              <button type="button" data-id = "{{$careTakersInfo[$i]->id}}" class="btn btn-primary caretaker">View Profile</button>
+                                          </td>
+                                      </tr>
+                                    @endfor
+                                  @endif
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
           </div>
         </div>
 
@@ -166,123 +235,6 @@
       </div>
 
 
-      <!-- Start Calender modal -->
-      <div id="CalenderModalNew" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-
-            <div class="modal-header">
-              <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-hidden="true">×</button>
-              <h4 class="modal-title" id="myModalLabel">New Calender Entry</h4>
-            </div>
-            <div class="modal-body">
-              <div id="testmodal" style="padding: 5px 20px;">
-                <form id="antoform" class="form-horizontal calender" role="form">
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Title</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" id="title" name="title">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Description</label>
-                    <div class="col-sm-9">
-                      <textarea class="form-control" style="height:55px;" id="description" name="description"></textarea>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Date</label>
-                    <div class="col-sm-9">
-                      <input id="date" class="form-control " type="date" data-parsley-id="4825">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Time</label>
-                    <div class="col-sm-9">
-                      <input type="time" class="form-control" id="time" name="time" >
-                    </div>
-                  </div>
-                   <div class="form-group">
-                    <label class="col-sm-3 control-label">Repeat?</label>
-                      <div class="col-sm-9 btn-group" data-toggle="buttons">
-                        <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-none" value=''> None
-                        </label>
-                        <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-weekly" value=''> Weekly
-                        </label>
-                        <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-monthly" value=''> Monthly
-                        </label>
-                        <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-yearly" value=''> Yearly
-                        </label>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Locaiton</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" id="locaiton" name="locaiton">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Notes</label>
-                    <div class="col-sm-9">
-                      <textarea class="form-control" style="height:55px;" id="notes" name="notes"></textarea>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div class="modal-footer">
-               <div class='btn-group'>
-                  <button type="button" class="btn btn-danger antoclose" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-success antosubmit" id='saveEvent'>Save changes</button>
-               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="CalenderModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-              <h4 class="modal-title" id="myModalLabel2">Edit Calender Entry</h4>
-            </div>
-            <div class="modal-body">
-
-              <div id="testmodal2" style="padding: 5px 20px;">
-                <form id="antoform2" class="form-horizontal calender" role="form">
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Title</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" id="title2" name="title2">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Description</label>
-                    <div class="col-sm-9">
-                      <textarea class="form-control" style="height:55px;" id="descr2" name="descr"></textarea>
-                    </div>
-                  </div>
-
-                </form>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary antosubmit2">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="fc_create" data-toggle="modal" data-target="#CalenderModalNew"></div>
-      <div id="fc_edit" data-toggle="modal" data-target="#CalenderModalEdit"></div>
-
-      <!-- End Calender modal -->
       <!-- /page content -->
     </div>
 
@@ -429,6 +381,12 @@
           url: 'http://google.com/'
         }]
       });
+
+      $('.caretaker').click(function(){
+        var ctID = $(this).data("id");
+        window.location.href  = "/ct/profile/" + ctID;
+      });
+
     });
   </script>
 </body>
