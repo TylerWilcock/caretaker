@@ -4,6 +4,7 @@ use \App\Models\User;
 use \App\Models\CareRecipient;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,7 @@ Route::post('/ct/profile/{ctID}', function(Request $request)
     // $post->title = Input::get('title');
     // more stuff here
     // $post->save();
-	User::addCareRecipient();
+	User::addCareRecipient(Input::get('ctID'), Input::get('crName'), Input::get('crBirthday'), Input::get('crHomeAddress'), Input::get('crPhoneNumber'), Input::get('crEmergencyContact'), Input::get('crDrContact'), Input::get('crNotes'));
     // create a success message
 	// $request->session()->put('success', 'Successfully added the Care Recipient!');
 
@@ -96,25 +97,29 @@ Route::group(['middleware' => ['web']], function () {
 
 	Route::get('/cr/profile/{crID}', function(Request $request) {
 		return view('crProfile')->with('crInfo', Carerecipient::find($request->crID))
-								->with('careTakersInfo', Carerecipient::getCareTakers($request->crID));
+								->with('careTakersInfo', Carerecipient::getCareTakers($request->crID))
+								->with('ctID', User::getID());
 	});
 
 	Route::get('/cr/calendar/{crID}', function(Request $request) {
 		//call a function (or multiple) to get the information to populate the calendar page
 		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
-		return view('calendar')->with('calendarInfo', Carerecipient::find($request->crID));
+		return view('calendar')->with('crInfo', Carerecipient::find($request->crID))
+							   ->with('ctID', User::getID());
 	});
 
 	Route::get('/cr/messageboard/{crID}', function(Request $request) {
 		//call a function (or multiple) to get the information to populate the message board page
 		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
-		return view('messageBoard')->with('messageBoardInfo', Carerecipient::find($request->crID));
+		return view('messageBoard')->with('crInfo', Carerecipient::find($request->crID))
+								   ->with('ctID', User::getID());
 	});
 
 	Route::get('/cr/notes/{crID}', function(Request $request) {
 		//call a function (or multiple) to get the information to populate the message board page
 		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
-		return view('notes')->with('notesInfo', Carerecipient::find($request->crID));
+		return view('notes')->with('crInfo', Carerecipient::find($request->crID))
+							->with('ctID', User::getID());
 	});
 
 	// Route::controller('calendar', 'CalendarController');

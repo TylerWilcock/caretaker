@@ -75,10 +75,10 @@
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a href="{{ url('/cr/profile/'.$messageBoardInfo->id) }}"><i class="fa fa-user"></i> Profile</a></li>
-                <li><a href="{{ url('/cr/calendar/'.$messageBoardInfo->id) }}"><i class="fa fa-calendar"></i> Calendar</a></li>
-                <li><a href="{{ url('/cr/messageboard/'.$messageBoardInfo->id) }}"><i class="fa fa-comment"></i> Message Board</a></li>
-                <li><a href="{{ url('/cr/notes/'.$messageBoardInfo->id) }}"><i class="fa fa-pencil"></i> Notes</a></li>
+                <li><a href="{{ url('/cr/profile/'.$crInfo->id) }}"><i class="fa fa-user"></i> Profile</a></li>
+                <li><a href="{{ url('/cr/calendar/'.$crInfo->id) }}"><i class="fa fa-calendar"></i> Calendar</a></li>
+                <li><a href="{{ url('/cr/messageboard/'.$crInfo->id) }}"><i class="fa fa-comment"></i> Message Board</a></li>
+                <li><a href="{{ url('/cr/notes/'.$crInfo->id) }}"><i class="fa fa-pencil"></i> Notes</a></li>
               </ul>
             </div>
 
@@ -103,16 +103,7 @@
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-                  <li><a href="javascript:;">  Profile</a>
-                  </li>
-                  <li>
-                    <a href="javascript:;">
-                      <span class="badge bg-red pull-right">50%</span>
-                      <span>Settings</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="javascript:;">Help</a>
+                  <li><a href="{{ url('/ct/profile/'.$ctID) }}"> My Profile</a>
                   </li>
                   <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </li>

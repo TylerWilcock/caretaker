@@ -39,6 +39,10 @@
     vertical-align: middle;
   }
 
+  #ctInfoWrapper, #addCtWrapper{
+    display:none;
+  }
+
 </style>
 
 </head>
@@ -108,16 +112,7 @@
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-                  <li><a href="javascript:;">  Profile</a>
-                  </li>
-                  <li>
-                    <a href="javascript:;">
-                      <span class="badge bg-red pull-right">50%</span>
-                      <span>Settings</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="javascript:;">Help</a>
+                  <li><a href="{{ url('/ct/profile/'.$ctID) }}"> My Profile</a>
                   </li>
                   <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </li>
@@ -143,82 +138,161 @@
           </div>
           <div class="clearfix"></div>
 
-          <div class="row">
-            <div class="col-md-6">
-              <div class="x_panel">
-                <div class="x_title">
-                  <div class='form-box form-horizontal'>
+          <div id = "crInfoWrapper">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <div class='form-box form-horizontal'>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Name: </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="name" class="form-control col-md-7 col-xs-12" value = "{{$crInfo->full_name}}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Home Address: </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="homeAddress" class="form-control col-md-7 col-xs-12" value = "{{$crInfo->address}}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Birthdate: </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="birthdate" class="form-control col-md-7 col-xs-12" value = "{{$crInfo->birthday}}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Doctor Contact: </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="doctorPhone" class="form-control col-md-7 col-xs-12" value = "{{$crInfo->primary_doctor_phone}}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Emergency Contact: </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="emergencyPhone" class="form-control col-md-7 col-xs-12" value = "{{$crInfo->emergency_contact_phone}}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Notes:
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea id="notes" class="form-control col-md-7 col-xs-12" readonly>{{$crInfo->notes}}</textarea>
+                            </div>
+                        </div>
+                      </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Care Teammates <small>people taking care of this recipient</small></h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <table class="table table-bordered ctTable">
+                                <tbody>
+                                    @if($careTakersInfo != 0)
+                                      @for ($i = 0; $i < count($careTakersInfo); $i++)
+                                        <tr align="center">
+                                            <td>
+                                                {{$careTakersInfo[$i]->name}}
+                                            </td>
+                                            <td>
+                                                <button type="button" data-id = "{{$careTakersInfo[$i]->id}}" data-name = "{{$careTakersInfo[$i]->name}}" data-phone = "{{$careTakersInfo[$i]->phone}}" data-ephone = "{{$careTakersInfo[$i]->emergency_phone}}" data-address = "{{$careTakersInfo[$i]->address}}" class="btn btn-primary caretaker">View Info</button>
+                                            </td>
+                                        </tr>
+                                      @endfor
+                                    @endif
+                                </tbody>
+                            </table>
+                            <button type="button" class="btn btn-primary" id = "addCt">Add Caretaker</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div id = "ctInfoWrapper">
+            <div class = "row">
+              <div class = "x_panel">
+                <div class = "x_title">
+                  <h2> Caretaker Information </h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class = "x_content">
+                    <div class='form-box form-horizontal'>
                       <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Name: </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="name" class="form-control col-md-7 col-xs-12" value = "{{$crInfo->full_name}}" readonly>
+                              <input type="text" id="ctName" class="form-control col-md-7 col-xs-12" value = "" readonly>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Phone: </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="ctPhone" class="form-control col-md-7 col-xs-12" value = "" readonly>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Emergency Phone: </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="ctEmergencyPhone" class="form-control col-md-7 col-xs-12" value = "" readonly>
                           </div>
                       </div>
                       <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Home Address: </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="homeAddress" class="form-control col-md-7 col-xs-12" value = "{{$crInfo->address}}" readonly>
+                              <input type="text" id="ctHomeAddress" class="form-control col-md-7 col-xs-12" value = "" readonly>
                           </div>
                       </div>
                       <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Birthdate: </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="birthdate" class="form-control col-md-7 col-xs-12" value = "{{$crInfo->birthday}}" readonly>
+                              <input type="text" id="ctBirthdate" class="form-control col-md-7 col-xs-12" value = "Add birthdate field" readonly>
                           </div>
                       </div>
+                      <div class="ln_solid"></div>
                       <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Doctor Contact: </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="doctorPhone" class="form-control col-md-7 col-xs-12" value = "{{$crInfo->primary_doctor_phone}}" readonly>
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Emergency Contact: </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="emergencyPhone" class="form-control col-md-7 col-xs-12" value = "{{$crInfo->emergency_contact_phone}}" readonly>
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Notes:
-                          </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                              <textarea id="notes" class="form-control col-md-7 col-xs-12" readonly>{{$crInfo->notes}}</textarea>
+                          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                              <button type="button" class="btn btn-danger" id = "back">Back</button>
                           </div>
                       </div>
                     </div>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-
                 </div>
               </div>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                  <div class="x_panel">
-                      <div class="x_title">
-                          <h2>Caretakers <small>people taking care of this recipient</small></h2>
-                          <div class="clearfix"></div>
+          </div>
+          <div id = "addCtWrapper">
+            <div class = "row">
+              <div class = "x_panel">
+                <div class = "x_title">
+                  <h2> Add a Care Teammate <small>enter your care teammate's email to add them to your team</small></h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class = "x_content">
+                    <div class='form-box form-horizontal'>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Email: </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="email" id="email" class="form-control col-md-7 col-xs-12" value = "">
+                          </div>
                       </div>
-                      <div class="x_content">
-                          <table class="table table-bordered ctTable">
-                              <tbody>
-                                  @if($careTakersInfo != 0)
-                                    @for ($i = 0; $i < count($careTakersInfo); $i++)
-                                      <tr align="center">
-                                          <td>
-                                              {{$careTakersInfo[$i]->name}}
-                                          </td>
-                                          <td>
-                                              <button type="button" data-id = "{{$careTakersInfo[$i]->id}}" class="btn btn-primary caretaker">View Profile</button>
-                                          </td>
-                                      </tr>
-                                    @endfor
-                                  @endif
-                              </tbody>
-                          </table>
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                              <button type="button" class="btn btn-danger" id = "back2">Back</button>
+                          </div>
                       </div>
-                  </div>
+                    </div>
+                </div>
               </div>
+            </div>
           </div>
         </div>
 
@@ -383,8 +457,33 @@
       });
 
       $('.caretaker').click(function(){
-        var ctID = $(this).data("id");
-        window.location.href  = "/ct/profile/" + ctID;
+        var ctName = $(this).data("name");
+        var ctPhone = $(this).data("phone");
+        var ctEPhone = $(this).data("ephone");
+        var ctAddress = $(this).data("address");
+
+        $("#ctName").val(ctName);
+        $("#ctPhone").val(ctPhone);
+        $("#ctEmergencyPhone").val(ctEPhone);
+        $("#ctHomeAddress").val(ctAddress);
+
+        $("#crInfoWrapper").hide();
+        $("#ctInfoWrapper").show();
+      });
+
+      $('#addCt').click(function(){
+        $("#crInfoWrapper").hide();
+        $("#addCtWrapper").show();
+      });
+
+      $('#back').click(function(){
+        $("#ctInfoWrapper").hide();
+        $("#crInfoWrapper").show();
+      });
+
+      $('#back2').click(function(){
+        $("#addCtWrapper").hide();
+        $("#crInfoWrapper").show();
       });
 
     });

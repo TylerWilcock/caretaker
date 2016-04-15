@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Auth;
 use DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -45,10 +46,23 @@ class User extends Authenticatable
     }
 
 
-    public static function addCareRecipient()
+    public static function addCareRecipient($ctID, $crName, $crBirthday, $crHomeAddress, $crPhoneNumber, $crEmergencyContact, $crDrContact, $crNotes)
     {
-        $insertCR = DB::table('carerecipients')->insert(
-            ['full_name' => 'Tyler Isawesome', 'birthday' => '2016-04-13', 'address' => 'YoloSwag Drive', 'phone' => 1111111111, 'emergency_contact_phone' => 2222222222, 'notes' => 'this is a note', 'primary_doctor_phone' => '9292929292']
+        $crID = DB::table('carerecipients')->insertGetId(
+            ['full_name' => $crName, 'birthday' => $crBirthday, 'address' => $crHomeAddress, 'phone' => $crPhoneNumber, 'emergency_contact_phone' => $crEmergencyContact, 'notes' => $crNotes, 'primary_doctor_phone' => $crDrContact]
         );
+
+        $insertLink = DB::table('cr_ct_link')->insert(
+            ['caretaker_id' => $ctID, 'carerecipient_id' => $crID, 'admin' => 1]
+        );
+
+        //need to add a row to the cr_ct_link table as well
+    }
+
+
+    public static function getID()
+    {
+        $id = Auth::user()->id;
+        return $id;
     }
 }
