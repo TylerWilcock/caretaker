@@ -99,7 +99,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="{{asset('assets/img/img.jpg')}}" alt="">{{Auth::user()->name}}
+                  <img src="{{asset('assets/img/img.jpg')}}" alt="">{{Auth::user()->first_name}}
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
@@ -143,7 +143,20 @@
                   <div>
                       <!-- start of user messages -->
                       <ul class="messages">
-                          <li>
+                      @if(!empty($messages))
+                        @for($i=0; $i<count($messages); $i++)
+                        <li>
+                          <div class='message-date'>
+                            <h3 class='date text-info'>{{$messages[$i]->date}}</h3>
+
+                          </div>
+                          <div class='message_wrapper'>
+                            <blockquote class='message'>{{$messages[$i]->message}}</blockquote>
+                          </div>
+                        </li>
+                        @endfor
+                      @endif
+                          <!-- <li>
                               <div class="message_date">
                                   <h3 class="date text-info">24</h3>
                                   <p class="month">May</p>
@@ -175,14 +188,14 @@
                                   <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
                                   <br>
                               </div>
-                          </li>
+                          </li> -->
                       </ul>
                       <form class="form-horizontal">
                           <div class="form-group">
-                              <textarea type="text" id="userMessage" class="form-control col-md-6" placeholder="Type a message here"></textarea>
+                              <textarea type="text" name='userMessage' id="userMessage" class="form-control col-md-6" placeholder="Type a message here"></textarea>
                           </div>
                           <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Submit Message</button>
+                            <button type="submit" class="btn btn-primary" id='submit-message'>Submit Message</button>
                           </div>
                       </form>
                       <!-- end of user messages -->
@@ -352,6 +365,7 @@
           url: 'http://google.com/'
         }]
       });
+
     });
   </script>
 </body>

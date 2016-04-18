@@ -43,6 +43,17 @@ Route::post('/ct/profile/{ctID}', function(Request $request)
     // return Redirect::to('/ct/profile/{ctID}');
 });
 
+Route::post('/cr/messageboard/{crID}', function(Request $request)
+	{
+
+		Carerecipient::addMessage($request->crID, Input::get('userMessage'));
+
+		// return view('messageBoard')->with('crInfo', Carerecipient::find($request->crID))
+		// 						   ->with('ctID', User::getID())
+		// 						   ->with('messages', Carerecipient::getMessages($request->crID));
+
+	});
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -112,7 +123,8 @@ Route::group(['middleware' => ['web']], function () {
 		//call a function (or multiple) to get the information to populate the message board page
 		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
 		return view('messageBoard')->with('crInfo', Carerecipient::find($request->crID))
-								   ->with('ctID', User::getID());
+								   ->with('ctID', User::getID())
+								   ->with('messages', Carerecipient::getMessages($request->crID));
 	});
 
 	Route::get('/cr/notes/{crID}', function(Request $request) {

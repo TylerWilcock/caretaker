@@ -30,7 +30,7 @@ class Carerecipient extends Authenticatable
         $carerecipients = DB::table('carerecipients as cr')->join('cr_ct_link as link', 'cr.id', '=', 'link.carerecipient_id')
                                                            ->join('users as u', 'link.caretaker_id', '=', 'u.id')
                                                            ->where('cr.id', '=', $crID)
-                                                           ->select('u.id', 'u.name', 'u.phone', 'u.emergency_phone', 'u.address')
+                                                           ->select('u.id', 'u.first_name', 'u.last_name', 'u.phone', 'u.emergency_phone', 'u.address')
                                                            ->get();
 
         if(!empty($carerecipients))
@@ -41,6 +41,43 @@ class Carerecipient extends Authenticatable
         {
             return 0;
         }
+    }
+
+    public static function getMessages($crID)
+    {
+
+        $messages = DB::table('messages')->select()
+                                         ->where('carerecipient_id', $crID)
+                                         ->get();
+
+        if(!empty($messages))
+        {
+            return $messages;
+        }                    
+        else 
+        {
+            return 0;
+        }          
+    }
+
+    public static function addMessage($crID, $message)
+    {
+        $getCT = DB::table('cr_ct_link')->select('caretaker_id')
+                                        ->where('carerecipient_id', $crID)
+                                        ->get();
+
+        if(!empty($getCT))
+        {
+            $ctID = $getCT[0]->caretaker_id;
+
+            $today = date("Y-m-d");
+
+            $time = date("H:i:s");
+
+            $addMessage = DB::table('messages')->insert(['carerecipient_id' => $crID, 'caretaker_id' => $ctID, 'message' => $message, 'time' => $time, 'date' => $date]);
+        }
+
+
     }
 
 }

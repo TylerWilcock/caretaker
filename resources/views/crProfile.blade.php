@@ -71,7 +71,7 @@
             </div>
             <div class="profile_info">
               <span>Welcome,</span>
-              <h2>{{Auth::user()->name}}</h2>
+              <h2>{{Auth::user()->first_name}}</h2>
             </div>
           </div>
           <!-- /menu prile quick info -->
@@ -108,7 +108,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="{{asset('assets/img/img.jpg')}}" alt="">{{Auth::user()->name}}
+                  <img src="{{asset('assets/img/img.jpg')}}" alt="">{{Auth::user()->first_name}}
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
@@ -202,10 +202,10 @@
                                       @for ($i = 0; $i < count($careTakersInfo); $i++)
                                         <tr align="center">
                                             <td>
-                                                {{$careTakersInfo[$i]->name}}
+                                                {{$careTakersInfo[$i]->first_name.' '.$careTakersInfo[$i]->last_name}}
                                             </td>
                                             <td>
-                                                <button type="button" data-id = "{{$careTakersInfo[$i]->id}}" data-name = "{{$careTakersInfo[$i]->name}}" data-phone = "{{$careTakersInfo[$i]->phone}}" data-ephone = "{{$careTakersInfo[$i]->emergency_phone}}" data-address = "{{$careTakersInfo[$i]->address}}" class="btn btn-primary caretaker">View Info</button>
+                                                <button type="button" data-id = "{{$careTakersInfo[$i]->id}}" data-name = "{{$careTakersInfo[$i]->first_name.' '.$careTakersInfo[$i]->last_name}}" data-phone = "{{$careTakersInfo[$i]->phone}}" data-ephone = "{{$careTakersInfo[$i]->emergency_phone}}" data-address = "{{$careTakersInfo[$i]->address}}" class="btn btn-primary caretaker">View Info</button>
                                             </td>
                                         </tr>
                                       @endfor
