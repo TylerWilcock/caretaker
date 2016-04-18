@@ -32,7 +32,8 @@
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
           <![endif]-->
 
-  </head>
+<!-- action-"{{ url('/register') }}"
+ -->  </head>
 
   <body style="background:#F7F7F7;">
 
@@ -41,34 +42,34 @@
       <div id="wrapper">
         <div id="login">
           <section class="login_content">
-            <form role="form" method="POST" action-"{{ url('/register') }}">
+            <form role="form" method="POST" >
               {!! csrf_field() !!}
               <h1>Create Account</h1>
               
-              <div class="form-group{{ $errors->has('first-name') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="first-name" placeholder="First Name" value="{{ old('first-name') }}">
+              <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="first_name" placeholder="First Name" value="{{ old('first_name') }}" id="first_name">
 
-                @if ($errors->has('first-name'))
+                @if ($errors->has('first_name'))
                   <span class="help-block">
-                      <strong>{{ $errors->first('first-name') }}</strong>
+                      <strong>{{ $errors->first('first_name') }}</strong>
                   </span>
                 @endif
 
               </div>
               
-              <div class="form-group{{ $errors->has('last-name') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="last-name" placeholder="Last Name" value="{{ old('last-name') }}">
+              <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="last_name" placeholder="Last Name" value="{{ old('last_name') }}">
 
-                @if ($errors->has('last-name'))
+                @if ($errors->has('last_name'))
                   <span class="help-block">
-                      <strong>{{ $errors->first('last-name') }}</strong>
+                      <strong>{{ $errors->first('last_name') }}</strong>
                   </span>
                 @endif
 
               </div>
 
               <div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="birthday" placeholder="Birthday" value="{{ old('birthday') }}">
+                <input type="text" class="form-control" name="birthday" placeholder="Birthday YYYY-MM-DD" value="{{ old('birthday') }}">
 
                 @if ($errors->has('birthday'))
                   <span class="help-block">
@@ -100,12 +101,12 @@
 
               </div>
 
-              <div class="form-group{{ $errors->has('emergency-phone') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="emergency-phone" placeholder="Emergency Number" value="{{ old('emergency-phone') }}">
+              <div class="form-group{{ $errors->has('emergency_phone') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="emergency_phone" placeholder="Emergency Number" value="{{ old('emergency_phone') }}">
 
-                @if ($errors->has('emergency-phone'))
+                @if ($errors->has('emergency_phone'))
                   <span class="help-block">
-                      <strong>{{ $errors->first('emergency-phone') }}</strong>
+                      <strong>{{ $errors->first('emergency_phone') }}</strong>
                   </span>
                 @endif
 
@@ -134,7 +135,7 @@
               </div>
               
               <div>
-                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" >
+                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" id="submit">
 
                 @if ($errors->has('password_confirmation'))
                   <span class="help-block">
@@ -145,7 +146,7 @@
               </div>
               
               <div>
-                <button type="submit" class="btn btn-default submit">
+                <button class="btn btn-default submit">
                   Register
                 </button>
               </div>
@@ -181,3 +182,16 @@
 
   <!-- Bootstrap Core JavaScript -->
   <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+
+    <script type='text/javascript'>
+
+  $(document).ready(function(){
+
+      $("#submit").on('click', function()
+      {
+        console.log($("#first_name").val());
+      });
+
+  });
+
+  </script>
