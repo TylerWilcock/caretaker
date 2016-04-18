@@ -49,12 +49,12 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'first-name' => 'required|max:255',
-            'last-name' => 'required|max:255',
-            'birthday' => 'required|date_format:dd/mm/yyyy',
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'birthday' => 'required',
             'address' => 'required|max:255',
             'phone' => 'required|numeric|digits_between:9,10',
-            'emergency-phone' =>'numeric|digits_between:9,10',
+            'emergency_phone' =>'numeric|digits_between:9,10',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
@@ -68,22 +68,21 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        if($data['emergency-phone'])
-        {
-            $data['emergency-phone'] = $data['phone'];
-        }
-
-        $data['birthday'] = date(Y/m/d, $data['birthday']);
+        // if(!$data['emergency_phone'])
+        // {
+        //     $data['emergency_phone'] = $data['phone'];
+        // }
 
         return User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'birthday' => $data['birthday'],
-            'address' => $data['address'],
-            'phone' => $data['phone'],
-            'emergency-phone' => $data['emergency-phone'],
+            'name' => "test", // Remove this line to get rid of error 
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'address' => $data['address'],          
+            'phone' => $data['phone'],
+            'emergency_phone' => $data['emergency_phone'],
+            'birthday' => $data['birthday'],      
         ]);
     }
 
