@@ -205,7 +205,7 @@
                                                 {{$careTakersInfo[$i]->first_name.' '.$careTakersInfo[$i]->last_name}}
                                             </td>
                                             <td>
-                                                <button type="button" data-id = "{{$careTakersInfo[$i]->id}}" data-name = "{{$careTakersInfo[$i]->first_name.' '.$careTakersInfo[$i]->last_name}}" data-phone = "{{$careTakersInfo[$i]->phone}}" data-ephone = "{{$careTakersInfo[$i]->emergency_phone}}" data-address = "{{$careTakersInfo[$i]->address}}" class="btn btn-primary caretaker">View Info</button>
+                                                <button type="button" data-id = "{{$careTakersInfo[$i]->id}}" data-name = "{{$careTakersInfo[$i]->first_name.' '.$careTakersInfo[$i]->last_name}}" data-phone = "{{$careTakersInfo[$i]->phone}}" data-ephone = "{{$careTakersInfo[$i]->emergency_phone}}" data-address = "{{$careTakersInfo[$i]->address}}" data-birthday = "{{$careTakersInfo[$i]->birthday}}" class="btn btn-primary caretaker">View Info</button>
                                             </td>
                                         </tr>
                                       @endfor
@@ -461,11 +461,13 @@
         var ctPhone = $(this).data("phone");
         var ctEPhone = $(this).data("ephone");
         var ctAddress = $(this).data("address");
+        var ctBirthdate = $(this).data("birthday");
 
         $("#ctName").val(ctName);
         $("#ctPhone").val(ctPhone);
         $("#ctEmergencyPhone").val(ctEPhone);
         $("#ctHomeAddress").val(ctAddress);
+        $("#ctBirthdate").val(ctBirthdate);
 
         $("#crInfoWrapper").hide();
         $("#ctInfoWrapper").show();

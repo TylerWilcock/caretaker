@@ -71,7 +71,7 @@
             </div>
             <div class="profile_info">
               <span>Welcome,</span>
-              <h2></h2>
+              <h2>{{$caretakerInfo->first_name}} {{$caretakerInfo->last_name}}</h2>
             </div>
           </div>
           <!-- /menu prile quick info -->
@@ -108,7 +108,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="{{asset('assets/img/img.jpg')}}" alt="">{{$caretakerInfo->fist_name}}
+                  <img src="{{asset('assets/img/img.jpg')}}" alt="">{{$caretakerInfo->first_name}} {{$caretakerInfo->last_name}}
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
@@ -152,7 +152,7 @@
                       <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Name: </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="name" class="form-control col-md-7 col-xs-12" value = "{{$caretakerInfo->name}}" readonly>
+                              <input type="text" id="name" class="form-control col-md-7 col-xs-12" value = "{{$caretakerInfo->first_name}} {{$caretakerInfo->last_name}}" readonly>
                           </div>
                       </div>
                       <div class="form-group">
@@ -176,7 +176,7 @@
                       <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Birthdate: </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="birthdate" class="form-control col-md-7 col-xs-12" value = "Add birthdate field" readonly>
+                              <input type="text" id="birthdate" class="form-control col-md-7 col-xs-12" value = "{{$caretakerInfo->birthday}}" readonly>
                           </div>
                       </div>
                     </div>
