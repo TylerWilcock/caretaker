@@ -61,7 +61,7 @@
             </div>
             <div class="profile_info">
               <span>Welcome,</span>
-              <h2>{{Auth::user()->name}}</h2>
+              <h2>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</h2>
             </div>
           </div>
           <!-- /menu prile quick info -->
@@ -98,7 +98,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="{{asset('assets/img/img.jpg')}}" alt="">{{Auth::user()->first_name}}
+                  <img src="{{asset('assets/img/img.jpg')}}" alt="">{{Auth::user()->first_name}} {{Auth::user()->last_name}}
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
