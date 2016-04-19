@@ -62,6 +62,8 @@ class Carerecipient extends Authenticatable
 
     public static function addMessage($crID, $ctID, $message)
     {
+
+        date_default_timezone_set('America/Chicago');
     
         $today = date("Y-m-d");
 

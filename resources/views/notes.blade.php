@@ -141,6 +141,16 @@
                 </div>
                 <div class="x_content">
 
+                  <form class="form-horizontal" method='post'>
+                    <div class="form-group">
+                        <textarea type="text" name='userMessage' class="form-control col-md-6" placeholder="Type a message here"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary">Submit Note</button>
+                    </div>
+                    
+                  </form>
+
                 </div>
               </div>
             </div>
