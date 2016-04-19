@@ -109,7 +109,7 @@
                         Careteammate was developed to meet the needs of people like my grandparents and friends of my parents who need more help as they age and need more care. I saw my mom spend hours trying to organize help for a friend who fell and broke her wrist. She had great network of friends who were willing to help with things like meals and car rides, but someone needed to communicate with everyone and organize her care. And that was tricky and took a lot of effort.
                         <br/>
                         <br/>
-                        Then while I was working on the business plan for Careteammate, my roommate broke her leg and couldn’t do much for herself. Friends would try to assist her, but there was miscommunications on who was helping her and when. I then realized that Careteammate could work for anyone—from a student who needs to get through a short-term recovery to an elderly relative who wants to stay independent and out of a nursing home for as long as possible. 
+                        Then while I was working on the business plan for Careteammate, my roommate broke her leg and couldn’t do much for herself. Friends would try to assist her, but there was miscommunications on who was helping her and when. I then realized that Careteammate could work for anyone—from a student who needs to get through a short-term recovery to an elderly relative who wants to stay independent and out of a nursing home for as long as possible.
                         <br/>
                         <br/>
                         Most people have family and friends who are more than happy to help when they are recovering from an illness or injury, now there’s an easy, affordable and convenient way to manage that help.
@@ -127,13 +127,13 @@
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Benefits</h2>
                     <p class="lead">
-                        - Manage the assistance that friends and family need in a simple manner
+                        <i class="fa fa-sitemap benefits-icon"></i> Manage the assistance that friends and family need in a simple manner
                         <br/>
                         <br/>
-                        - Affordable ($5 per month)
+                        <i class="fa fa-money benefits-icon"></i> Affordable ($5 per month)
                         <br/>
                         <br/>
-                        - Several different applications that help organize your care recipient's assistance
+                        <i class="fa fa-cogs benefits-icon"></i> Several different applications that help organize your care recipient's assistance
                         <br/>
                         <br/>
                         <hr class="section-heading-spacer">
@@ -147,6 +147,8 @@
                         A calendar that displays the events of a particular care recipient.  Here, you may view, edit, or delete events to manage and document care.  The calendar is viewable by all care teammates subscribed to a care recipient.
                         <h4>Message Board</h4>
                         Post messages pertaining to a care recipient.  The messages are viewable by all care teammates subscribed to a care recipient.
+                        <h4>Notes</h4>
+                        Use the notes application to conveniently store information related to your care recipient.
                     </p>
                     <!-- <img class="img-responsive" src="{{asset('assets/img/ipad.png')}}" alt=""> -->
                 </div>

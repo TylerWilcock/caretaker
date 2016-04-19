@@ -22,12 +22,16 @@ h6 {
 }
 
 .topnav {
-    font-size: 14px; 
+    font-size: 14px;
 }
 
 .lead {
     font-size: 18px;
     font-weight: 400;
+}
+
+.benefits-icon {
+    margin-right: 10px !important;
 }
 
 .intro-header {
