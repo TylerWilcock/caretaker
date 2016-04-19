@@ -48,12 +48,12 @@ Route::post('/cr/messageboard/{crID}', function(Request $request)
 
 		Carerecipient::addMessage(Input::get('crID'), Input::get('ctID'), Input::get('userMessage'));
 
-		return view('messageBoard')->with('crInfo', Carerecipient::find($request->crID))
-								   ->with('ctID', User::find($request->ctID))
-								   ->with('messages', Carerecipient::getMessages($request->crID));
+		// return view('messageBoard')->with('crInfo', Carerecipient::find($request->crID))
+		// 						   ->with('ctID', User::find($request->ctID))
+		// 						   ->with('messages', Carerecipient::getMessages($request->crID));
 
-		// $crID = Carerecipient::find($request->crID);
-		// return redirect()->route('messageboard', ['crID' => $crID]);
+		$crID = Carerecipient::find($request->crID);
+		return redirect()->route('messageboard', ['crID' => $crID]);
 
 	});
 
@@ -122,13 +122,13 @@ Route::group(['middleware' => ['web']], function () {
 							   ->with('ctID', User::getID());
 	});
 
-	Route::get('/cr/messageboard/{crID}', function(Request $request) {
+	Route::get('/cr/messageboard/{crID}', ['as' => 'messageboard', function(Request $request) {
 		//call a function (or multiple) to get the information to populate the message board page
 		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
 		return view('messageBoard')->with('crInfo', Carerecipient::find($request->crID))
 								   ->with('ctID', User::getID())
 								   ->with('messages', Carerecipient::getMessages($request->crID));
-	});
+	}]);
 
 	Route::get('/cr/notes/{crID}', function(Request $request) {
 		//call a function (or multiple) to get the information to populate the message board page
