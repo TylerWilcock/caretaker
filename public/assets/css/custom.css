@@ -30,6 +30,11 @@ body.nav-sm .navbar.nav_title a i {
     border-radius: 50%;
 }
 
+.msg-board-icon {
+    height: 64px;
+    width: 64px;
+}
+
 body.nav-sm .main_container .top_nav {
     padding: 0 !important;
     display: block;

@@ -11,7 +11,7 @@
   <title>Care Teammate</title>
 
   <!-- Bootstrap core CSS -->
-  
+
   <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
 
   <link href="{{asset('assets/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -37,7 +37,6 @@
 
 
 </head>
-
 
 <body class="nav-md">
 
@@ -123,34 +122,36 @@
           <div class="page-title">
             <div class="title_left">
               <h3>
-                                    Message Board
-                                    <small>
-                                        Type a message and submit to post it.
-                                    </small>
-                                </h3>
+                  Message Board
+                  <small>
+                      Type a message and submit to post it.
+                  </small>
+              </h3>
             </div>
           </div>
           <div class="clearfix"></div>
 
           <div class="row">
             <div class="col-md-12">
-              <div class="x_panel">
-                <div class="x_title">
-                  <h2>Message Board</h2>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                  <div>
                       <!-- start of user messages -->
                       <div class="messages">
                       @if(!empty($messages))
                         @for($i=0; $i<count($messages); $i++)
-                        <div class='row'>
-                          <div class='message-date'>
-                            <h3 class='date text-info'>{{$messages[$i]->date}}</h3>
-                          </div>
-                          <div class='message_wrapper'>
-                            <blockquote class='message'>{{$messages[$i]->message}}</blockquote>
+                        <div class="x_panel">
+                            <div class="x_title">
+                              <div class = "row">
+                                <div class = "col-md-12">
+                                <h1> <img class = "img-circle msg-board-icon" src="http://159.203.104.152/assets/img/img.jpg" alt=""> John Smith <small> {{date('h:i:s a', strtotime($messages[$i]->time)) . ' &bull; ' . date('F d, Y', strtotime($messages[$i]->date))}} </small></h1>
+                                </div>
+                              </div>
+                            </div>
+
+                          <div class="x_content">
+                            <div class = "row">
+                              <div class = "col-md-12">
+                                {{$messages[$i]->message}}
+                              </div>
+                            </div>
                           </div>
                         </div>
                         @endfor
@@ -209,7 +210,7 @@
   <!-- chart js -->
 
   <!-- bootstrap progress js -->
-  
+
   <script src="{{asset('assets/js/progressbar/bootstrap-progressbar.min.js')}}"></script>
 
   <script src="{{asset('assets/js/nicescroll/jquery.nicescroll.min.js')}}"></script>
