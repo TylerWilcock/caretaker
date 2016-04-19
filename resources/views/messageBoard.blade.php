@@ -142,61 +142,29 @@
                 <div class="x_content">
                   <div>
                       <!-- start of user messages -->
-                      <ul class="messages">
+                      <div class="messages">
                       @if(!empty($messages))
                         @for($i=0; $i<count($messages); $i++)
-                        <li>
+                        <div class='row'>
                           <div class='message-date'>
                             <h3 class='date text-info'>{{$messages[$i]->date}}</h3>
-
                           </div>
                           <div class='message_wrapper'>
                             <blockquote class='message'>{{$messages[$i]->message}}</blockquote>
                           </div>
-                        </li>
+                        </div>
                         @endfor
                       @endif
-                          <!-- <li>
-                              <div class="message_date">
-                                  <h3 class="date text-info">24</h3>
-                                  <p class="month">May</p>
-                              </div>
-                              <div class="message_wrapper">
-                                  <h4 class="heading">Desmond Davison</h4>
-                                  <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
-                                  <br>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="message_date">
-                                  <h3 class="date text-error">21</h3>
-                                  <p class="month">May</p>
-                              </div>
-                              <div class="message_wrapper">
-                                  <h4 class="heading">Brian Michaels</h4>
-                                  <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
-                                  <br>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="message_date">
-                                  <h3 class="date text-info">24</h3>
-                                  <p class="month">May</p>
-                              </div>
-                              <div class="message_wrapper">
-                                  <h4 class="heading">Desmond Davison</h4>
-                                  <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
-                                  <br>
-                              </div>
-                          </li> -->
-                      </ul>
-                      <form class="form-horizontal">
+                      </div>
+                      <form class="form-horizontal" method='post'>
                           <div class="form-group">
-                              <textarea type="text" name='userMessage' id="userMessage" class="form-control col-md-6" placeholder="Type a message here"></textarea>
+                              <textarea type="text" name='userMessage' class="form-control col-md-6" placeholder="Type a message here"></textarea>
                           </div>
                           <div class="form-group">
-                            <button type="submit" class="btn btn-primary" id='submit-message'>Submit Message</button>
+                            <button type="submit" class="btn btn-primary">Submit Message</button>
                           </div>
+                          <input type='hidden' name='crID' value='{{$crInfo->id}}'>
+                          <input type='hidden' name='ctID' value='{{$ctID}}'>
                       </form>
                       <!-- end of user messages -->
                   </div>

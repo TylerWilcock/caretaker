@@ -46,11 +46,14 @@ Route::post('/ct/profile/{ctID}', function(Request $request)
 Route::post('/cr/messageboard/{crID}', function(Request $request)
 	{
 
-		Carerecipient::addMessage($request->crID, Input::get('userMessage'));
+		Carerecipient::addMessage(Input::get('crID'), Input::get('ctID'), Input::get('userMessage'));
 
-		// return view('messageBoard')->with('crInfo', Carerecipient::find($request->crID))
-		// 						   ->with('ctID', User::getID())
-		// 						   ->with('messages', Carerecipient::getMessages($request->crID));
+		return view('messageBoard')->with('crInfo', Carerecipient::find($request->crID))
+								   ->with('ctID', User::find($request->ctID))
+								   ->with('messages', Carerecipient::getMessages($request->crID));
+
+		// $crID = Carerecipient::find($request->crID);
+		// return redirect()->route('messageboard', ['crID' => $crID]);
 
 	});
 

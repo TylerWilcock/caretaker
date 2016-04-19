@@ -60,22 +60,15 @@ class Carerecipient extends Authenticatable
         }          
     }
 
-    public static function addMessage($crID, $message)
+    public static function addMessage($crID, $ctID, $message)
     {
-        $getCT = DB::table('cr_ct_link')->select('caretaker_id')
-                                        ->where('carerecipient_id', $crID)
-                                        ->get();
+    
+        $today = date("Y-m-d");
 
-        if(!empty($getCT))
-        {
-            $ctID = $getCT[0]->caretaker_id;
+        $time = date("H:i:s");
 
-            $today = date("Y-m-d");
-
-            $time = date("H:i:s");
-
-            $addMessage = DB::table('messages')->insert(['carerecipient_id' => $crID, 'caretaker_id' => $ctID, 'message' => $message, 'time' => $time, 'date' => $date]);
-        }
+        $addMessage = DB::table('messages')->insert(
+            ['carerecipient_id' => $crID, 'caretaker_id' => $ctID, 'message' => $message, 'time' => $time, 'date' => $today]);
 
 
     }
