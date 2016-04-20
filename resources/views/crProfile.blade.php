@@ -139,6 +139,12 @@
           <div class="clearfix"></div>
 
           <div id = "crInfoWrapper">
+            @if(Session::has('success')) 
+              <div class="alert alert-success alert-dismissible fade in"> 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                {{Session::get('success')}} 
+              </div> 
+            @endif
             <div class="row">
               <div class="col-md-6">
                 <div class="x_panel">
@@ -276,20 +282,22 @@
                   <div class="clearfix"></div>
                 </div>
                 <div class = "x_content">
-                    <div class='form-box form-horizontal'>
+                    <form id="ctForm" method="POST" action = "{{ url('/cr/profile/'.$crInfo->id) }}" class="form-horizontal form-label-left">
                       <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Email: </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="email" id="email" class="form-control col-md-7 col-xs-12" value = "">
+                              <input type="email" id="email" name = "email" class="form-control col-md-7 col-xs-12" value = "">
                           </div>
                       </div>
+                      <input type="hidden" name="crID" value="{{$crInfo->id}}">
                       <div class="ln_solid"></div>
                       <div class="form-group">
                           <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                               <button type="button" class="btn btn-danger" id = "back2">Back</button>
+                              <button type="submit" class="btn btn-primary" id = "submitCt">Add Care Teammate</button>
                           </div>
                       </div>
-                    </div>
+                    </form>
                 </div>
               </div>
             </div>

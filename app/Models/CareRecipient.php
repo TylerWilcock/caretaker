@@ -43,6 +43,25 @@ class Carerecipient extends Authenticatable
         }
     }
 
+    public static function addCareteammate($crID, $email)
+    {
+        $findCaretaker = DB::table('users')->where('email', '=', $email)
+                                           ->select('id')
+                                           ->get();
+
+        if(!empty($findCaretaker)) //The email was found in the users table. Now, the link between the care recipient and caretaker
+        {
+            $insertLink = DB::table('cr_ct_link')->insert(
+                ['caretaker_id' => $findCaretaker[0]->id, 'carerecipient_id' => $crID, 'admin' => 0]
+            );
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
     public static function getMessages($crID)
     {
 

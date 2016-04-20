@@ -94,7 +94,7 @@
                   Log in
                 </button>
 
-                <a class="reset_pass" href="{{ url('/password/reset') }}">Forgot your password?</a>
+                <!-- <a class="reset_pass" href="{{ url('/password/reset') }}">Forgot your password?</a> -->
               </div>
               
               <div class="clearfix"></div>

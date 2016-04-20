@@ -43,19 +43,30 @@ Route::post('/ct/profile/{ctID}', function(Request $request)
     // return Redirect::to('/ct/profile/{ctID}');
 });
 
+Route::post('/cr/profile/{crID}', function(Request $request)
+{
+	$addTeammate = Carerecipient::addCareteammate(Input::get('crID'), Input::get('email'));
+
+	//create a success message
+	//$request->session()->put('success', 'Successfully added the Care Teammate!');
+
+	$crID = Carerecipient::find($request->crID);
+	return redirect()->route('crprofile', ['crID' => $crID]);
+});
+
 Route::post('/cr/messageboard/{crID}', function(Request $request)
-	{
+{
 
-		Carerecipient::addMessage(Input::get('crID'), Input::get('ctID'), Input::get('userMessage'));
+	Carerecipient::addMessage(Input::get('crID'), Input::get('ctID'), Input::get('userMessage'));
 
-		// return view('messageBoard')->with('crInfo', Carerecipient::find($request->crID))
-		// 						   ->with('ctID', User::find($request->ctID))
-		// 						   ->with('messages', Carerecipient::getMessages($request->crID));
+	// return view('messageBoard')->with('crInfo', Carerecipient::find($request->crID))
+	// 						   ->with('ctID', User::find($request->ctID))
+	// 						   ->with('messages', Carerecipient::getMessages($request->crID));
 
-		$crID = Carerecipient::find($request->crID);
-		return redirect()->route('messageboard', ['crID' => $crID]);
+	$crID = Carerecipient::find($request->crID);
+	return redirect()->route('messageboard', ['crID' => $crID]);
 
-	});
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -89,31 +100,31 @@ Route::group(['middleware' => ['web']], function () {
 
 	}]);
 
-	Route::get('/calendar', ['middleware' => 'auth', function() {
-		return view('calendar');
-	}]);
+	// Route::get('/calendar', ['middleware' => 'auth', function() {
+	// 	return view('calendar');
+	// }]);
 
-	Route::get('/calendartemplate', ['middleware' => 'auth', function() {
-		return view('calendarTemplate');
-	}]);
+	// Route::get('/calendartemplate', ['middleware' => 'auth', function() {
+	// 	return view('calendarTemplate');
+	// }]);
 
-	Route::get('/messageboard', ['middleware' => 'auth', function() {
-		return view('messageBoard');
-	}]);
+	// Route::get('/messageboard', ['middleware' => 'auth', function() {
+	// 	return view('messageBoard');
+	// }]);
 
-	Route::get('/notes', ['middleware' => 'auth', function() {
-		return view('notes');
-	}]);
+	// Route::get('/notes', ['middleware' => 'auth', function() {
+	// 	return view('notes');
+	// }]);
 
-	Route::get('/crprofile', ['middleware' => 'auth', function() {
-		return view('crProfile');
-	}]);
+	// Route::get('/crprofile', ['middleware' => 'auth', function() {
+	// 	return view('crProfile');
+	// }]);
 
-	Route::get('/cr/profile/{crID}', function(Request $request) {
+	Route::get('/cr/profile/{crID}', ['as' => 'crprofile', function(Request $request) {
 		return view('crProfile')->with('crInfo', Carerecipient::find($request->crID))
 								->with('careTakersInfo', Carerecipient::getCareTakers($request->crID))
 								->with('ctID', User::getID());
-	});
+	}]);
 
 	Route::get('/cr/calendar/{crID}', function(Request $request) {
 		//call a function (or multiple) to get the information to populate the calendar page

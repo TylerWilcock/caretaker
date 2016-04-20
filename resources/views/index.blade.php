@@ -329,7 +329,7 @@
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
-                            <a href="#signup">Sign Up</a>
+                            <a href="/register">Sign Up</a>
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
