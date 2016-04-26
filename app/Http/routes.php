@@ -21,10 +21,10 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/ct/profile/{ctID}', ['as' => 'profile', function(Request $request) {
-	return view('ctProfile')->with('caretakerInfo', User::find($request->ctID))
-							->with('careRecipientInfo', User::getCareRecipients($request->ctID));
-}]);
+// Route::get('/ct/profile/{ctID}', ['as' => 'profile', function(Request $request) {
+// 	return view('ctProfile')->with('caretakerInfo', User::find($request->ctID))
+// 							->with('careRecipientInfo', User::getCareRecipients($request->ctID));
+// }]);
 
 Route::post('/ct/profile/{ctID}', function(Request $request)
 {
@@ -107,70 +107,79 @@ Route::group(['middleware' => ['web']], function () {
   	*       if not, the user is directed to the login page
   	*/
 
-  	Route::get('/home', 'HomeController@index', ['middleware' => 'auth', function() {
+  	Route::group(['middleware' => ['auth']], function () {
 
-	}]);
+	  	Route::get('/home', 'HomeController@index', ['middleware' => 'auth', function() {
 
-	// Route::get('/calendar', ['middleware' => 'auth', function() {
-	// 	return view('calendar');
-	// }]);
+		}]);
 
-	// Route::get('/calendartemplate', ['middleware' => 'auth', function() {
-	// 	return view('calendarTemplate');
-	// }]);
+		// Route::get('/calendar', ['middleware' => 'auth', function() {
+		// 	return view('calendar');
+		// }]);
 
-	// Route::get('/messageboard', ['middleware' => 'auth', function() {
-	// 	return view('messageBoard');
-	// }]);
+		// Route::get('/calendartemplate', ['middleware' => 'auth', function() {
+		// 	return view('calendarTemplate');
+		// }]);
 
-	// Route::get('/notes', ['middleware' => 'auth', function() {
-	// 	return view('notes');
-	// }]);
+		// Route::get('/messageboard', ['middleware' => 'auth', function() {
+		// 	return view('messageBoard');
+		// }]);
 
-	// Route::get('/crprofile', ['middleware' => 'auth', function() {
-	// 	return view('crProfile');
-	// }]);
+		// Route::get('/notes', ['middleware' => 'auth', function() {
+		// 	return view('notes');
+		// }]);
 
-	Route::get('/cr/profile/{crID}', ['as' => 'crprofile', function(Request $request) {
-		return view('crProfile')->with('crInfo', Carerecipient::find($request->crID))
-								->with('careTakersInfo', Carerecipient::getCareTakers($request->crID))
-								->with('ctID', User::getID());
-	}]);
+		// Route::get('/crprofile', ['middleware' => 'auth', function() {
+		// 	return view('crProfile');
+		// }]);
 
-	Route::get('/cr/calendar/{crID}', function(Request $request) {
-		//call a function (or multiple) to get the information to populate the calendar page
-		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
-		return view('calendar')->with('crInfo', Carerecipient::find($request->crID))
-							   ->with('ctID', User::getID());
+		Route::get('/ct/profile/{ctID}', ['as' => 'profile', function(Request $request) {
+			return view('ctProfile')->with('caretakerInfo', User::find($request->ctID))
+									->with('careRecipientInfo', User::getCareRecipients($request->ctID));
+		}]);
+
+		Route::get('/cr/profile/{crID}', ['as' => 'crprofile', function(Request $request) {
+			return view('crProfile')->with('crInfo', Carerecipient::find($request->crID))
+									->with('careTakersInfo', Carerecipient::getCareTakers($request->crID))
+									->with('ctID', User::getID());
+		}]);
+
+		Route::get('/cr/calendar/{crID}', function(Request $request) {
+			//call a function (or multiple) to get the information to populate the calendar page
+			//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
+			return view('calendar')->with('crInfo', Carerecipient::find($request->crID))
+								   ->with('ctID', User::getID());
+		});
+
+		Route::get('/cr/messageboard/{crID}', ['as' => 'messageboard', function(Request $request) {
+			//call a function (or multiple) to get the information to populate the message board page
+			//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
+			return view('messageBoard')->with('crInfo', Carerecipient::find($request->crID))
+									   ->with('ctID', User::getID())
+									   ->with('messages', Carerecipient::getMessages($request->crID));
+		}]);
+
+		Route::get('/cr/notes/{crID}', ['as' => 'notes', function(Request $request) {
+			//call a function (or multiple) to get the information to populate the message board page
+			//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
+
+			$id = User::find($request->ctID);
+
+			return view('notes')->with('crInfo', Carerecipient::find($request->crID))
+								->with('ctID', User::getID())
+								->with('notes', Carerecipient::getNotes($request->crID));
+								
+		}]);
+
+		Route::get('/cr/medication/{crID}', ['as' => 'medication', function(Request $request) {
+			//call a function (or multiple) to get the information to populate the message board page
+			//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
+			return view('medication')->with('crInfo', Carerecipient::find($request->crID))
+									 ->with('medication', Carerecipient::getMedication($request->crID))
+									 ->with('ctID', User::getID());
+		}]);
+
 	});
-
-	Route::get('/cr/messageboard/{crID}', ['as' => 'messageboard', function(Request $request) {
-		//call a function (or multiple) to get the information to populate the message board page
-		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
-		return view('messageBoard')->with('crInfo', Carerecipient::find($request->crID))
-								   ->with('ctID', User::getID())
-								   ->with('messages', Carerecipient::getMessages($request->crID));
-	}]);
-
-	Route::get('/cr/notes/{crID}', ['as' => 'notes', function(Request $request) {
-		//call a function (or multiple) to get the information to populate the message board page
-		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
-
-		$id = User::find($request->ctID);
-
-		return view('notes')->with('crInfo', Carerecipient::find($request->crID))
-							->with('ctID', User::getID())
-							->with('notes', Carerecipient::getNotes($request->crID));
-							
-	}]);
-
-	Route::get('/cr/medication/{crID}', ['as' => 'medication', function(Request $request) {
-		//call a function (or multiple) to get the information to populate the message board page
-		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
-		return view('medication')->with('crInfo', Carerecipient::find($request->crID))
-								 ->with('medication', Carerecipient::getMedication($request->crID))
-								 ->with('ctID', User::getID());
-	}]);
 
 	// Route::controller('calendar', 'CalendarController');
 });
