@@ -126,4 +126,20 @@ class Carerecipient extends Authenticatable
 
     }
 
+    public static function getNotes($crID)
+    {
+        $notes = DB::table('notes')->select()
+                                   ->where('carerecipient_id', $crID)
+                                   ->get();
+
+        if(!empty($notes))
+        {
+            return $notes;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
 }

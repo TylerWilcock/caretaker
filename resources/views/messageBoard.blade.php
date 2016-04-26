@@ -142,7 +142,13 @@
                             <div class="x_title">
                               <div class = "row">
                                 <div class = "col-md-12">
-                                <h1> <img class = "img-circle msg-board-icon" src="http://159.203.104.152/assets/img/img.jpg" alt=""> John Smith <small> {{date('h:i:s a', strtotime($messages[$i]->time)) . ' &bull; ' . date('F d, Y', strtotime($messages[$i]->date))}} </small></h1>
+                                  <h1> 
+                                  <img class = "img-circle msg-board-icon" src="http://159.203.104.152/assets/img/img.jpg" alt=""> 
+                                    John Smith 
+                                      <small> 
+                                        {{date('h:i:s a', strtotime($messages[$i]->time)) . ' &bull; ' . date('F d, Y', strtotime($messages[$i]->date))}} 
+                                      </small>
+                                  </h1>
                                 </div>
                               </div>
                             </div>

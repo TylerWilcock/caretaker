@@ -152,12 +152,17 @@ Route::group(['middleware' => ['web']], function () {
 								   ->with('messages', Carerecipient::getMessages($request->crID));
 	}]);
 
-	Route::get('/cr/notes/{crID}', function(Request $request) {
+	Route::get('/cr/notes/{crID}', ['as' => 'notes', function(Request $request) {
 		//call a function (or multiple) to get the information to populate the message board page
 		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
+
+		$id = User::find($request->ctID);
+
 		return view('notes')->with('crInfo', Carerecipient::find($request->crID))
-							->with('ctID', User::getID());
-	});
+							->with('ctID', User::getID())
+							->with('notes', Carerecipient::getNotes($request->crID));
+							
+	}]);
 
 	Route::get('/cr/medication/{crID}', ['as' => 'medication', function(Request $request) {
 		//call a function (or multiple) to get the information to populate the message board page

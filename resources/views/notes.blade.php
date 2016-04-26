@@ -135,14 +135,28 @@
 
           <div class="row">
             <div class="col-md-12">
-              <div class="x_panel">
-                <div class="x_title">
-                  <h2>Notes</h2>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-
+              <div class='notes'>
+              @if(!empty($notes))
+                @for($i=0; $i<count($notes); $i++)
+                <div class="x_panel">
+                  <div class="x_title">
+                    <div class='row'>
+                      <div class='col-md-12'>
+                        <h1></h1>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="x_content">
+                    <div class='row'>
+                      <div class='col-md-12'>
+                        {{$notes[$i]->note}}
+                      </div>
+                    </div>
+                  </div>
+                @endfor
+              @endif
                   <form class="form-horizontal" method='post'>
+
                     <div class="form-group">
                         <textarea type="text" name='userMessage' class="form-control col-md-6" placeholder="Type a message here"></textarea>
                     </div>
@@ -151,8 +165,6 @@
                     </div>
                     
                   </form>
-
-                </div>
               </div>
             </div>
           </div>

@@ -65,4 +65,20 @@ class User extends Authenticatable
         $id = Auth::user()->id;
         return $id;
     }
+
+    public static function getCtInfo($ctID)
+    {
+        $info = DB::table('users')->select()
+                                  ->where('id', $ctID)
+                                  ->get();
+
+        if(!empty($info))
+        {
+            return $info;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }
