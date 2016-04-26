@@ -140,15 +140,17 @@
                         <div class="clearfix"></div>
                         <h2 class="section-heading">Applications</h2>
                         <h4>Caretaker Profile</h4>
-                        View the caretaker's profile information.  Here, you will also find the list of care recipients you are subscribed when visiting your own profile.
+                        View the caretaker's profile information.  Here, you will also find the list of care recipients you are subscribed to.
                         <h4>Care Recipient Profile</h4>
-                        View a list of caretakers that are also caring for your care recipient.  Access their information by simply clicking on any of the caretakers.
+                        View a list of caretakers that are also caring for your care recipient.  View their information by simply clicking on any of the caretakers.
                         <h4>Calendar</h4>
-                        A calendar that displays the events of a particular care recipient.  Here, you may view, edit, or delete events to manage and document care.  The calendar is viewable by all care teammates subscribed to a care recipient.
+                        A calendar that displays the events of a particular care recipient.  Here, you may view, edit, or delete events to manage and document care.  The calendar is viewable by all care teammates subscribed to that care recipient.
                         <h4>Message Board</h4>
-                        Post messages pertaining to a care recipient.  The messages are viewable by all care teammates subscribed to a care recipient.
+                        Post messages pertaining to a care recipient.  The messages are viewable by all care teammates subscribed to that care recipient.
                         <h4>Notes</h4>
-                        Use the notes application to conveniently store information related to your care recipient.
+                        Use the notes application to conveniently store information related to your care recipient.  The notes are viewable by all care teammates subscribed to that care recipient.
+                        <h4>Medication</h4>
+                        Keep track of all the care recipient's medication that has been prescribed to him/her.  The medications are viewable by all care teammates subscribed to that care recipient.
                     </p>
                     <!-- <img class="img-responsive" src="{{asset('assets/img/ipad.png')}}" alt=""> -->
                 </div>
