@@ -81,7 +81,7 @@ class Carerecipient extends Authenticatable
     public static function getMedication($crID)
     {
         $medication = DB::table('medication')->where('carerecipient_id', '=', $crID)
-                                             ->select('medication_name', 'dosage', 'prescribed_date', 'refill_date', 'carerecipient_id')
+                                             ->select('medID', 'medication_name', 'dosage', 'prescribed_date', 'refill_date', 'carerecipient_id')
                                              ->get();
 
         if(!empty($medication))

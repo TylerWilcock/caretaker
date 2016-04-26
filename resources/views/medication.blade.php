@@ -164,20 +164,20 @@
                           @for ($i = 0; $i < count($medication); $i++)
                             <tr align="center">
                                 <td>
-                                    {{$medication[$i]->medication_name}}
+                                    <span class = "medName">{{$medication[$i]->medication_name}}</span>
                                 </td>
                                 <td>
-                                    {{$medication[$i]->dosage}}
+                                    <span class = "dosage">{{$medication[$i]->dosage}}</span>
                                 </td>
                                 <td>
-                                    {{$medication[$i]->prescribed_date}}
+                                    <span class = "presDate">{{$medication[$i]->prescribed_date}}</span>
                                 </td>
                                 <td>
-                                    {{$medication[$i]->refill_date}}
+                                    <span class = "refDate">{{$medication[$i]->refill_date}}</span>
                                 </td>
                                 <td>
-                                    <button type="button" data-id = "{{$medication[$i]->carerecipient_id}}" class="btn btn-success editButton" >Edit</button>
-                                    <button type="button" data-id = "{{$medication[$i]->carerecipient_id}}" class="btn btn-danger deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                                    <button type="button" data-id = "{{$medication[$i]->medID}}" class="btn btn-success editButton" data-toggle="modal" data-target="#editModal">Edit</button>
+                                    <button type="button" data-id = "{{$medication[$i]->medID}}" class="btn btn-danger deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>
                                 </td>
                             </tr>
                           @endfor
@@ -268,14 +268,10 @@
             </div>
             <div class="modal-body">
 
-              <div id="testmodal2" style="padding: 5px 20px;">
-                <form id="antoform2" class="form-horizontal calender" role="form">
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Title</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" id="title2" name="title2">
-                    </div>
-                  </div>
+              <div id="modal1" style="padding: 5px 20px;">
+                <form id="deleteForm" class="form-horizontal calender" role="form">
+                  <input type="hidden" name="medID" value="">
+                  Are you sure you want to delete the Medication: <b><span id = "deleteMedication"></span></b>?
                 </form>
               </div>
             </div>
@@ -289,6 +285,63 @@
         </div>
       </div>
       <!-- /delete modal -->
+
+      <!-- edit modal -->
+      <div id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title" id="myModalLabel2">Edit Medication</h4>
+            </div>
+            <div class="modal-body">
+
+              <div id="modal2" style="padding: 5px 20px;">
+                <form id="editForm" class="form-horizontal calender" role="form">
+                  <input type="hidden" name="medID" value="">
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Medication <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="editMedicationName" name = "editMedicationName" required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Dosage <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="editDosage" name = "editDosage" required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Prescribed Date <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="editPrescribedDate" name = "editPrescribedDate" placeholder = "YYYY-MM-DD" class="form-control col-md-7 col-xs-12" type="text" required="required">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Refill Date <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="editRefillDate" name = "editRefillDate" placeholder = "YYYY-MM-DD" class="form-control col-md-7 col-xs-12" type="text" required="required">
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+               <div class='btn-group'>
+                  <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-success antosubmit" id='yesEdit'>Update</button>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /edit modal -->
+
       <!-- /page content -->
     </div>
 
@@ -338,6 +391,22 @@
 
       // });
 
+      $('.deleteButton').click(function(){
+        var medication = $(this).closest("tr").find(".medName").text();
+        $("#deleteMedication").empty();
+        $("#deleteMedication").append(medication);
+      });
+
+      $('.editButton').click(function(){
+        var medication = $(this).closest("tr").find(".medName").text();
+        var dosage = $(this).closest("tr").find(".dosage").text();
+        var prescribed = $(this).closest("tr").find(".presDate").text();
+        var refill = $(this).closest("tr").find(".refDate").text();
+        $("#editMedicationName").val(medication);
+        $("#editDosage").val(dosage);
+        $("#editPrescribedDate").val(prescribed);
+        $("#editRefillDate").val(refill);
+      });
 
       $('#addMedication').click(function(){
         $("#medicationWrapper").hide();
