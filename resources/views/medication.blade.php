@@ -176,8 +176,8 @@
                                     {{$medication[$i]->refill_date}}
                                 </td>
                                 <td>
-                                    <button type="button" data-id = "{{$medication[$i]->carerecipient_id}}" class="btn btn-success editButton">Edit</button>
-                                    <button type="button" data-id = "{{$medication[$i]->carerecipient_id}}" class="btn btn-danger deleteButton">Delete</button>
+                                    <button type="button" data-id = "{{$medication[$i]->carerecipient_id}}" class="btn btn-success editButton" >Edit</button>
+                                    <button type="button" data-id = "{{$medication[$i]->carerecipient_id}}" class="btn btn-danger deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>
                                 </td>
                             </tr>
                           @endfor
@@ -237,6 +237,7 @@
                               <button type="submit" class="btn btn-primary" id = "add">Add</button>
                           </div>
                       </div>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -256,6 +257,38 @@
 
       </div>
 
+      <!-- delete modal -->
+      <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title" id="myModalLabel2">Delete</h4>
+            </div>
+            <div class="modal-body">
+
+              <div id="testmodal2" style="padding: 5px 20px;">
+                <form id="antoform2" class="form-horizontal calender" role="form">
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Title</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="title2" name="title2">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+               <div class='btn-group'>
+                  <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-danger antosubmit" id='yesDelete'>Delete</button>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /delete modal -->
       <!-- /page content -->
     </div>
 
@@ -314,14 +347,6 @@
       $('#back').click(function(){
         $("#addMedicationWrapper").hide();
         $("#medicationWrapper").show();
-      });
-
-      $('.editButton').click(function(){
-        alert("add functionality");
-      });
-
-      $('.deleteButton').click(function(){
-        alert("add functionality");
       });
 
   });
