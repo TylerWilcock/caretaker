@@ -54,6 +54,17 @@ Route::post('/cr/profile/{crID}', function(Request $request)
 	return redirect()->route('crprofile', ['crID' => $crID]);
 });
 
+Route::post('/cr/medication/{crID}', function(Request $request)
+{
+	$addMedication = Carerecipient::addMedication(Input::get('crID'), Input::get('medicationName'), Input::get('dosage'), Input::get('prescribedDate'), Input::get('refillDate'));
+
+	//create a success message
+	//$request->session()->put('success', 'Successfully added the Care Teammate!');
+
+	$crID = Carerecipient::find($request->crID);
+	return redirect()->route('medication', ['crID' => $crID]);
+});
+
 Route::post('/cr/messageboard/{crID}', function(Request $request)
 {
 
@@ -147,6 +158,14 @@ Route::group(['middleware' => ['web']], function () {
 		return view('notes')->with('crInfo', Carerecipient::find($request->crID))
 							->with('ctID', User::getID());
 	});
+
+	Route::get('/cr/medication/{crID}', ['as' => 'medication', function(Request $request) {
+		//call a function (or multiple) to get the information to populate the message board page
+		//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
+		return view('medication')->with('crInfo', Carerecipient::find($request->crID))
+								 ->with('medication', Carerecipient::getMedication($request->crID))
+								 ->with('ctID', User::getID());
+	}]);
 
 	// Route::controller('calendar', 'CalendarController');
 });

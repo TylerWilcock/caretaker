@@ -11,7 +11,7 @@
   <title>Care Teammate</title>
 
   <!-- Bootstrap core CSS -->
-
+  
   <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
 
   <link href="{{asset('assets/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -35,8 +35,19 @@
             <![endif]-->
 
 
+<style>
+  #medicationTable>tbody>tr>td {
+    vertical-align: middle;
+  }
+
+  #addMedicationWrapper{
+    display:none;
+  }
+
+</style>
 
 </head>
+
 
 <body class="nav-md">
 
@@ -123,52 +134,109 @@
           <div class="page-title">
             <div class="title_left">
               <h3>
-                  Message Board
-                  <small>
-                      Type a message and submit to post it.
-                  </small>
-              </h3>
+                                    Medication
+                                </h3>
             </div>
           </div>
           <div class="clearfix"></div>
 
-          <div class="row">
-            <div class="col-md-12">
-                      <!-- start of user messages -->
-                      <div class="messages">
-                      @if(!empty($messages))
-                        @for($i=0; $i<count($messages); $i++)
-                        <div class="x_panel">
-                            <div class="x_title">
-                              <div class = "row">
-                                <div class = "col-md-12">
-                                <h1> <img class = "img-circle msg-board-icon" src="http://159.203.104.152/assets/img/img.jpg" alt=""> John Smith <small> {{date('h:i:s a', strtotime($messages[$i]->time)) . ' &bull; ' . date('F d, Y', strtotime($messages[$i]->date))}} </small></h1>
-                                </div>
-                              </div>
-                            </div>
-
-                          <div class="x_content">
-                            <div class = "row">
-                              <div class = "col-md-12">
-                                {{$messages[$i]->message}}
-                              </div>
-                            </div>
+          <div id = "medicationWrapper">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Care Recipient's Medication</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <table id="medicationTable" class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th style="text-align:center">Medication</th>
+                          <th style="text-align:center">Dosage</th>
+                          <th style="text-align:center">Prescribed Date</th>
+                          <th style="text-align:center">Refill Date</th>
+                          <th style="text-align:center">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @if($medication != 0)
+                          @for ($i = 0; $i < count($medication); $i++)
+                            <tr align="center">
+                                <td>
+                                    {{$medication[$i]->medication_name}}
+                                </td>
+                                <td>
+                                    {{$medication[$i]->dosage}}
+                                </td>
+                                <td>
+                                    {{$medication[$i]->prescribed_date}}
+                                </td>
+                                <td>
+                                    {{$medication[$i]->refill_date}}
+                                </td>
+                                <td>
+                                    <button type="button" data-id = "{{$medication[$i]->carerecipient_id}}" class="btn btn-success editButton">Edit</button>
+                                    <button type="button" data-id = "{{$medication[$i]->carerecipient_id}}" class="btn btn-danger deleteButton">Delete</button>
+                                </td>
+                            </tr>
+                          @endfor
+                        @endif
+                      </tbody>
+                    </table>
+                    <button type="button" class="btn btn-primary" id = "addMedication">Add Medication</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id = "addMedicationWrapper">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Add a Medication</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br>
+                    <form id="medForm" method="POST" action = "{{ url('/cr/medication/'.$crInfo->id) }}" class="form-horizontal form-label-left">
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Medication Name <span class="required">*</span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="medicationName" name = "medicationName" required="required" class="form-control col-md-7 col-xs-12">
                           </div>
-                        </div>
-                        @endfor
-                      @endif
                       </div>
-                      <form class="form-horizontal" method='post'>
-                          <div class="form-group">
-                              <textarea type="text" name='userMessage' class="form-control col-md-6" placeholder="Type a message here"></textarea>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Dosage <span class="required">*</span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="dosage" name = "dosage" required="required" class="form-control col-md-7 col-xs-12">
                           </div>
-                          <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Submit Message</button>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Prescribed Date <span class="required">*</span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input id="prescribedDate" name = "prescribedDate" placeholder = "YYYY-MM-DD" class="form-control col-md-7 col-xs-12" type="text" required="required">
                           </div>
-                          <input type='hidden' name='crID' value='{{$crInfo->id}}'>
-                          <input type='hidden' name='ctID' value='{{$ctID}}'>
-                      </form>
-                      <!-- end of user messages -->
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Refill Date <span class="required">*</span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input id="refillDate" name = "refillDate" placeholder = "YYYY-MM-DD" class="form-control col-md-7 col-xs-12" type="text" required="required">
+                          </div>
+                      </div>
+                      <input type="hidden" name="crID" value="{{$crInfo->id}}">
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                              <button type="button" class="btn btn-danger" id = "back">Back</button>
+                              <button type="submit" class="btn btn-primary" id = "add">Add</button>
+                          </div>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -187,7 +255,6 @@
         <!-- /footer content -->
 
       </div>
-
 
       <!-- /page content -->
     </div>
@@ -211,7 +278,7 @@
   <!-- chart js -->
 
   <!-- bootstrap progress js -->
-
+  
   <script src="{{asset('assets/js/progressbar/bootstrap-progressbar.min.js')}}"></script>
 
   <script src="{{asset('assets/js/nicescroll/jquery.nicescroll.min.js')}}"></script>
@@ -232,10 +299,29 @@
 
   $(document).ready(function(){
 
-      $('#saveEvent').on('click', function(){
+      // $('#saveEvent').on('click', function(){
 
-         // $.post('http://159.203.104.152/calendar', {type:"saveEvent",})
+      //    // $.post('http://159.203.104.152/calendar', {type:"saveEvent",})
 
+      // });
+
+
+      $('#addMedication').click(function(){
+        $("#medicationWrapper").hide();
+        $("#addMedicationWrapper").show();
+      });
+
+      $('#back').click(function(){
+        $("#addMedicationWrapper").hide();
+        $("#medicationWrapper").show();
+      });
+
+      $('.editButton').click(function(){
+        alert("add functionality");
+      });
+
+      $('.deleteButton').click(function(){
+        alert("add functionality");
       });
 
   });
@@ -244,6 +330,7 @@
 
   <script>
     $(window).load(function() {
+
 
     });
   </script>

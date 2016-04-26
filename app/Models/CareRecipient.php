@@ -62,6 +62,38 @@ class Carerecipient extends Authenticatable
         }
     }
 
+    public static function addMedication($crID, $medicationName, $dosage, $prescribedDate, $refillDate)
+    {
+
+        $insertMedication = DB::table('medication')->insert(
+            ['medication_name' => $medicationName, 'dosage' => $dosage, 'prescribed_date' => $prescribedDate, 'refill_date' => $refillDate, 'carerecipient_id' => $crID]
+        );
+
+        if($insertMedication > 0){
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public static function getMedication($crID)
+    {
+        $medication = DB::table('medication')->where('carerecipient_id', '=', $crID)
+                                             ->select('medication_name', 'dosage', 'prescribed_date', 'refill_date', 'carerecipient_id')
+                                             ->get();
+
+        if(!empty($medication))
+        {
+            return $medication;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
     public static function getMessages($crID)
     {
 
