@@ -159,7 +159,8 @@ class Carerecipient extends Authenticatable
 
     public static function getNotes($crID)
     {
-        $notes = DB::table('notes')->select()
+        $notes = DB::table('notes as n')->select()
+                                   ->join('users as u', 'n.caretaker_id', '=', 'u.id')
                                    ->where('carerecipient_id', $crID)
                                    ->get();
 
@@ -171,6 +172,20 @@ class Carerecipient extends Authenticatable
         {
             return 0;
         }
+    }
+
+    public static function addNotes($crID, $ctID, $note)
+    {
+
+        date_default_timezone_set('America/Chicago');
+    
+        $today = date("Y-m-d");
+
+        $time = date("H:i:s");
+
+        $addNote = DB::table('notes')->insert(
+            ['carerecipient_id' => $crID, 'caretaker_id' => $ctID, 'note' => $note, 'time' => $time, 'date' => $today]);
+
     }
 
 }

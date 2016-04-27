@@ -134,38 +134,49 @@
           <div class="clearfix"></div>
 
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <div class='notes'>
               @if(!empty($notes))
                 @for($i=0; $i<count($notes); $i++)
                 <div class="x_panel">
                   <div class="x_title">
                     <div class='row'>
-                      <div class='col-md-12'>
-                        <h1></h1>
+                      <div class='col-md-6'>
+                        <h2>
+                          {{$notes[$i]->first_name.' '.$notes[$i]->last_name }}
+                            <small> 
+                              {{date('h:i:s a', strtotime($notes[$i]->time)) . ' &bull; ' . date('F d, Y', strtotime($notes[$i]->date))}} 
+                            </small>
+                        </h2>
                       </div>
                     </div>
                   </div>
                   <div class="x_content">
                     <div class='row'>
-                      <div class='col-md-12'>
+                      <div class='col-md-6'>
                         {{$notes[$i]->note}}
                       </div>
                     </div>
                   </div>
+                </div>
                 @endfor
               @endif
-                  <form class="form-horizontal" method='post'>
-
+              </div>
+              <form class="form-horizontal" method='post'>
+                <div class='row'>
+                  <div class='col-md-6'>
                     <div class="form-group">
-                        <textarea type="text" name='userMessage' class="form-control col-md-6" placeholder="Type a message here"></textarea>
+                        <textarea type="text" name='userNote' class="form-control elastic" placeholder="Type a message here"></textarea>
                     </div>
                     <div class="form-group">
                       <button type="submit" class="btn btn-primary">Submit Note</button>
                     </div>
-                    
-                  </form>
-              </div>
+                      <input type='hidden' name='crID' value='{{$crInfo->id}}'>
+                      <input type='hidden' name='ctID' value='{{$ctID}}'>
+                  </div>
+                </div>               
+              </form>
+              
             </div>
           </div>
         </div>

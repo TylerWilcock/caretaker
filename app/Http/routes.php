@@ -87,6 +87,15 @@ Route::post('/cr/messageboard/{crID}', function(Request $request)
 
 });
 
+Route::post('/cr/notes/{crID}', function(Request $request){
+
+	Carerecipient::addNotes(Input::get('crID'), Input::get('ctID'), Input::get('userNote'));
+
+	$crID = Carerecipient::find($request->crID);
+	return redirect()->route('notes', ['crID' => $crID]);
+
+});
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
