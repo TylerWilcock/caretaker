@@ -176,8 +176,8 @@
                                     <span class = "refDate">{{$medication[$i]->refill_date}}</span>
                                 </td>
                                 <td>
-                                    <button type="button" data-id = "{{$medication[$i]->medID}}" class="btn btn-success editButton" data-toggle="modal" data-target="#editModal">Edit</button>
-                                    <button type="button" data-id = "{{$medication[$i]->medID}}" class="btn btn-danger deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                                    <button type="button" data-id = "{{$medication[$i]->med_id}}" class="btn btn-success editButton" data-toggle="modal" data-target="#editModal">Edit</button>
+                                    <button type="button" data-id = "{{$medication[$i]->med_id}}" class="btn btn-danger deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>
                                 </td>
                             </tr>
                           @endfor
@@ -201,6 +201,7 @@
                   <div class="x_content">
                     <br>
                     <form id="medForm" method="POST" action = "{{ url('/cr/medication/'.$crInfo->id) }}" class="form-horizontal form-label-left">
+                      <input type="hidden" name="submitType" value="addMed">
                       <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Medication Name <span class="required">*</span>
                           </label>
@@ -269,8 +270,9 @@
             <div class="modal-body">
 
               <div id="modal1" style="padding: 5px 20px;">
-                <form id="deleteForm" class="form-horizontal calender" role="form">
-                  <input type="hidden" name="medID" value="">
+                <form id="deleteForm" method="POST" action = "{{ url('/cr/medication/'.$crInfo->id) }}" class="form-horizontal calender" role="form">
+                <input type="hidden" name="submitType" value="deleteMed">
+                  <input type="hidden" id = "deleteID" name="deleteID" value="">
                   Are you sure you want to delete the Medication: <b><span id = "deleteMedication"></span></b>?
                 </form>
               </div>
@@ -298,8 +300,9 @@
             <div class="modal-body">
 
               <div id="modal2" style="padding: 5px 20px;">
-                <form id="editForm" class="form-horizontal calender" role="form">
-                  <input type="hidden" name="medID" value="">
+                <form id="editForm" method="POST" action = "{{ url('/cr/medication/'.$crInfo->id) }}" class="form-horizontal calender" role="form">
+                  <input type="hidden" name="submitType" value="editMed">
+                  <input type="hidden" id = "editID" name="editID" value="">
                   <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">Medication <span class="required">*</span>
                       </label>
@@ -393,8 +396,15 @@
 
       $('.deleteButton').click(function(){
         var medication = $(this).closest("tr").find(".medName").text();
+        var medID = $(this).data("id");
+
         $("#deleteMedication").empty();
         $("#deleteMedication").append(medication);
+        $("#deleteID").val(medID);
+      });
+
+      $('#yesDelete').click(function(){
+        $("#deleteForm").submit();
       });
 
       $('.editButton').click(function(){
@@ -402,10 +412,17 @@
         var dosage = $(this).closest("tr").find(".dosage").text();
         var prescribed = $(this).closest("tr").find(".presDate").text();
         var refill = $(this).closest("tr").find(".refDate").text();
+        var medID = $(this).data("id");
+
         $("#editMedicationName").val(medication);
         $("#editDosage").val(dosage);
         $("#editPrescribedDate").val(prescribed);
         $("#editRefillDate").val(refill);
+        $("#editID").val(medID);
+      });
+
+      $('#yesEdit').click(function(){
+        $("#editForm").submit();
       });
 
       $('#addMedication').click(function(){

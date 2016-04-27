@@ -56,7 +56,15 @@ Route::post('/cr/profile/{crID}', function(Request $request)
 
 Route::post('/cr/medication/{crID}', function(Request $request)
 {
-	$addMedication = Carerecipient::addMedication(Input::get('crID'), Input::get('medicationName'), Input::get('dosage'), Input::get('prescribedDate'), Input::get('refillDate'));
+	if(Input::get('submitType') == "addMed"){ //run query to add medication
+		$addMedication = Carerecipient::addMedication(Input::get('crID'), Input::get('medicationName'), Input::get('dosage'), Input::get('prescribedDate'), Input::get('refillDate'));
+	}
+	else if(Input::get('submitType') == "deleteMed"){ //run query to delete medication
+		$deleteMedication = Carerecipient::deleteMedication(Input::get('deleteID')));
+	}
+	else{ //run query to edit medication
+
+	}	
 
 	//create a success message
 	//$request->session()->put('success', 'Successfully added the Care Teammate!');

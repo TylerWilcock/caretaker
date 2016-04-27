@@ -78,10 +78,25 @@ class Carerecipient extends Authenticatable
         }
     }
 
+    public static function deleteMedication($medID)
+    {
+
+        $deleteMedication = DB::table('medication')->where('med_id', '=', $medID)
+                                                   ->delete();
+
+        if($deleteMedication > 0){
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
     public static function getMedication($crID)
     {
         $medication = DB::table('medication')->where('carerecipient_id', '=', $crID)
-                                             ->select('medID', 'medication_name', 'dosage', 'prescribed_date', 'refill_date', 'carerecipient_id')
+                                             ->select('med_id', 'medication_name', 'dosage', 'prescribed_date', 'refill_date', 'carerecipient_id')
                                              ->get();
 
         if(!empty($medication))
