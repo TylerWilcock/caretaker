@@ -156,7 +156,9 @@
                           <th style="text-align:center">Dosage</th>
                           <th style="text-align:center">Prescribed Date</th>
                           <th style="text-align:center">Refill Date</th>
-                          <th style="text-align:center">Actions</th>
+                          @if($admin != 0)
+                            <th style="text-align:center">Actions</th>
+                          @endif
                         </tr>
                       </thead>
                       <tbody>
@@ -175,10 +177,12 @@
                                 <td>
                                     <span class = "refDate">{{$medication[$i]->refill_date}}</span>
                                 </td>
-                                <td>
-                                    <button type="button" data-id = "{{$medication[$i]->med_id}}" class="btn btn-success editButton" data-toggle="modal" data-target="#editModal">Edit</button>
-                                    <button type="button" data-id = "{{$medication[$i]->med_id}}" class="btn btn-danger deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>
-                                </td>
+                                @if($admin != 0)
+                                  <td>
+                                      <button type="button" data-id = "{{$medication[$i]->med_id}}" class="btn btn-success editButton" data-toggle="modal" data-target="#editModal">Edit</button>
+                                      <button type="button" data-id = "{{$medication[$i]->med_id}}" class="btn btn-danger deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                                  </td>
+                                @endif
                             </tr>
                           @endfor
                         @endif
@@ -271,7 +275,7 @@
 
               <div id="modal1" style="padding: 5px 20px;">
                 <form id="deleteForm" method="POST" action = "{{ url('/cr/medication/'.$crInfo->id) }}" class="form-horizontal calender" role="form">
-                <input type="hidden" name="submitType" value="deleteMed">
+                  <input type="hidden" name="submitType" value="deleteMed">
                   <input type="hidden" id = "deleteID" name="deleteID" value="">
                   Are you sure you want to delete the Medication: <b><span id = "deleteMedication"></span></b>?
                 </form>
@@ -304,31 +308,31 @@
                   <input type="hidden" name="submitType" value="editMed">
                   <input type="hidden" id = "editID" name="editID" value="">
                   <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Medication <span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Medication
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="editMedicationName" name = "editMedicationName" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="editMedicationName" name = "editMedicationName" class="form-control col-md-7 col-xs-12">
                       </div>
                   </div>
                   <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Dosage <span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Dosage
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="editDosage" name = "editDosage" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="editDosage" name = "editDosage" class="form-control col-md-7 col-xs-12">
                       </div>
                   </div>
                   <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Prescribed Date <span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Prescribed Date
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="editPrescribedDate" name = "editPrescribedDate" placeholder = "YYYY-MM-DD" class="form-control col-md-7 col-xs-12" type="text" required="required">
+                          <input id="editPrescribedDate" name = "editPrescribedDate" placeholder = "YYYY-MM-DD" class="form-control col-md-7 col-xs-12" type="text">
                       </div>
                   </div>
                   <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Refill Date <span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Refill Date
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="editRefillDate" name = "editRefillDate" placeholder = "YYYY-MM-DD" class="form-control col-md-7 col-xs-12" type="text" required="required">
+                          <input id="editRefillDate" name = "editRefillDate" placeholder = "YYYY-MM-DD" class="form-control col-md-7 col-xs-12" type="text">
                       </div>
                   </div>
                 </form>

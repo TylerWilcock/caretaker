@@ -60,10 +60,10 @@ Route::post('/cr/medication/{crID}', function(Request $request)
 		$addMedication = Carerecipient::addMedication(Input::get('crID'), Input::get('medicationName'), Input::get('dosage'), Input::get('prescribedDate'), Input::get('refillDate'));
 	}
 	else if(Input::get('submitType') == "deleteMed"){ //run query to delete medication
-		$deleteMedication = Carerecipient::deleteMedication(Input::get('deleteID')));
+		$deleteMedication = Carerecipient::deleteMedication(Input::get('deleteID'));
 	}
 	else{ //run query to edit medication
-
+		$updateMedication = Carerecipient::updateMedication(Input::get('editID'), Input::get('editMedicationName'), Input::get('editDosage'), Input::get('editPrescribedDate'), Input::get('editRefillDate'));
 	}	
 
 	//create a success message
@@ -149,6 +149,7 @@ Route::group(['middleware' => ['web']], function () {
 		Route::get('/cr/profile/{crID}', ['as' => 'crprofile', function(Request $request) {
 			return view('crProfile')->with('crInfo', Carerecipient::find($request->crID))
 									->with('careTakersInfo', Carerecipient::getCareTakers($request->crID))
+									->with('admin', User::getAdmin($request->crID))
 									->with('ctID', User::getID());
 		}]);
 
@@ -184,6 +185,7 @@ Route::group(['middleware' => ['web']], function () {
 			//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
 			return view('medication')->with('crInfo', Carerecipient::find($request->crID))
 									 ->with('medication', Carerecipient::getMedication($request->crID))
+									 ->with('admin', User::getAdmin($request->crID))
 									 ->with('ctID', User::getID());
 		}]);
 

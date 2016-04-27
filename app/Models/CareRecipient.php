@@ -80,11 +80,27 @@ class Carerecipient extends Authenticatable
 
     public static function deleteMedication($medID)
     {
+        DB::table('medication')->where('med_id', '=', $medID)->delete();
+        return 1;
+        // $deleteMedication = DB::table('medication')->where('med_id', '=', $medID)
+        //                                            ->delete();
 
-        $deleteMedication = DB::table('medication')->where('med_id', '=', $medID)
-                                                   ->delete();
+        // if($deleteMedication > 0){
+        //     return 1;
+        // }
+        // else
+        // {
+        //     return 0;
+        // }
+    }
 
-        if($deleteMedication > 0){
+    public static function updateMedication($editID, $editMedicationName, $editDosage, $editPrescribedDate, $editRefillDate)
+    {
+
+        $updateMedication = DB::table('medication')->where('med_id', $editID)
+                                                   ->update(['medication_name' => $editMedicationName, 'dosage' => $editDosage, 'prescribed_date' => $editPrescribedDate, 'refill_date' => $editRefillDate]);
+
+        if($updateMedication > 0){
             return 1;
         }
         else

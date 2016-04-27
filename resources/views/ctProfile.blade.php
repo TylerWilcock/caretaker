@@ -205,6 +205,12 @@
                                           </td>
                                           <td>
                                               <button type="button" data-id = "{{$careRecipientInfo[$i]->id}}" class="btn btn-primary recipient">View Profile</button>
+                                              @if($careRecipientInfo[$i]->admin != 0)
+                                                <button type="button" data-id = "{{$careRecipientInfo[$i]->id}}" class="btn btn-success editButton" data-toggle="modal" data-target="#editModal">Edit</button>
+                                                <button type="button" data-id = "{{$careRecipientInfo[$i]->id}}" class="btn btn-danger adminDeleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                                              @else
+                                                <button type="button" data-id = "{{$careRecipientInfo[$i]->id}}" class="btn btn-danger deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                                              @endif
                                           </td>
                                       </tr>
                                     @endfor
@@ -225,7 +231,6 @@
                             <h2>Add Care Recipient <small>Enter Care Recipient's Information</small></h2>
                             <div class="clearfix"></div>
                         </div>
-                        <!-- o Client name, birthdate, home address, phone number, emergency contact, and notes, doctor(s) contact information -->
                         <div class="x_content">
                             <br>
                             <form id="crForm" method="POST" action = "{{ url('/ct/profile/'.$caretakerInfo->id) }}" class="form-horizontal form-label-left">
@@ -241,7 +246,7 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Birthdate <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input id="crBirthday" name = "crBirthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                                        <input id="crBirthday" name = "crBirthday" placeholder = "YYYY-MM-DD" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
                                     </div>
                                 </div>
                                 <div class="form-group">

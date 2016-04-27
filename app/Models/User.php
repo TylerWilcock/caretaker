@@ -32,7 +32,7 @@ class User extends Authenticatable
         $carerecipients = DB::table('users as u')->join('cr_ct_link as link', 'u.id', '=', 'link.caretaker_id')
                                         ->join('carerecipients as cr', 'link.carerecipient_id', '=', 'cr.id')
                                         ->where('u.id', '=', $ctID)
-                                        ->select('cr.id', 'cr.full_name', 'cr.birthday', 'cr.phone', 'cr.emergency_contact_phone', 'cr.notes', 'cr.primary_doctor_phone')
+                                        ->select('cr.id', 'cr.full_name', 'cr.birthday', 'cr.phone', 'cr.emergency_contact_phone', 'cr.notes', 'cr.primary_doctor_phone', 'link.admin')
                                         ->get();
 
         if(!empty($carerecipients))
@@ -64,6 +64,25 @@ class User extends Authenticatable
     {
         $id = Auth::user()->id;
         return $id;
+    }
+
+    public static function getAdmin($crID)
+    {
+        $id = Auth::user()->id;
+        $adminInfo = DB::table('cr_ct_link')->select()
+                                            ->where('carerecipient_id', $crID)
+                                            ->where('caretaker_id', $id)
+                                            ->select('admin')
+                                            ->get();
+
+        if(!empty($adminInfo))
+        {
+            return $adminInfo[0]->admin;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     public static function getCtInfo($ctID)

@@ -213,6 +213,9 @@
                                             </td>
                                             <td>
                                                 <button type="button" data-id = "{{$careTakersInfo[$i]->id}}" data-name = "{{$careTakersInfo[$i]->first_name.' '.$careTakersInfo[$i]->last_name}}" data-phone = "{{$careTakersInfo[$i]->phone}}" data-ephone = "{{$careTakersInfo[$i]->emergency_phone}}" data-address = "{{$careTakersInfo[$i]->address}}" data-birthday = "{{$careTakersInfo[$i]->birthday}}" class="btn btn-primary caretaker">View Info</button>
+                                                @if($admin != 0)
+                                                  <button type="button" data-id = "{{$careTakersInfo[$i]->id}}" class="btn btn-danger deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                                                @endif
                                             </td>
                                         </tr>
                                       @endfor
