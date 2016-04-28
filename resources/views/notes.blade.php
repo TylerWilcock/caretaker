@@ -134,14 +134,14 @@
           <div class="clearfix"></div>
 
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class='notes'>
               @if(!empty($notes))
                 @for($i=0; $i<count($notes); $i++)
                 <div class="x_panel">
                   <div class="x_title">
                     <div class='row'>
-                      <div class='col-md-6'>
+                      <div class='col-md-12'>
                         <h2>
                           {{$notes[$i]->first_name.' '.$notes[$i]->last_name }}
                             <small> 
@@ -153,7 +153,7 @@
                   </div>
                   <div class="x_content">
                     <div class='row'>
-                      <div class='col-md-6'>
+                      <div class='col-md-12'>
                         {{$notes[$i]->note}}
                       </div>
                     </div>
@@ -164,7 +164,7 @@
               </div>
               <form class="form-horizontal" method='post'>
                 <div class='row'>
-                  <div class='col-md-6'>
+                  <div class='col-md-12'>
                     <div class="form-group">
                         <textarea type="text" name='userNote' class="form-control elastic" placeholder="Type a message here"></textarea>
                     </div>
