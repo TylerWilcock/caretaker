@@ -195,4 +195,20 @@ class Carerecipient extends Authenticatable
 
     }
 
+    public static function getEvents($crID)
+    {
+        $events = DB::table('events')->where('carerecipient_id', '=', $crID)
+                                     ->select('id', 'carerecipient_id', 'title', 'date', 'time', 'description', 'repeat_id', 'location','notes')
+                                     ->get();
+
+        if(!empty($events))
+        {
+            return $events;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
 }

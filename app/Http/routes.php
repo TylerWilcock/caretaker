@@ -154,6 +154,7 @@ Route::group(['middleware' => ['web']], function () {
 			//call a function (or multiple) to get the information to populate the calendar page
 			//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
 			return view('calendar')->with('crInfo', Carerecipient::find($request->crID))
+								   ->with('calendarEvents', Carerecipient::getEvents($request->crID))
 								   ->with('ctID', User::getID());
 		});
 
