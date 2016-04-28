@@ -335,6 +335,7 @@
                 <form id="deleteForm" method="POST" action = "{{ url('/ct/profile/'.$caretakerInfo->id) }}" class="form-horizontal calender" role="form">
                   <input type="hidden" name="submitType" value="deleteCr">
                   <input type="hidden" id = "deleteID" name="deleteID" value="">
+                  <input type="hidden" id = "ctID" name="ctID" value="{{$caretakerInfo->id}}">
                   Are you sure you want to delete the Care Recipient: <b><span id = "deleteCr"></span></b>?
                 </form>
               </div>
@@ -379,6 +380,84 @@
         </div>
       </div>
       <!-- /admin delete modal -->
+
+      <!-- edit modal -->
+      <div id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title" id="myModalLabel2">Edit Care Recipient Information</h4>
+            </div>
+            <div class="modal-body">
+
+              <div id="modal2" style="padding: 5px 20px;">
+                <form id="editForm" method="POST" action = "{{ url('/ct/profile/'.$caretakerInfo->id) }}" class="form-horizontal calender" role="form">
+                  <input type="hidden" name="submitType" value="editCr">
+                  <input type="hidden" id = "editID" name="editID" value="">
+                  <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Name
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="editCrName" name = "editCrName" class="form-control col-md-7 col-xs-12">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Birthdate
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="editCrBirthday" name = "editCrBirthday" placeholder = "YYYY-MM-DD" class="date-picker form-control col-md-7 col-xs-12" type="text">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Home Address
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="editCrHomeAddress" name = "editCrHomeAddress" class="form-control col-md-7 col-xs-12">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Phone Number
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="editCrPhoneNumber" name = "editCrPhoneNumber" class="form-control col-md-7 col-xs-12">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Emergency Contact
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="editCrEmergencyContact" name = "editCrEmergencyContact" class="form-control col-md-7 col-xs-12">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Doctor's Contact
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="editCrDrContact" name = "editCrDrContact" class="form-control col-md-7 col-xs-12">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Notes
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <textarea id="editCrNotes" name = "editCrNotes" class="form-control col-md-7 col-xs-12"></textarea>
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+               <div class='btn-group'>
+                  <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-success antosubmit" id='yesEdit'>Update</button>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /edit modal -->
 
       <!-- /page content -->
     </div>
@@ -455,6 +534,30 @@
 
       $('#yesDelete').click(function(){
         $("#deleteForm").submit();
+      });
+
+      $('.editButton').click(function(){
+        var crID = $(this).data("id");
+        var name = $(this).data("name");
+        var birthday = $(this).data("birthday");
+        var address = $(this).data("address");
+        var phone = $(this).data("phone");
+        var emergency = $(this).data("emergency");
+        var notes = $(this).data("notes");
+        var doctor = $(this).data("doctor");
+
+        $("#editID").val(crID);
+        $("#editCrName").val(name);
+        $("#editCrBirthday").val(birthday);
+        $("#editCrHomeAddress").val(address);
+        $("#editCrPhoneNumber").val(phone);
+        $("#editCrEmergencyContact").val(emergency);
+        $("#editCrDrContact").val(doctor);
+        $("#editCrNotes").val(notes);
+      });
+
+      $('#yesEdit').click(function(){
+        $("#editForm").submit();
       });
 
       $('.recipient').click(function(){

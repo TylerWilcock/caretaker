@@ -213,8 +213,8 @@
                                             </td>
                                             <td>
                                                 <button type="button" data-id = "{{$careTakersInfo[$i]->id}}" data-name = "{{$careTakersInfo[$i]->first_name.' '.$careTakersInfo[$i]->last_name}}" data-phone = "{{$careTakersInfo[$i]->phone}}" data-ephone = "{{$careTakersInfo[$i]->emergency_phone}}" data-address = "{{$careTakersInfo[$i]->address}}" data-birthday = "{{$careTakersInfo[$i]->birthday}}" class="btn btn-primary caretaker">View Info</button>
-                                                @if($admin != 0)
-                                                  <button type="button" data-id = "{{$careTakersInfo[$i]->id}}" class="btn btn-danger deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                                                @if($admin != 0 && $careTakersInfo[$i]->id != $ctID)
+                                                  <button type="button" data-id = "{{$careTakersInfo[$i]->id}}" data-first = "{{$careTakersInfo[$i]->first_name}}" data-last = "{{$careTakersInfo[$i]->last_name}}" class="btn btn-danger deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>
                                                 @endif
                                             </td>
                                         </tr>
@@ -320,6 +320,36 @@
 
       </div>
 
+      <!-- delete modal -->
+      <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title" id="myModalLabel2">Delete</h4>
+            </div>
+            <div class="modal-body">
+
+              <div id="modal1" style="padding: 5px 20px;">
+                <form id="deleteForm" method="POST" action = "{{ url('/cr/profile/'.$crInfo->id) }}" class="form-horizontal calender" role="form">
+                  <input type="hidden" name="submitType" value="deleteCt">
+                  <input type="hidden" id = "crID" name="crID" value="{{$crInfo->id}}">
+                  <input type="hidden" id = "ctID" name="ctID" value="">
+                  Are you sure you want to delete your Care Teammate: <b><span id = "deleteCt"></span></b>?
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+               <div class='btn-group'>
+                  <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-danger antosubmit" id='yesDelete'>Delete</button>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /delete modal -->
 
       <!-- /page content -->
     </div>
@@ -369,6 +399,19 @@
       //    // $.post('http://159.203.104.152/calendar', {type:"saveEvent",})
 
       // });
+
+      $('.deleteButton').click(function(){
+        var name = $(this).data('first') + " " + $(this).data('last');
+        var ctID = $(this).data("id");
+
+        $("#deleteCt").empty();
+        $("#deleteCt").append(name);
+        $("#ctID").val(ctID);
+      });
+
+      $('#yesDelete').click(function(){
+        $("#deleteForm").submit();
+      });
 
       $('.caretaker').click(function(){
         var ctName = $(this).data("name");

@@ -62,6 +62,13 @@ class Carerecipient extends Authenticatable
         }
     }
 
+    public static function deleteCareteammate($crID, $ctID)
+    {
+        DB::table('cr_ct_link')->where('carerecipient_id', '=', $crID)
+                               ->where('caretaker_id', '=', $ctID)
+                               ->delete();
+    }
+
     public static function addMedication($crID, $medicationName, $dosage, $prescribedDate, $refillDate)
     {
 

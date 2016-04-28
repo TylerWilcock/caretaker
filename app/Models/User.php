@@ -59,6 +59,35 @@ class User extends Authenticatable
         //need to add a row to the cr_ct_link table as well
     }
 
+    public static function adminDeleteCareRecipient($crID)
+    {
+        DB::table('carerecipients')->where('id', '=', $crID)->delete();
+        DB::table('cr_ct_link')->where('carerecipient_id', '=', $crID)->delete();
+        return 1;
+    }
+
+    public static function deleteCareRecipient($crID, $ctID)
+    {
+        DB::table('cr_ct_link')->where('carerecipient_id', '=', $crID)
+                               ->where('caretaker_id', '=', $ctID)
+                               ->delete();
+        return 1;
+    }
+
+    public static function editCareRecipient($crID, $editCrName, $editCrBirthday, $editCrHomeAddress, $editCrPhoneNumber, $editCrEmergencyContact, $editCrDrContact, $editCrNotes)
+    {
+
+        $updateCR = DB::table('carerecipients')->where('id', $crID)
+                                                       ->update(['full_name' => $editCrName, 'birthday' => $editCrBirthday, 'address' => $editCrHomeAddress, 'phone' => $editCrPhoneNumber, 'emergency_contact_phone' => $editCrEmergencyContact, 'notes' => $editCrNotes, 'primary_doctor_phone' => $editCrDrContact]);
+
+        if($updateCR > 0){
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 
     public static function getID()
     {

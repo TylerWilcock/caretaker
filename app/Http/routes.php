@@ -27,13 +27,13 @@ Route::post('/ct/profile/{ctID}', function(Request $request)
 		User::addCareRecipient(Input::get('ctID'), Input::get('crName'), Input::get('crBirthday'), Input::get('crHomeAddress'), Input::get('crPhoneNumber'), Input::get('crEmergencyContact'), Input::get('crDrContact'), Input::get('crNotes'));
 	}
 	else if(Input::get('submitType') == "adminDeleteCr"){ //run query to delete care recipient (for admin)
-		
+		User::adminDeleteCareRecipient(Input::get('adminDeleteID'));
 	}
 	else if(Input::get('submitType') == "deleteCr"){ //run query to delete care recipient (for non-admin)
-		
+		User::deleteCareRecipient(Input::get('deleteID'), Input::get('ctID'));
 	}
 	else{ //run query to edit care recipient
-
+		User::editCareRecipient(Input::get('editID'), Input::get('editCrName'), Input::get('editCrBirthday'), Input::get('editCrHomeAddress'), Input::get('editCrPhoneNumber'), Input::get('editCrEmergencyContact'), Input::get('editCrDrContact'), Input::get('editCrNotes'));
 	}
 	
     // create a success message
@@ -47,7 +47,13 @@ Route::post('/ct/profile/{ctID}', function(Request $request)
 
 Route::post('/cr/profile/{crID}', function(Request $request)
 {
-	$addTeammate = Carerecipient::addCareteammate(Input::get('crID'), Input::get('email'));
+	if(Input::get('submitType') == "deleteCt"){ //run query to delete a care teammate
+		$deleteTeammate = Carerecipient::deleteCareteammate(Input::get('crID'), Input::get('ctID'));
+	}
+	else{ //run query to add a care teammate
+		$addTeammate = Carerecipient::addCareteammate(Input::get('crID'), Input::get('email'));
+	}
+	
 
 	//create a success message
 	//$request->session()->put('success', 'Successfully added the Care Teammate!');
