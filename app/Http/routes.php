@@ -21,19 +21,21 @@ Route::get('/', function () {
     return view('index');
 });
 
-// Route::get('/ct/profile/{ctID}', ['as' => 'profile', function(Request $request) {
-// 	return view('ctProfile')->with('caretakerInfo', User::find($request->ctID))
-// 							->with('careRecipientInfo', User::getCareRecipients($request->ctID));
-// }]);
-
 Route::post('/ct/profile/{ctID}', function(Request $request)
 {
-    // add the post to the database
-    // $post = new Post;
-    // $post->title = Input::get('title');
-    // more stuff here
-    // $post->save();
-	User::addCareRecipient(Input::get('ctID'), Input::get('crName'), Input::get('crBirthday'), Input::get('crHomeAddress'), Input::get('crPhoneNumber'), Input::get('crEmergencyContact'), Input::get('crDrContact'), Input::get('crNotes'));
+    if(Input::get('submitType') == "addRecipient"){ //run query to add care recipient
+		User::addCareRecipient(Input::get('ctID'), Input::get('crName'), Input::get('crBirthday'), Input::get('crHomeAddress'), Input::get('crPhoneNumber'), Input::get('crEmergencyContact'), Input::get('crDrContact'), Input::get('crNotes'));
+	}
+	else if(Input::get('submitType') == "adminDeleteCr"){ //run query to delete care recipient (for admin)
+		
+	}
+	else if(Input::get('submitType') == "deleteCr"){ //run query to delete care recipient (for non-admin)
+		
+	}
+	else{ //run query to edit care recipient
+
+	}
+	
     // create a success message
 	// $request->session()->put('success', 'Successfully added the Care Recipient!');
 
@@ -129,26 +131,6 @@ Route::group(['middleware' => ['web']], function () {
 	  	Route::get('/home', 'HomeController@index', ['middleware' => 'auth', function() {
 
 		}]);
-
-		// Route::get('/calendar', ['middleware' => 'auth', function() {
-		// 	return view('calendar');
-		// }]);
-
-		// Route::get('/calendartemplate', ['middleware' => 'auth', function() {
-		// 	return view('calendarTemplate');
-		// }]);
-
-		// Route::get('/messageboard', ['middleware' => 'auth', function() {
-		// 	return view('messageBoard');
-		// }]);
-
-		// Route::get('/notes', ['middleware' => 'auth', function() {
-		// 	return view('notes');
-		// }]);
-
-		// Route::get('/crprofile', ['middleware' => 'auth', function() {
-		// 	return view('crProfile');
-		// }]);
 
 		Route::get('/ct/profile/{ctID}', ['as' => 'profile', function(Request $request) {
 			return view('ctProfile')->with('caretakerInfo', User::find($request->ctID))

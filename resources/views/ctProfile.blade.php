@@ -206,10 +206,10 @@
                                           <td>
                                               <button type="button" data-id = "{{$careRecipientInfo[$i]->id}}" class="btn btn-primary recipient">View Profile</button>
                                               @if($careRecipientInfo[$i]->admin != 0)
-                                                <button type="button" data-id = "{{$careRecipientInfo[$i]->id}}" class="btn btn-success editButton" data-toggle="modal" data-target="#editModal">Edit</button>
-                                                <button type="button" data-id = "{{$careRecipientInfo[$i]->id}}" class="btn btn-danger adminDeleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                                                <button type="button" data-id = "{{$careRecipientInfo[$i]->id}}" data-name = "{{$careRecipientInfo[$i]->full_name}}" data-birthday = "{{$careRecipientInfo[$i]->birthday}}" data-address = "{{$careRecipientInfo[$i]->address}}" data-phone = "{{$careRecipientInfo[$i]->phone}}" data-emergency = "{{$careRecipientInfo[$i]->emergency_contact_phone}}" data-notes = "{{$careRecipientInfo[$i]->notes}}" data-doctor = "{{$careRecipientInfo[$i]->primary_doctor_phone}}" class="btn btn-success editButton" data-toggle="modal" data-target="#editModal">Edit</button>
+                                                <button type="button" data-id = "{{$careRecipientInfo[$i]->id}}" data-name = "{{$careRecipientInfo[$i]->full_name}}" class="btn btn-danger adminDeleteButton" data-toggle="modal" data-target="#adminDeleteModal">Delete</button>
                                               @else
-                                                <button type="button" data-id = "{{$careRecipientInfo[$i]->id}}" class="btn btn-danger deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                                                <button type="button" data-id = "{{$careRecipientInfo[$i]->id}}" data-name = "{{$careRecipientInfo[$i]->full_name}}" class="btn btn-danger deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>
                                               @endif
                                           </td>
                                       </tr>
@@ -234,7 +234,7 @@
                         <div class="x_content">
                             <br>
                             <form id="crForm" method="POST" action = "{{ url('/ct/profile/'.$caretakerInfo->id) }}" class="form-horizontal form-label-left">
-
+                                <input type="hidden" name="submitType" value="addRecipient">
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Name <span class="required">*</span>
                                     </label>
@@ -320,6 +320,65 @@
 
       </div>
 
+      <!-- delete modal -->
+      <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title" id="myModalLabel2">Delete</h4>
+            </div>
+            <div class="modal-body">
+
+              <div id="modal1" style="padding: 5px 20px;">
+                <form id="deleteForm" method="POST" action = "{{ url('/ct/profile/'.$caretakerInfo->id) }}" class="form-horizontal calender" role="form">
+                  <input type="hidden" name="submitType" value="deleteCr">
+                  <input type="hidden" id = "deleteID" name="deleteID" value="">
+                  Are you sure you want to delete the Care Recipient: <b><span id = "deleteCr"></span></b>?
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+               <div class='btn-group'>
+                  <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-danger antosubmit" id='yesDelete'>Delete</button>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /delete modal -->
+
+      <!-- admin delete modal -->
+      <div id="adminDeleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="adminDeleteModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title" id="myModalLabel2">Delete</h4>
+            </div>
+            <div class="modal-body">
+
+              <div id="modal1" style="padding: 5px 20px;">
+                <form id="adminDeleteForm" method="POST" action = "{{ url('/ct/profile/'.$caretakerInfo->id) }}" class="form-horizontal calender" role="form">
+                  <input type="hidden" name="submitType" value="adminDeleteCr">
+                  <input type="hidden" id = "adminDeleteID" name="adminDeleteID" value="">
+                  Are you sure you want to delete the Care Recipient: <b><span id = "adminDeleteCr"></span></b>?
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+               <div class='btn-group'>
+                  <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-danger antosubmit" id='yesAdminDelete'>Delete</button>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /admin delete modal -->
 
       <!-- /page content -->
     </div>
@@ -364,11 +423,39 @@
 
   $(document).ready(function(){
 
-      // $('#saveEvent').on('click', function(){
-
-      //    // $.post('http://159.203.104.152/calendar', {type:"saveEvent",})
-
+      // $('.deleteButton').click(function(){
+        
       // });
+
+      // $('#yesDelete').click(function(){
+      //   $("#deleteForm").submit();
+      // });
+
+      $('.adminDeleteButton').click(function(){
+        var name = $(this).data('name');
+        var crID = $(this).data("id");
+
+        $("#adminDeleteCr").empty();
+        $("#adminDeleteCr").append(name);
+        $("#adminDeleteID").val(crID);
+      });
+
+      $('#yesAdminDelete').click(function(){
+        $("#adminDeleteForm").submit();
+      });
+
+      $('.deleteButton').click(function(){
+        var name = $(this).data('name');
+        var crID = $(this).data("id");
+
+        $("#deleteCr").empty();
+        $("#deleteCr").append(name);
+        $("#deleteID").val(crID);
+      });
+
+      $('#yesDelete').click(function(){
+        $("#deleteForm").submit();
+      });
 
       $('.recipient').click(function(){
         var crID = $(this).data("id");
