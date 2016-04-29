@@ -145,8 +145,15 @@
                     @if($calendarEvents != 0)
                       @for($i = 0; $i < count($calendarEvents); $i++)
                         <div class="event" style="display: none;">
+                          <input type="hidden" class="eventID" value="{{$calendarEvents[$i]->id}}"/>
+                          <input type="hidden" class="crID" value="{{$calendarEvents[$i]->carerecipient_id}}"/>
                           <input type="hidden" class="title" value="{{$calendarEvents[$i]->title}}"/>
-                          <input type="hidden" class="date" value="{{$calendarEvents[$i]->date}}" />    
+                          <input type="hidden" class="date" value="{{$calendarEvents[$i]->date}}" />
+                          <input type="hidden" class="time" value="{{$calendarEvents[$i]->time}}" /> 
+                          <input type="hidden" class="description" value="{{$calendarEvents[$i]->description}}" />
+                          <input type="hidden" class="repeat" value="{{$calendarEvents[$i]->repeat_id}}" />
+                          <input type="hidden" class="location" value="{{$calendarEvents[$i]->location}}" />
+                          <input type="hidden" class="notes" value="{{$calendarEvents[$i]->notes}}" />
                         </div>
                       @endfor
                     @endif
@@ -350,9 +357,18 @@
 
       });
 
+
+
       $.each( $( '.event' ), function() {
+          console.log($(this).find( '.eventID' ).val());
+          console.log($(this).find( '.crID' ).val());
           console.log($(this).find( '.title' ).val());
           console.log($(this).find( '.date' ).val());
+          console.log($(this).find( '.time' ).val());
+          console.log($(this).find( '.description' ).val());
+          console.log($(this).find( '.repeat' ).val());
+          console.log($(this).find( '.location' ).val());
+          console.log($(this).find( '.notes' ).val());
       } );
       // console.log($("#events").val());
 
