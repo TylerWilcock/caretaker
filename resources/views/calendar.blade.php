@@ -339,38 +339,23 @@
 
   $(document).ready(function(){
 
-      $('#saveEvent').on('click', function(){
+      // $('#saveEvent').on('click', function(){
 
-         var title = $('#title').val();
-         var desc = $('#description').val();
-         var date = $('#date').val();
-         var time = $('#time').val();
-         var repeat = $('#repeat').val();
-         var location = $('#location').val();
-         var notes = $('#notes').val();
+      //    var title = $('#title').val();
+      //    var desc = $('#description').val();
+      //    var date = $('#date').val();
+      //    var time = $('#time').val();
+      //    var repeat = $('#repeat').val();
+      //    var location = $('#location').val();
+      //    var notes = $('#notes').val();
 
-         $.post('http://159.203.104.152/calendar', {type:"addEvent", title:title, descritption:desc,date:date,time:time,repeat:repeat,location:location,notes:notes}, function(data){
+      //    $.post('http://159.203.104.152/calendar', {type:"addEvent", title:title, descritption:desc,date:date,time:time,repeat:repeat,location:location,notes:notes}, function(data){
 
-            console.log(data);
+      //       console.log(data);
 
-         });
+      //    });
 
-      });
-
-
-
-      $.each( $( '.event' ), function() {
-          console.log($(this).find( '.eventID' ).val());
-          console.log($(this).find( '.crID' ).val());
-          console.log($(this).find( '.title' ).val());
-          console.log($(this).find( '.date' ).val());
-          console.log($(this).find( '.time' ).val());
-          console.log($(this).find( '.description' ).val());
-          console.log($(this).find( '.repeat' ).val());
-          console.log($(this).find( '.location' ).val());
-          console.log($(this).find( '.notes' ).val());
-      } );
-      // console.log($("#events").val());
+      // });
 
   });
 
@@ -469,6 +454,41 @@
         //   url: 'http://google.com/'
         // }]
       });
+
+      var crEvents = new Array();
+
+      $.each( $( '.event' ), function(){
+          var eventID = $(this).find( '.eventID' ).val();
+          var crID = $(this).find( '.crID' ).val();
+          var title = $(this).find( '.title' ).val();
+
+          var date = $(this).find( '.date' ).val();
+          //break up the date into year, month, day
+          var dateArray = date.split("-");
+
+          var time = $(this).find( '.time' ).val();
+          //break up the time into hours, minutes, seconds
+          var timeArray = time.split(":");
+
+          //now create the date object
+          //note: subtract 1 from the month field because the javascript Date object ranges from 0-11
+          var dateObject = new Date(dateArray[0], dateArray[1] - 1, dateArray[2], timeArray[0], timeArray[1], timeArray[2]);
+
+          var description = $(this).find( '.description' ).val();
+          var repeat = $(this).find( '.repeat' ).val();
+          var location = $(this).find( '.location' ).val();
+          var notes = $(this).find( '.notes' ).val();
+
+          crEvents.push({
+            title : title,
+            start : dateObject,
+            allDay : false,
+            id : eventID
+          }); 
+      });
+
+      $('#calendar').fullCalendar( 'addEventSource', crEvents );
+
     });
   </script>
 </body>
