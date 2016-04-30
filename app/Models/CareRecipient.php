@@ -132,11 +132,35 @@ class Carerecipient extends Authenticatable
         }
     }
 
+    public static function deleteMessage($messageID)
+    {
+        DB::table('messages')->where('id', '=', $messageID)->delete();
+        return 1;
+    }
+
+    public static function editMessage($messageID, $message)
+    {
+
+        $editMessage = DB::table('messages')->where('id', $messageID)
+                                                   ->update(['message' => $message]);
+
+        if($editMessage > 0){
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
     public static function getMessages($crID)
     {
 
-        $messages = DB::table('messages')->select()
+        $messages = DB::table('messages as m')->select()
+                                         ->join('users as u', 'm.caretaker_id', '=', 'u.id')
                                          ->where('carerecipient_id', $crID)
+                                         ->orderBy('date', 'desc')
+                                         ->orderBy('time', 'desc')
                                          ->get();
 
         if(!empty($messages))
@@ -169,6 +193,8 @@ class Carerecipient extends Authenticatable
         $notes = DB::table('notes as n')->select()
                                    ->join('users as u', 'n.caretaker_id', '=', 'u.id')
                                    ->where('carerecipient_id', $crID)
+                                   ->orderBy('date', 'desc')
+                                   ->orderBy('time', 'desc')
                                    ->get();
 
         if(!empty($notes))
@@ -195,6 +221,27 @@ class Carerecipient extends Authenticatable
 
     }
 
+    public static function deleteNote($noteID)
+    {
+        DB::table('notes')->where('notes_id', '=', $noteID)->delete();
+        return 1;
+    }
+
+    public static function editNote($noteID, $note)
+    {
+
+        $editNote = DB::table('notes')->where('notes_id', $noteID)
+                                         ->update(['note' => $note]);
+
+        if($editNote > 0){
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
     public static function getEvents($crID)
     {
         $events = DB::table('events')->where('carerecipient_id', '=', $crID)
@@ -204,6 +251,43 @@ class Carerecipient extends Authenticatable
         if(!empty($events))
         {
             return $events;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public static function addEvent($addCRID, $newTitle, $newDescription, $newDate, $newTime, $repeat, $newLocaiton, $newNotes)
+    {
+
+        $insertEvent = DB::table('events')->insert(
+            ['carerecipient_id' => $addCRID, 'title' => $newTitle, 'date' => $newDate, 'time' => $newTime, 'description' => $newDescription, 'repeat_id' => $repeat, 'location' => $newLocaiton,'notes' => $newNotes]
+        );
+
+        if($insertEvent > 0){
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public static function deleteEvent($eventID)
+    {
+        DB::table('events')->where('id', '=', $eventID)->delete();
+        return 1;
+    }
+
+    public static function updateEvent($editID, $editTitle, $editDescription, $editDate, $editTime, $repeat, $editLocation, $editNotes)
+    {
+
+        $updateEvent = DB::table('events')->where('id', $editID)
+                                          ->update(['title' => $editTitle, 'date' => $editDate, 'time' => $editTime, 'description' => $editDescription, 'repeat_id' => $repeat, 'location' => $editLocation,'notes' => $editNotes]);
+
+        if($updateEvent > 0){
+            return 1;
         }
         else
         {

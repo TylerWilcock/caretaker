@@ -65,13 +65,13 @@ Route::post('/cr/profile/{crID}', function(Request $request)
 Route::post('/cr/calendar/{crID}', function(Request $request)
 {
 	if(Input::get('submitType') == "addEvent"){ //run query to add event
-		
+		$addEvent = Carerecipient::addEvent(Input::get('addCRID'), Input::get('newTitle'), Input::get('newDescription'), Input::get('newDate'), Input::get('newTime'), Input::get('newRepeatRadioSelection'), Input::get('newLocation'), Input::get('newNotes'));
 	}
 	else if(Input::get('submitType') == "deleteEvent"){ //run query to delete event
-		
+		$deleteEvent = Carerecipient::deleteEvent(Input::get('deleteID'));
 	}
 	else{ //run query to edit event
-		
+		$editEvent = Carerecipient::updateEvent(Input::get('editID'), Input::get('editTitle'), Input::get('editDescription'), Input::get('editDate'), Input::get('editTime'), Input::get('editRepeatRadioSelection'), Input::get('editLocation'), Input::get('editNotes'));
 	}	
 
 	//create a success message
@@ -102,8 +102,15 @@ Route::post('/cr/medication/{crID}', function(Request $request)
 
 Route::post('/cr/messageboard/{crID}', function(Request $request)
 {
-
-	Carerecipient::addMessage(Input::get('crID'), Input::get('ctID'), Input::get('userMessage'));
+	if(Input::get('submitType') == "addMessage"){ //run query to add message
+		Carerecipient::addMessage(Input::get('crID'), Input::get('ctID'), Input::get('userMessage'));
+	}
+	else if(Input::get('submitType') == "deleteMessage"){ //run query to delete message
+		Carerecipient::deleteMessage(Input::get('deleteID'));
+	}
+	else{ //run query to edit message
+		Carerecipient::editMessage(Input::get('editID'), Input::get('editMessage'));
+	}
 
 	// return view('messageBoard')->with('crInfo', Carerecipient::find($request->crID))
 	// 						   ->with('ctID', User::find($request->ctID))
@@ -116,7 +123,17 @@ Route::post('/cr/messageboard/{crID}', function(Request $request)
 
 Route::post('/cr/notes/{crID}', function(Request $request){
 
-	Carerecipient::addNotes(Input::get('crID'), Input::get('ctID'), Input::get('userNote'));
+	if(Input::get('submitType') == "addNote"){ //run query to add note
+		Carerecipient::addNotes(Input::get('crID'), Input::get('ctID'), Input::get('userNote'));
+	}
+	else if(Input::get('submitType') == "deleteNote"){ //run query to delete note
+		Carerecipient::deleteNote(Input::get('deleteID'));
+	}
+	else{ //run query to edit message
+		Carerecipient::editNote(Input::get('editID'), Input::get('editNote'));
+	}
+
+	
 
 	$crID = Carerecipient::find($request->crID);
 	return redirect()->route('notes', ['crID' => $crID]);
@@ -174,6 +191,7 @@ Route::group(['middleware' => ['web']], function () {
 			//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
 			return view('calendar')->with('crInfo', Carerecipient::find($request->crID))
 								   ->with('calendarEvents', Carerecipient::getEvents($request->crID))
+								   ->with('admin', User::getAdmin($request->crID))
 								   ->with('ctID', User::getID());
 		}]);
 
@@ -182,6 +200,7 @@ Route::group(['middleware' => ['web']], function () {
 			//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
 			return view('messageBoard')->with('crInfo', Carerecipient::find($request->crID))
 									   ->with('ctID', User::getID())
+									   ->with('admin', User::getAdmin($request->crID))
 									   ->with('messages', Carerecipient::getMessages($request->crID));
 		}]);
 
@@ -193,6 +212,7 @@ Route::group(['middleware' => ['web']], function () {
 
 			return view('notes')->with('crInfo', Carerecipient::find($request->crID))
 								->with('ctID', User::getID())
+								->with('admin', User::getAdmin($request->crID))
 								->with('notes', Carerecipient::getNotes($request->crID));
 								
 		}]);

@@ -137,18 +137,24 @@
                       <!-- start of user messages -->
                       <div class="messages">
                       @if(!empty($messages))
-                        @for($i=0; $i<count($messages); $i++)
+                        @for($i=0; $i < count($messages); $i++)
                         <div class="x_panel">
                             <div class="x_title">
                               <div class = "row">
                                 <div class = "col-md-12">
-                                  <h1> 
+                                  @if($admin != 0)
+                                    <ul class="nav navbar-right panel_toolbox">
+                                      <button type="button" class="btn btn-success btn-xs editButton" data-toggle="modal" data-target="#editModal" data-id = "{{$messages[$i]->id}}" data-message = "{{$messages[$i]->message}}">Edit</button>
+                                      <button type="button" class="btn btn-danger btn-xs deleteButton" data-toggle="modal" data-target="#deleteModal" data-id = "{{$messages[$i]->id}}">Delete</button>
+                                    </ul>
+                                  @endif
+                                  <h2> 
                                   <img class = "img-circle msg-board-icon" src="http://159.203.104.152/assets/img/img.jpg" alt=""> 
-                                    John Smith 
+                                    {{$messages[$i]->first_name.' '.$messages[$i]->last_name }} 
                                       <small> 
                                         {{date('h:i:s a', strtotime($messages[$i]->time)) . ' &bull; ' . date('F d, Y', strtotime($messages[$i]->date))}} 
                                       </small>
-                                  </h1>
+                                  </h2>
                                 </div>
                               </div>
                             </div>
@@ -173,14 +179,12 @@
                           </div>
                           <input type='hidden' name='crID' value='{{$crInfo->id}}'>
                           <input type='hidden' name='ctID' value='{{$ctID}}'>
+                          <input type='hidden' name='submitType' value='addMessage'>
                       </form>
                       <!-- end of user messages -->
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
 
         <!-- footer content -->
         <footer>
@@ -194,6 +198,71 @@
 
       </div>
 
+      <!-- delete modal -->
+      <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title" id="myModalLabel2">Delete</h4>
+            </div>
+            <div class="modal-body">
+
+              <div id="modal1" style="padding: 5px 20px;">
+                <form id="deleteForm" method="POST" action = "{{ url('/cr/messageboard/'.$crInfo->id) }}" class="form-horizontal calender" role="form">
+                  <input type="hidden" name="submitType" value="deleteMessage">
+                  <input type="hidden" id = "deleteID" name="deleteID" value="">
+                  Are you sure you want to delete the Message?
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+               <div class='btn-group'>
+                  <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-danger antosubmit" id='yesDelete'>Delete</button>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /delete modal -->
+
+      <!-- edit modal -->
+      <div id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title" id="myModalLabel2">Edit Message</h4>
+            </div>
+            <div class="modal-body">
+
+              <div id="modal2" style="padding: 5px 20px;">
+                <form id="editForm" method="POST" action = "{{ url('/cr/messageboard/'.$crInfo->id) }}" class="form-horizontal calender" role="form">
+                  <input type="hidden" name="submitType" value="editMessage">
+                  <input type="hidden" id = "editID" name="editID" value="">
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Message
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <textarea type="text" id="editMessage" name = "editMessage" class="form-control col-md-7 col-xs-12"></textarea>
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+               <div class='btn-group'>
+                  <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-success antosubmit" id='yesEdit'>Update</button>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /edit modal -->
 
       <!-- /page content -->
     </div>
@@ -238,10 +307,30 @@
 
   $(document).ready(function(){
 
-      $('#saveEvent').on('click', function(){
+      // $('#saveEvent').on('click', function(){
 
-         // $.post('http://159.203.104.152/calendar', {type:"saveEvent",})
+      //    // $.post('http://159.203.104.152/calendar', {type:"saveEvent",})
 
+      // });
+
+      $('.deleteButton').click(function(){
+        var messageID = $(this).data('id');
+        $("#deleteID").val(messageID);
+      });
+
+      $('#yesDelete').click(function(){
+        $("#deleteForm").submit();
+      });
+
+      $('.editButton').click(function(){
+        var messageID = $(this).data('id');
+        var message = $(this).data('message');
+        $("#editID").val(messageID);
+        $("#editMessage").val(message);
+      });
+
+      $('#yesEdit').click(function(){
+        $("#editForm").submit();
       });
 
   });

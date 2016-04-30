@@ -137,11 +137,17 @@
             <div class="col-md-12">
               <div class='notes'>
               @if(!empty($notes))
-                @for($i=0; $i<count($notes); $i++)
+                @for($i=0; $i < count($notes); $i++)
                 <div class="x_panel">
                   <div class="x_title">
                     <div class='row'>
                       <div class='col-md-12'>
+                        @if($admin != 0)
+                          <ul class="nav navbar-right panel_toolbox">
+                            <button type="button" class="btn btn-success btn-xs editButton" data-toggle="modal" data-target="#editModal" data-id = "{{$notes[$i]->notes_id}}" data-note = "{{$notes[$i]->note}}">Edit</button>
+                            <button type="button" class="btn btn-danger btn-xs deleteButton" data-toggle="modal" data-target="#deleteModal" data-id = "{{$notes[$i]->notes_id}}">Delete</button>
+                          </ul>
+                        @endif
                         <h2>
                           {{$notes[$i]->first_name.' '.$notes[$i]->last_name }}
                             <small> 
@@ -166,13 +172,14 @@
                 <div class='row'>
                   <div class='col-md-12'>
                     <div class="form-group">
-                        <textarea type="text" name='userNote' class="form-control elastic" placeholder="Type a message here"></textarea>
+                        <textarea type="text" name='userNote' class="form-control elastic" placeholder="Type a note here"></textarea>
                     </div>
                     <div class="form-group">
                       <button type="submit" class="btn btn-primary">Submit Note</button>
                     </div>
                       <input type='hidden' name='crID' value='{{$crInfo->id}}'>
                       <input type='hidden' name='ctID' value='{{$ctID}}'>
+                      <input type="hidden" name="submitType" value="addNote">
                   </div>
                 </div>               
               </form>
@@ -193,124 +200,72 @@
 
       </div>
 
-
-      <!-- Start Calender modal -->
-      <div id="CalenderModalNew" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <!-- delete modal -->
+      <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
 
             <div class="modal-header">
-              <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-hidden="true">×</button>
-              <h4 class="modal-title" id="myModalLabel">New Calender Entry</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title" id="myModalLabel2">Delete</h4>
             </div>
             <div class="modal-body">
-              <div id="testmodal" style="padding: 5px 20px;">
-                <form id="antoform" class="form-horizontal calender" role="form">
+
+              <div id="modal1" style="padding: 5px 20px;">
+                <form id="deleteForm" method="POST" action = "{{ url('/cr/notes/'.$crInfo->id) }}" class="form-horizontal calender" role="form">
+                  <input type="hidden" name="submitType" value="deleteNote">
+                  <input type="hidden" id = "deleteID" name="deleteID" value="">
+                  Are you sure you want to delete the Note?
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+               <div class='btn-group'>
+                  <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-danger antosubmit" id='yesDelete'>Delete</button>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /delete modal -->
+
+      <!-- edit modal -->
+      <div id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title" id="myModalLabel2">Edit Note</h4>
+            </div>
+            <div class="modal-body">
+
+              <div id="modal2" style="padding: 5px 20px;">
+                <form id="editForm" method="POST" action = "{{ url('/cr/notes/'.$crInfo->id) }}" class="form-horizontal calender" role="form">
+                  <input type="hidden" name="submitType" value="editNote">
+                  <input type="hidden" id = "editID" name="editID" value="">
                   <div class="form-group">
-                    <label class="col-sm-3 control-label">Title</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" id="title" name="title">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Description</label>
-                    <div class="col-sm-9">
-                      <textarea class="form-control" style="height:55px;" id="description" name="description"></textarea>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Date</label>
-                    <div class="col-sm-9">
-                      <input id="date" class="form-control " type="date" data-parsley-id="4825">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Time</label>
-                    <div class="col-sm-9">
-                      <input type="time" class="form-control" id="time" name="time" >
-                    </div>
-                  </div>
-                   <div class="form-group">
-                    <label class="col-sm-3 control-label">Repeat?</label>
-                      <div class="col-sm-9 btn-group" data-toggle="buttons">
-                        <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-none" value=''> None
-                        </label>
-                        <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-weekly" value=''> Weekly
-                        </label>
-                        <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-monthly" value=''> Monthly
-                        </label>
-                        <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-yearly" value=''> Yearly
-                        </label>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Note
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <textarea type="text" id="editNote" name = "editNote" class="form-control col-md-7 col-xs-12"></textarea>
                       </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Locaiton</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" id="locaiton" name="locaiton">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Notes</label>
-                    <div class="col-sm-9">
-                      <textarea class="form-control" style="height:55px;" id="notes" name="notes"></textarea>
-                    </div>
                   </div>
                 </form>
               </div>
             </div>
             <div class="modal-footer">
                <div class='btn-group'>
-                  <button type="button" class="btn btn-danger antoclose" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-success antosubmit" id='saveEvent'>Save changes</button>
+                  <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-success antosubmit" id='yesEdit'>Update</button>
                </div>
             </div>
           </div>
         </div>
       </div>
-      <div id="CalenderModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-              <h4 class="modal-title" id="myModalLabel2">Edit Calender Entry</h4>
-            </div>
-            <div class="modal-body">
-
-              <div id="testmodal2" style="padding: 5px 20px;">
-                <form id="antoform2" class="form-horizontal calender" role="form">
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Title</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" id="title2" name="title2">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">Description</label>
-                    <div class="col-sm-9">
-                      <textarea class="form-control" style="height:55px;" id="descr2" name="descr"></textarea>
-                    </div>
-                  </div>
-
-                </form>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary antosubmit2">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="fc_create" data-toggle="modal" data-target="#CalenderModalNew"></div>
-      <div id="fc_edit" data-toggle="modal" data-target="#CalenderModalEdit"></div>
-
-      <!-- End Calender modal -->
+      <!-- /edit modal -->
+      
       <!-- /page content -->
     </div>
 
@@ -354,10 +309,30 @@
 
   $(document).ready(function(){
 
-      $('#saveEvent').on('click', function(){
+      // $('#saveEvent').on('click', function(){
 
-         // $.post('http://159.203.104.152/calendar', {type:"saveEvent",})
+      //    // $.post('http://159.203.104.152/calendar', {type:"saveEvent",})
 
+      // });
+
+      $('.deleteButton').click(function(){
+        var noteID = $(this).data('id');
+        $("#deleteID").val(noteID);
+      });
+
+      $('#yesDelete').click(function(){
+        $("#deleteForm").submit();
+      });
+
+      $('.editButton').click(function(){
+        var noteID = $(this).data('id');
+        var note = $(this).data('note');
+        $("#editID").val(noteID);
+        $("#editNote").val(note);
+      });
+
+      $('#yesEdit').click(function(){
+        $("#editForm").submit();
       });
 
   });

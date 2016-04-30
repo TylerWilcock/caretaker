@@ -200,6 +200,7 @@
               <div id="testmodal" style="padding: 5px 20px;">
                 <form id="newForm" method="POST" action = "{{ url('/cr/calendar/'.$crInfo->id) }}" class="form-horizontal calender" role="form">
                   <input type="hidden" id = "submitType" name = "submitType" value="addEvent"/>
+                  <input type="hidden" id = "submitType" name = "addCRID" value="{{$crInfo->id}}"/>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Title</label>
                     <div class="col-sm-9">
@@ -242,9 +243,9 @@
                       </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-3 control-label">Locaiton</label>
+                    <label class="col-sm-3 control-label">Location</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" id="newLocaiton" name="newLocaiton">
+                      <input type="text" class="form-control" id="newLocation" name="newLocation">
                     </div>
                   </div>
                   <div class="form-group">
@@ -267,19 +268,24 @@
       </div>
       <!-- /calendar new -->
 
-      <!-- calendar edit -->
+      <!-- calendar edit/view -->
       <div id="CalenderModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
 
             <div class="modal-header">
               <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-hidden="true">×</button>
-              <h4 class="modal-title" id="myModalLabel2">Edit Calender Entry</h4>
+              @if($admin != 0)
+                <h4 class="modal-title" id="myModalLabel2">Edit Calender Entry</h4>
+              @else
+                <h4 class="modal-title" id="myModalLabel2">View Calender Entry</h4>
+              @endif
             </div>
             <div class="modal-body">
               <div id="testmodal2" style="padding: 5px 20px;">
                 <form id="editForm" method="POST" action = "{{ url('/cr/calendar/'.$crInfo->id) }}" class="form-horizontal calender" role="form">
                   <input type="hidden" id = "submitType" name = "submitType" value="editEvent"/>
+                  <input type="hidden" id = "editID" name = "editID" value=""/>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Title</label>
                     <div class="col-sm-9">
@@ -322,7 +328,7 @@
                       </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-3 control-label">Locaiton</label>
+                    <label class="col-sm-3 control-label">Location</label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control" id="editLocation" name="editLocation">
                     </div>
@@ -343,14 +349,16 @@
             <div class="modal-footer">
                <div class='btn-group'>
                   <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-danger deleteButton">Delete</button>
-                  <button type="button" class="btn btn-success editButton">Update Event</button>
+                  @if($admin != 0)
+                    <button type="button" class="btn btn-danger deleteButton">Delete</button>
+                    <button type="button" class="btn btn-success editButton">Update Event</button>
+                  @endif
                </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- /calendar edit -->
+      <!-- /calendar edit/view -->
       <div id="fc_create" data-toggle="modal" data-target="#CalenderModalNew"></div>
       <div id="fc_edit" data-toggle="modal" data-target="#CalenderModalEdit"></div>
 
@@ -455,8 +463,8 @@
 
           $('#editNoneLabel').removeClass('active');
           $('#editWeeklyLabel').removeClass('active');
-          $('#editRepeatMonthly').removeClass('active');
-          $('#editRepeatYearly').removeClass('active');
+          $('#editMonthlyLabel').removeClass('active');
+          $('#editYearlyLabel').removeClass('active');
           $("#editRepeatNone").prop('checked', false);
           $("#editRepeatWeekly").prop('checked', false);
           $("#editRepeatMonthly").prop('checked', false);
@@ -465,6 +473,9 @@
           $('#fc_edit').click();
 
           var id = calEvent.id;
+          $("#deleteID").val(id);
+          $("#editID").val(id);
+
           var editTitle = $('#event'+id).find('.title').val();
           var editDate = $('#event'+id).find('.date').val();
           var editTime = $('#event'+id).find('.time').val();
@@ -518,23 +529,68 @@
           //break up the time into hours, minutes, seconds
           var timeArray = time.split(":");
 
-          //now create the date object
-          //note: subtract 1 from the month field because the javascript Date object ranges from 0-11
-          var dateObject = new Date(dateArray[0], dateArray[1] - 1, dateArray[2], timeArray[0], timeArray[1], timeArray[2]);
-
           var description = $(this).find( '.description' ).val();
           var repeat = $(this).find( '.repeat' ).val();
           var location = $(this).find( '.location' ).val();
           var notes = $(this).find( '.notes' ).val();
 
-          crEvents.push({
-            title : title,
-            start : dateObject,
-            allDay : false,
-            id : eventID
-          }); 
+          if(repeat == 0){ //no recurrence
+            //now create the date object
+            //note: subtract 1 from the month field because the javascript Date object ranges from 0-11
+            var dateObject = new Date(dateArray[0], parseInt(dateArray[1]) - 1, dateArray[2], timeArray[0], timeArray[1], timeArray[2]);
+
+            crEvents.push({
+              title : title,
+              start : dateObject,
+              allDay : false,
+              id : eventID
+            }); 
+          }
+          else if(repeat == 1){ //recurs weekly
+            for(var week = 0; week < 1825; week+=7){ //loop for 5 years; add a week each iteration
+              //now create the date object
+              //note: subtract 1 from the month field because the javascript Date object ranges from 0-11
+              var dateObject = new Date(dateArray[0], parseInt(dateArray[1]) - 1, parseInt(dateArray[2]) + week, timeArray[0], timeArray[1], timeArray[2]);
+
+              crEvents.push({
+                title : title,
+                start : dateObject,
+                allDay : false,
+                id : eventID
+              }); 
+            }
+          }
+          else if(repeat == 2){ //recurs monthly
+            for(var month = 0; month < 60; month++){ //loop for 5 years; add a month each iteration
+              //now create the date object
+              //note: subtract 1 from the month field because the javascript Date object ranges from 0-11
+              var dateObject = new Date(dateArray[0], parseInt(dateArray[1]) - 1 + month, dateArray[2], timeArray[0], timeArray[1], timeArray[2]);
+
+              crEvents.push({
+                title : title,
+                start : dateObject,
+                allDay : false,
+                id : eventID
+              }); 
+            }
+          }
+          else{ //recurs yearly
+            for(var year = 0; year < 5; year++){ //loop for 5 years; add a year each iteration
+              //now create the date object
+              //note: subtract 1 from the month field because the javascript Date object ranges from 0-11
+              var dateObject = new Date(parseInt(dateArray[0]) + year, parseInt(dateArray[1]) - 1, dateArray[2], timeArray[0], timeArray[1], timeArray[2]);
+
+              crEvents.push({
+                title : title,
+                start : dateObject,
+                allDay : false,
+                id : eventID
+              }); 
+            }
+          }
       });
 
+      console.log(crEvents);
       $('#calendar').fullCalendar( 'addEventSource', crEvents );
 
     });
