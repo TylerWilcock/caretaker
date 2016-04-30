@@ -62,6 +62,25 @@ Route::post('/cr/profile/{crID}', function(Request $request)
 	return redirect()->route('crprofile', ['crID' => $crID]);
 });
 
+Route::post('/cr/calendar/{crID}', function(Request $request)
+{
+	if(Input::get('submitType') == "addEvent"){ //run query to add event
+		
+	}
+	else if(Input::get('submitType') == "deleteEvent"){ //run query to delete event
+		
+	}
+	else{ //run query to edit event
+		
+	}	
+
+	//create a success message
+	//$request->session()->put('success', 'Successfully added the Care Teammate!');
+
+	$crID = Carerecipient::find($request->crID);
+	return redirect()->route('calendar', ['crID' => $crID]);
+});
+
 Route::post('/cr/medication/{crID}', function(Request $request)
 {
 	if(Input::get('submitType') == "addMed"){ //run query to add medication
@@ -150,13 +169,13 @@ Route::group(['middleware' => ['web']], function () {
 									->with('ctID', User::getID());
 		}]);
 
-		Route::get('/cr/calendar/{crID}', function(Request $request) {
+		Route::get('/cr/calendar/{crID}', ['as' => 'calendar', function(Request $request) {
 			//call a function (or multiple) to get the information to populate the calendar page
 			//you can chain ->with('dataLabel', dataStuff) to pass multiple different variables with different labels
 			return view('calendar')->with('crInfo', Carerecipient::find($request->crID))
 								   ->with('calendarEvents', Carerecipient::getEvents($request->crID))
 								   ->with('ctID', User::getID());
-		});
+		}]);
 
 		Route::get('/cr/messageboard/{crID}', ['as' => 'messageboard', function(Request $request) {
 			//call a function (or multiple) to get the information to populate the message board page

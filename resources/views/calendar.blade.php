@@ -33,7 +33,14 @@
               <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
+<style>
 
+  .fc-event-container{
+    cursor: pointer; 
+    cursor: hand;
+  }
+
+</style>
 
 
 </head>
@@ -144,7 +151,7 @@
                   <form id = "calendarForm">
                     @if($calendarEvents != 0)
                       @for($i = 0; $i < count($calendarEvents); $i++)
-                        <div class="event" style="display: none;">
+                        <div id = "{{'event'.$calendarEvents[$i]->id}}" class="event" style="display: none;">
                           <input type="hidden" class="eventID" value="{{$calendarEvents[$i]->id}}"/>
                           <input type="hidden" class="crID" value="{{$calendarEvents[$i]->carerecipient_id}}"/>
                           <input type="hidden" class="title" value="{{$calendarEvents[$i]->title}}"/>
@@ -179,7 +186,8 @@
       </div>
 
 
-      <!-- Start Calender modal -->
+      <!-- Start Calender modals -->
+      <!-- calendar new -->
       <div id="CalenderModalNew" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -190,58 +198,59 @@
             </div>
             <div class="modal-body">
               <div id="testmodal" style="padding: 5px 20px;">
-                <form id="antoform" class="form-horizontal calender" role="form">
+                <form id="newForm" method="POST" action = "{{ url('/cr/calendar/'.$crInfo->id) }}" class="form-horizontal calender" role="form">
+                  <input type="hidden" id = "submitType" name = "submitType" value="addEvent"/>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Title</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" id="title" name="title">
+                      <input type="text" class="form-control" id="newTitle" name="newTitle">
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Description</label>
                     <div class="col-sm-9">
-                      <textarea class="form-control" style="height:55px;" id="description" name="description"></textarea>
+                      <textarea class="form-control" style="height:55px;" id="newDescription" name="newDescription"></textarea>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Date</label>
                     <div class="col-sm-9">
-                      <input id="date" class="form-control " type="date" data-parsley-id="4825">
+                      <input id="newDate" name = "newDate" class="form-control " type="date" data-parsley-id="4825">
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Time</label>
                     <div class="col-sm-9">
-                      <input type="time" class="form-control" id="time" name="time" >
+                      <input type="time" class="form-control" id="newTime" name="newTime" >
                     </div>
                   </div>
                    <div class="form-group">
                     <label class="col-sm-3 control-label">Repeat?</label>
                       <div class="col-sm-9 btn-group" data-toggle="buttons">
                         <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-none" value=''> None
+                          <input type="radio" name="newRepeatRadioSelection" id="newRepeatNone" value='0'> None
                         </label>
                         <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-weekly" value=''> Weekly
+                          <input type="radio" name="newRepeatRadioSelection" id="newRepeatWeekly" value='1'> Weekly
                         </label>
                         <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-monthly" value=''> Monthly
+                          <input type="radio" name="newRepeatRadioSelection" id="newRepeatMonthly" value='2'> Monthly
                         </label>
                         <label class="btn btn-default">
-                          <input type="radio" name="repeat-radio-selection" id="repeat-yearly" value=''> Yearly
+                          <input type="radio" name="newRepeatRadioSelection" id="newRepeatYearly" value='3'> Yearly
                         </label>
                       </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Locaiton</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" id="locaiton" name="locaiton">
+                      <input type="text" class="form-control" id="newLocaiton" name="newLocaiton">
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Notes</label>
                     <div class="col-sm-9">
-                      <textarea class="form-control" style="height:55px;" id="notes" name="notes"></textarea>
+                      <textarea class="form-control" style="height:55px;" id="newNotes" name="newNotes"></textarea>
                     </div>
                   </div>
                 </form>
@@ -249,53 +258,103 @@
             </div>
             <div class="modal-footer">
                <div class='btn-group'>
-                  <button type="button" class="btn btn-danger antoclose" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-success antosubmit" id='saveEvent'>Save changes</button>
+                  <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-success addButton">Add Event</button>
                </div>
             </div>
           </div>
         </div>
       </div>
-      <div id="CalenderModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <!-- /calendar new -->
+
+      <!-- calendar edit -->
+      <div id="CalenderModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
 
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-hidden="true">×</button>
               <h4 class="modal-title" id="myModalLabel2">Edit Calender Entry</h4>
             </div>
             <div class="modal-body">
-
               <div id="testmodal2" style="padding: 5px 20px;">
-                <form id="antoform2" class="form-horizontal calender" role="form">
+                <form id="editForm" method="POST" action = "{{ url('/cr/calendar/'.$crInfo->id) }}" class="form-horizontal calender" role="form">
+                  <input type="hidden" id = "submitType" name = "submitType" value="editEvent"/>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Title</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" id="title2" name="title2">
+                      <input type="text" class="form-control" id="editTitle" name="editTitle">
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Description</label>
                     <div class="col-sm-9">
-                      <textarea class="form-control" style="height:55px;" id="descr2" name="descr"></textarea>
+                      <textarea class="form-control" style="height:55px;" id="editDescription" name="editDescription"></textarea>
                     </div>
                   </div>
-
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Date</label>
+                    <div class="col-sm-9">
+                      <input id="editDate" name = "editDate" class="form-control " type="date" data-parsley-id="4825">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Time</label>
+                    <div class="col-sm-9">
+                      <input type="time" class="form-control" id="editTime" name="editTime" >
+                    </div>
+                  </div>
+                   <div class="form-group">
+                    <label class="col-sm-3 control-label">Repeat?</label>
+                      <div class="col-sm-9 btn-group" data-toggle="buttons">
+                        <label id = "editNoneLabel" class="btn btn-default">
+                          <input type="radio" name="editRepeatRadioSelection" id="editRepeatNone" value='0'> None
+                        </label>
+                        <label id = "editWeeklyLabel" class="btn btn-default">
+                          <input type="radio" name="editRepeatRadioSelection" id="editRepeatWeekly" value='1'> Weekly
+                        </label>
+                        <label id = "editMonthlyLabel" class="btn btn-default">
+                          <input type="radio" name="editRepeatRadioSelection" id="editRepeatMonthly" value='2'> Monthly
+                        </label>
+                        <label id = "editYearlyLabel" class="btn btn-default">
+                          <input type="radio" name="editRepeatRadioSelection" id="editRepeatYearly" value='3'> Yearly
+                        </label>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Locaiton</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="editLocation" name="editLocation">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Notes</label>
+                    <div class="col-sm-9">
+                      <textarea class="form-control" style="height:55px;" id="editNotes" name="editNotes"></textarea>
+                    </div>
+                  </div>
+                </form>
+                <form id = deleteForm method="POST" action = "{{ url('/cr/calendar/'.$crInfo->id) }}">
+                  <input type="hidden" id = "submitType" name = "submitType" value="deleteEvent"/>
+                  <input type="hidden" id = "deleteID" name = "deleteID" value=""/>
                 </form>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary antosubmit2">Save changes</button>
+               <div class='btn-group'>
+                  <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-danger deleteButton">Delete</button>
+                  <button type="button" class="btn btn-success editButton">Update Event</button>
+               </div>
             </div>
           </div>
         </div>
       </div>
-
+      <!-- /calendar edit -->
       <div id="fc_create" data-toggle="modal" data-target="#CalenderModalNew"></div>
       <div id="fc_edit" data-toggle="modal" data-target="#CalenderModalEdit"></div>
 
-      <!-- End Calender modal -->
+      <!-- End Calender modals -->
       <!-- /page content -->
     </div>
 
@@ -357,19 +416,27 @@
 
       // });
 
+      $(".addButton").on("click", function() {
+        //add a new event
+        $("#newForm").submit();
+      });
+
+      $(".editButton").on("click", function() {
+        //edit the event
+        $("#editForm").submit();
+      });
+
+      $(".deleteButton").on("click", function() {
+        //delete the event
+        $("#deleteForm").submit();
+      });
+
   });
 
   </script>
 
   <script>
     $(window).load(function() {
-
-      var date = new Date();
-      var d = date.getDate();
-      var m = date.getMonth();
-      var y = date.getFullYear();
-      var started;
-      var categoryClass;
 
       var calendar = $('#calendar').fullCalendar({
         header: {
@@ -382,79 +449,60 @@
         select: function(start, end, allDay) {
           $('#fc_create').click();
 
-          started = start;
-          ended = end
-
-          $(".antosubmit").on("click", function() {
-            var title = $("#title").val();
-            if (end) {
-              ended = end
-            }
-            categoryClass = $("#event_type").val();
-
-            if (title) {
-              calendar.fullCalendar('renderEvent', {
-                  title: title,
-                  start: started,
-                  end: end,
-                  allDay: allDay
-                },
-                true // make the event "stick"
-              );
-            }
-            $('#title').val('');
-            calendar.fullCalendar('unselect');
-
-            $('.antoclose').click();
-
-            return false;
-          });
         },
         eventClick: function(calEvent, jsEvent, view) {
           // alert(calEvent.title, jsEvent, view);
 
+          $('#editNoneLabel').removeClass('active');
+          $('#editWeeklyLabel').removeClass('active');
+          $('#editRepeatMonthly').removeClass('active');
+          $('#editRepeatYearly').removeClass('active');
+          $("#editRepeatNone").prop('checked', false);
+          $("#editRepeatWeekly").prop('checked', false);
+          $("#editRepeatMonthly").prop('checked', false);
+          $("#editRepeatYearly").prop('checked', false);
+
           $('#fc_edit').click();
-          $('#title2').val(calEvent.title);
-          categoryClass = $("#event_type").val();
 
-          $(".antosubmit2").on("click", function() {
-            calEvent.title = $("#title2").val();
+          var id = calEvent.id;
+          var editTitle = $('#event'+id).find('.title').val();
+          var editDate = $('#event'+id).find('.date').val();
+          var editTime = $('#event'+id).find('.time').val();
+          var editDescription = $('#event'+id).find('.description').val();
+          var editRepeat = $('#event'+id).find('.repeat').val();
+          var editLocation = $('#event'+id).find('.location').val();
+          var editNotes = $('#event'+id).find('.notes').val();
 
-            calendar.fullCalendar('updateEvent', calEvent);
-            $('.antoclose2').click();
-          });
-          calendar.fullCalendar('unselect');
+          $("#editTitle").val(editTitle);
+          $("#editDate").val(editDate);
+          $("#editTime").val(editTime);
+          $("#editDescription").val(editDescription);
+          //find out what button should be selected for repeat
+          if(editRepeat == 0){ //select none
+            $("#editRepeatNone").prop('checked', true);
+            $('#editNoneLabel').addClass('active');
+          }
+          else if(editRepeat == 1){ //select weekly
+            $("#editRepeatWeekly").prop('checked', true);
+            $('#editWeeklyLabel').addClass('active');
+          }
+          else if(editRepeat == 2){ //select monthly
+            $("#editRepeatMonthly").prop('checked', true);
+            $('#editMonthlyLabel').addClass('active');
+          }
+          else{ //select yearly
+            $("#editRepeatYearly").prop('checked', true);
+            $('#editYearlyLabel').addClass('active');
+          }
+          $("#editLocation").val(editLocation);
+          $("#editNotes").val(editNotes);
+
         },
-        editable: true,
-        // events: [{
-        //   title: 'All Day Event',
-        //   start: new Date(y, m, 1)
-        // }, {
-        //   title: 'Long Event',
-        //   start: new Date(y, m, d - 5),
-        //   end: new Date(y, m, d - 2)
-        // }, {
-        //   title: 'Meeting',
-        //   start: new Date(y, m, d, 10, 30),
-        //   allDay: false
-        // }, {
-        //   title: 'Lunch',
-        //   start: new Date(y, m, d + 14, 12, 0),
-        //   end: new Date(y, m, d, 14, 0),
-        //   allDay: false
-        // }, {
-        //   title: 'Birthday Party',
-        //   start: new Date(y, m, d + 1, 19, 0),
-        //   end: new Date(y, m, d + 1, 22, 30),
-        //   allDay: false
-        // }, {
-        //   title: 'Click for Google',
-        //   start: new Date(y, m, 28),
-        //   end: new Date(y, m, 29),
-        //   url: 'http://google.com/'
-        // }]
+        editable: false,
       });
 
+
+      //add the events from the database to the calendar
       var crEvents = new Array();
 
       $.each( $( '.event' ), function(){
