@@ -56,10 +56,10 @@
     <div class="main_container">
 
       <div class="col-md-3 left_col">
-        <div class="left_col scroll-view">
+        <div class="left_col">
 
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Care Teammate</span></a>
+            <a href="{{ url('/ct/profile/'.$ctID) }}" class="site_title"><img src="{{asset('assets/img/CT_LOGO_TEXT.png')}}"></a>
           </div>
           <div class="clearfix"></div>
 
@@ -70,8 +70,8 @@
               <img src="{{asset('assets/img/img.jpg')}}" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
-              <span>Welcome,</span>
-              <h2>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</h2>
+              <span>Viewing Profile</span>
+              <h2><b>{{$crInfo->full_name}}</b></h2>
             </div>
           </div>
           <!-- /menu prile quick info -->

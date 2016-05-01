@@ -6370,3 +6370,8 @@ ul.notifications {
 .copyright-info {
     padding: 8px 0;
 }
+
+.nav_title img {
+    height: auto;
+    width: 95%;
+}
