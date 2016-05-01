@@ -160,6 +160,14 @@ Route::group(['middleware' => ['web']], function () {
     **/
     Route::auth();
 
+    Route::get('/', ['as' => 'index', function(Request $request) {
+    	if(Auth::check()){
+    		return redirect('/ct/profile/'.User::getID());
+    	}else{
+    		//a user is not authenticated, route to the main index view
+    		return view('index');
+    	}
+	}]);
    /**
   	* TODO: SHOULD BE /cr/{$crID}/calendar ; should also be protected by authentication and only
   	* visible to those subscribed to this cr
@@ -225,7 +233,6 @@ Route::group(['middleware' => ['web']], function () {
 									 ->with('admin', User::getAdmin($request->crID))
 									 ->with('ctID', User::getID());
 		}]);
-
 	});
 
 	// Route::controller('calendar', 'CalendarController');
