@@ -159,7 +159,12 @@ Route::group(['middleware' => ['web']], function () {
     * HomeController controls what page a user is directed to upon logging in
     **/
     Route::auth();
-
+    
+    /**
+    * A user should not be able to view the main caretaker index if they are logged in
+    * This route will redirect logged-in users to their caretaker profile when '/' is 
+    * entered into the url. For users who are not logged in, the index views will be made
+    */
     Route::get('/', ['as' => 'index', function(Request $request) {
     	if(Auth::check()){
     		return redirect('/ct/profile/'.User::getID());
@@ -168,6 +173,7 @@ Route::group(['middleware' => ['web']], function () {
     		return view('index');
     	}
 	}]);
+
    /**
   	* TODO: SHOULD BE /cr/{$crID}/calendar ; should also be protected by authentication and only
   	* visible to those subscribed to this cr
