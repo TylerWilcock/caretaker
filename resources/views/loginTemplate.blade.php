@@ -106,7 +106,7 @@
                 <div class="clearfix"></div>
                 <br />
                 <div>
-                  <h1>Care Teammate</h1>
+                  <h1><img src="/assets/img/CT_LOGO.png"></img></h1>
 
                   <p>©2016 All Rights Reserved. Privacy and Terms</p>
                 </div>
