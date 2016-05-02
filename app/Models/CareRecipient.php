@@ -156,7 +156,7 @@ class Carerecipient extends Authenticatable
     public static function getMessages($crID)
     {
 
-        $messages = DB::table('messages as m')->select()
+        $messages = DB::table('messages as m')->select('u.id', 'u.first_name', 'u.last_name', 'u.birthday', 'u.address', 'u.phone', 'u.emergency_phone', 'u.email', 'm.id', 'm.carerecipient_id', 'm.caretaker_id', 'm.message', 'm.time', 'm.date')
                                          ->join('users as u', 'm.caretaker_id', '=', 'u.id')
                                          ->where('carerecipient_id', $crID)
                                          ->orderBy('date', 'desc')
@@ -190,7 +190,7 @@ class Carerecipient extends Authenticatable
 
     public static function getNotes($crID)
     {
-        $notes = DB::table('notes as n')->select()
+        $notes = DB::table('notes as n')->select('u.id', 'u.first_name', 'u.last_name', 'u.birthday', 'u.address', 'u.phone', 'u.emergency_phone', 'u.email', 'n.notes_id', 'n.carerecipient_id', 'n.caretaker_id', 'n.note', 'n.time', 'n.date')
                                    ->join('users as u', 'n.caretaker_id', '=', 'u.id')
                                    ->where('carerecipient_id', $crID)
                                    ->orderBy('date', 'desc')
