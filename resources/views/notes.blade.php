@@ -149,6 +149,7 @@
                           </ul>
                         @endif
                         <h2>
+                          <img class = "img-circle msg-board-icon" src="http://159.203.104.152/assets/img/img.jpg" alt="">
                           {{$notes[$i]->first_name.' '.$notes[$i]->last_name }}
                             <small> 
                               {{date('h:i:s a', strtotime($notes[$i]->time)) . ' &bull; ' . date('F d, Y', strtotime($notes[$i]->date))}} 
