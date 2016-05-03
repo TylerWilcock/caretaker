@@ -51,10 +51,10 @@ class AuthController extends Controller
         return Validator::make($data, [
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'birthday' => 'required',
+            'birthday' => 'required|size:10',
             'address' => 'required|max:255',
-            'phone' => 'required|numeric|digits_between:9,10',
-            'emergency_phone' =>'numeric|digits_between:9,10',
+            'phone' => 'required|size:12',
+            'emergency_phone' =>'size:12',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
@@ -68,10 +68,10 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        // if(!$data['emergency_phone'])
-        // {
-        //     $data['emergency_phone'] = $data['phone'];
-        // }
+        if(!$data['emergency_phone'])
+        {
+            $data['emergency_phone'] = $data['phone'];
+        }
 
         return User::create([
             'name' => "test", // Remove this line to get rid of error 

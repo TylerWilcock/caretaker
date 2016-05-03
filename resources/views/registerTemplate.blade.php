@@ -3,6 +3,10 @@
       background: #73879C;
     }
 
+    span.help-block {
+        color: #AD3F3F;
+    }
+
     #login{
       background: #f8f8f8;
       border-color: #AD3F3F;
@@ -64,31 +68,28 @@
             <form role="form" method="POST" >
               {!! csrf_field() !!}
               <h1>Create Account</h1>
-              
-              <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="first_name" placeholder="First Name" value="{{ old('first_name') }}" id="first_name">
 
                 @if ($errors->has('first_name'))
                   <span class="help-block">
                       <strong>{{ $errors->first('first_name') }}</strong>
                   </span>
                 @endif
+              
+              <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="first_name" placeholder="First Name" value="{{ old('first_name') }}" id="first_name">
 
               </div>
-              
-              <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="last_name" placeholder="Last Name" value="{{ old('last_name') }}">
 
                 @if ($errors->has('last_name'))
                   <span class="help-block">
                       <strong>{{ $errors->first('last_name') }}</strong>
                   </span>
                 @endif
+              
+              <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="last_name" placeholder="Last Name" value="{{ old('last_name') }}">
 
               </div>
-
-              <div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="birthday" placeholder="Birthday YYYY-MM-DD" value="{{ old('birthday') }}">
 
                 @if ($errors->has('birthday'))
                   <span class="help-block">
@@ -96,10 +97,10 @@
                   </span>
                 @endif
 
-              </div>
+              <div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="birthday" placeholder="Birthday YYYY-MM-DD" value="{{ old('birthday') }}" id="birthday">
 
-              <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="address" placeholder="Address" value="{{ old('address') }}">
+              </div>
 
                 @if ($errors->has('address'))
                   <span class="help-block">
@@ -107,10 +108,10 @@
                   </span>
                 @endif
 
-              </div>
+              <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="address" placeholder="Address" value="{{ old('address') }}">
 
-              <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="phone" placeholder="Phone Number" value="{{ old('phone') }}">
+              </div>
 
                 @if ($errors->has('phone'))
                   <span class="help-block">
@@ -118,10 +119,10 @@
                   </span>
                 @endif
 
-              </div>
+              <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="phone" placeholder="Phone Number" value="{{ old('phone') }}" id="phone">
 
-              <div class="form-group{{ $errors->has('emergency_phone') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="emergency_phone" placeholder="Emergency Number" value="{{ old('emergency_phone') }}">
+              </div>
 
                 @if ($errors->has('emergency_phone'))
                   <span class="help-block">
@@ -129,10 +130,10 @@
                   </span>
                 @endif
 
+              <div class="form-group{{ $errors->has('emergency_phone') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="emergency_phone" placeholder="Emergency Number" value="{{ old('emergency_phone') }}" id="emergency_phone">
+
               </div>
-              
-              <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
 
                 @if ($errors->has('email'))
                   <span class="help-block">
@@ -140,10 +141,10 @@
                   </span>
                 @endif
 
+              <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
+
               </div>
-              
-              <div>
-                <input type="password" class="form-control" name="password" placeholder="Password" >
 
                 @if ($errors->has('password'))
                   <span class="help-block">
@@ -151,10 +152,10 @@
                   </span>
                 @endif
 
-              </div>
-              
               <div>
-                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" id="submit">
+                <input type="password" class="form-control" name="password" placeholder="Password" >
+
+              </div>
 
                 @if ($errors->has('password_confirmation'))
                   <span class="help-block">
@@ -162,14 +163,17 @@
                   </span>
                 @endif
 
+              <div>
+                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" id="submit">
+
               </div>
-              
+
               <div>
                 <button class="btn btn-default submit">
                   Register
                 </button>
               </div>
-              
+
               <div class="clearfix"></div>
               <div class="separator">
 
@@ -206,10 +210,47 @@
 
   $(document).ready(function(){
 
-      $("#submit").on('click', function()
+    $("#phone").on('keyup', function(e)
+    {
+      var input = $("#phone").val();
+
+      if(e.keyCode != 8)
       {
-        console.log($("#first_name").val());
-      });
+        if(input.length == 3 || input.length == 7)
+        {
+          $("#phone").val(input + '-');
+        }
+      }
+
+    });
+
+    $("#emergency_phone").on('keyup', function(e)
+    {
+      var input = $("#emergency_phone").val();
+
+      if(e.keyCode != 8)
+      {
+        if(input.length == 3 || input.length == 7)
+        {
+          $("#emergency_phone").val(input + '-');
+        }       
+      }
+
+    });
+
+   $("#birthday").on('keyup', function(e)
+    {
+      var input = $("#birthday").val();
+
+      if(e.keyCode != 8)
+      {
+        if(input.length == 4 || input.length == 7)
+        {
+          $("#birthday").val(input + '-');
+        }
+      }
+      
+    });
 
   });
 
